@@ -1,3 +1,1 @@
-import Logo from '@/assets/icons/Logo.svg?react';
-
-export { Logo };
+export { default as Logo } from '@/assets/icons/Logo.svg?react';

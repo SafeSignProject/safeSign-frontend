@@ -1,4 +1,2 @@
-import { LoginPage } from '@/pages/auth/LoginPage';
-import { SignupPage } from '@/pages/auth/SignupPage';
-
-export { LoginPage, SignupPage };
+export { LoginPage } from '@/pages/auth/LoginPage';
+export { SignupPage } from '@/pages/auth/SignupPage';
