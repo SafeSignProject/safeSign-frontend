@@ -13,7 +13,7 @@ const Button = ({ label, type, className, icon }: ButtonProps) => {
     <button
       type={type}
       className={cn(
-        'flex items-center justify-center gap-2 rounded-sm px-4 py-2 leading-5',
+        'flex items-center justify-center gap-2 rounded-sm px-4 py-2 leading-5 transition',
         className,
       )}
     >
