@@ -2,9 +2,9 @@ import { Outlet } from 'react-router-dom';
 
 const PublicLayout = () => {
   return (
-    <div>
+    <main className='flex min-h-screen items-center justify-center bg-[#F9FAFB]'>
       <Outlet />
-    </div>
+    </main>
   );
 };
 
