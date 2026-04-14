@@ -14,7 +14,7 @@ const AuthHeader = ({ title, desc }: authFormProps) => {
       </section>
       <section className='flex flex-col items-center justify-center gap-1'>
         <h3 className='text-dark text-2xl leading-8 font-semibold'>{title}</h3>
-        <p className='leading-7 font-normal text-gray-500'>{desc}</p>
+        <p className='text-dark-gray leading-7 font-normal'>{desc}</p>
       </section>
     </>
   );
