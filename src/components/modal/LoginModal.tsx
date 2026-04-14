@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input } from '../common';
-import toast from 'react-hot-toast';
 import { showToast } from '@/utils/toast';
 
 const fields = [

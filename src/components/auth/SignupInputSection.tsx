@@ -3,6 +3,9 @@ import { signupSchema, type SignupType } from '@/schemas/authSchema';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Check } from 'lucide-react';
+import clsx from 'clsx';
 
 const fields = [
   {
@@ -32,6 +35,8 @@ const fields = [
 ] as const;
 
 const SignupInputSection = () => {
+  const [isAgree, setIsAgree] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -72,15 +77,29 @@ const SignupInputSection = () => {
         />
       ))}
 
-      <p className='text-dark-gray text-sm break-keep'>
-        <span className='text-primary'>이용약관</span>과{' '}
-        <span className='text-primary'>개인정보처리방침</span>에 동의합니다.
-      </p>
+      <div
+        className='flex cursor-pointer items-center gap-2'
+        onClick={() => setIsAgree((prev) => !prev)}
+      >
+        <div
+          className={clsx(
+            'flex h-4 w-4 items-center justify-center rounded border',
+            isAgree ? 'bg-primary border-primary' : 'border-gray-300',
+          )}
+        >
+          {isAgree && <Check size={12} className='text-white' />}
+        </div>
+
+        <p className='text-dark-gray text-sm break-keep'>
+          <span className='text-primary'>이용약관</span>과{' '}
+          <span className='text-primary'>개인정보처리방침</span>에 동의합니다.
+        </p>
+      </div>
 
       <Button
         type='submit'
         label='가입하기'
-        disabled={!isValid}
+        disabled={!isValid || !isAgree}
         className='bg-primary h-12.5 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80 disabled:brightness-75'
       />
     </form>
