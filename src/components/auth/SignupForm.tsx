@@ -38,13 +38,13 @@ const SignupForm = () => {
         type='button'
         label='Google 로그인'
         icon={<GoogleIcon />}
-        className='text-dark h-[50px] w-[382px] border border-[#E5E7EB] bg-inherit font-medium hover:brightness-90 active:brightness-80'
+        className='text-dark h-12.5 w-95.5 border border-[#E5E7EB] bg-inherit font-medium hover:brightness-90 active:brightness-80'
       />
       <Button
         type='button'
         label='카카오 로그인'
         icon={<KakaoIcon />}
-        className='text-dark h-[50px] w-[382px] bg-[#FEE500] font-medium hover:brightness-90 active:brightness-80'
+        className='text-dark h-12.5 w-95.5 bg-[#FEE500] font-medium hover:brightness-90 active:brightness-80'
       />
 
       <div className='my-6 flex items-center gap-4'>
@@ -62,7 +62,7 @@ const SignupForm = () => {
         />
         <Input
           id='email'
-          type='emial'
+          type='email'
           {...register('email')}
           label='이메일'
           placeholder='example@email.com'
@@ -94,7 +94,7 @@ const SignupForm = () => {
           type='submit'
           label='가입하기'
           disabled={!isValid}
-          className='bg-primary h-[50px] w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80'
+          className='bg-primary h-12.5 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80'
         />
       </form>
 

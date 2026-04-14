@@ -1,5 +1,4 @@
 import { cn } from '@/utils/cn';
-import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
 interface ButtonProps {
