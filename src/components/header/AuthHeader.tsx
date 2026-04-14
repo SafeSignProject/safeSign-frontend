@@ -1,11 +1,11 @@
 import { Logo } from '@/assets';
 
-interface authFormProps {
+interface AuthFormProps {
   title: string;
   desc: string;
 }
 
-const AuthHeader = ({ title, desc }: authFormProps) => {
+const AuthHeader = ({ title, desc }: AuthFormProps) => {
   return (
     <>
       <section className='flex items-center gap-2'>
