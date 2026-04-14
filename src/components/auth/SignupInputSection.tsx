@@ -1,0 +1,89 @@
+import { Button, Input } from '@/components/common';
+import { signupSchema, type SignupType } from '@/schemas/authSchema';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
+
+const fields = [
+  {
+    name: 'name',
+    label: '이름',
+    placeholder: '홍길동',
+    type: 'text',
+  },
+  {
+    name: 'email',
+    label: '이메일',
+    placeholder: 'example@email.com',
+    type: 'email',
+  },
+  {
+    name: 'password',
+    label: '비밀번호',
+    placeholder: '8자 이상 입력하세요',
+    type: 'password',
+  },
+  {
+    name: 'passwordConfirm',
+    label: '비밀번호 확인',
+    placeholder: '비밀번호를 다시 입력하세요',
+    type: 'password',
+  },
+] as const;
+
+const SignupInputSection = () => {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<SignupType>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      passwordConfirm: '',
+      name: '',
+    },
+    mode: 'onChange',
+  });
+
+  const onSubmit: SubmitHandler<SignupType> = async (data) => {
+    try {
+      console.log('회원가입 성공:', data);
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+      {fields.map((field) => (
+        <Input
+          key={field.name}
+          id={field.name}
+          type={field.type}
+          label={field.label}
+          placeholder={field.placeholder}
+          {...register(field.name)}
+          error={errors[field.name]?.message}
+        />
+      ))}
+
+      <p className='text-dark-gray text-sm break-keep'>
+        <span className='text-primary'>이용약관</span>과{' '}
+        <span className='text-primary'>개인정보처리방침</span>에 동의합니다.
+      </p>
+
+      <Button
+        type='submit'
+        label='가입하기'
+        disabled={!isValid}
+        className='bg-primary h-12.5 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80 disabled:brightness-75'
+      />
+    </form>
+  );
+};
+
+export default SignupInputSection;
