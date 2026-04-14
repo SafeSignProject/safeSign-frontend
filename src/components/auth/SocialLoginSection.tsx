@@ -8,7 +8,7 @@ const SocialLoginSection = () => {
         type='button'
         label='Google 로그인'
         icon={<GoogleIcon />}
-        className='text-dark border-border-gray h-12.5 w-95.5 border bg-inherit font-medium hover:brightness-90 active:brightness-80'
+        className='text-dark border-light-gray h-12.5 w-95.5 border bg-inherit font-medium hover:brightness-90 active:brightness-80'
       />
       <Button
         type='button'
@@ -18,9 +18,9 @@ const SocialLoginSection = () => {
       />
 
       <div className='my-6 flex items-center gap-4'>
-        <div className='bg-border-gray h-px flex-1' />
+        <div className='bg-light-gray h-px flex-1' />
         <span className='text-dark-gray text-sm leading-5'>또는</span>
-        <div className='bg-border-gray h-px flex-1' />
+        <div className='bg-light-gray h-px flex-1' />
       </div>
     </>
   );

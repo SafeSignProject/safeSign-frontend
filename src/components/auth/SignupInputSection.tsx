@@ -84,7 +84,7 @@ const SignupInputSection = () => {
         <div
           className={clsx(
             'flex h-4 w-4 items-center justify-center rounded border',
-            isAgree ? 'bg-primary border-primary' : 'border-gray-300',
+            isAgree ? 'bg-primary border-primary' : 'border-light-gray',
           )}
         >
           {isAgree && <Check size={12} className='text-white' />}
