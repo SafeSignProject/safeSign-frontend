@@ -9,7 +9,7 @@ const SignupForm = () => {
 
       <SignupInputSection />
 
-      <div className='my-7 h-px flex-1 bg-[#E5E7EB]' />
+      <div className='bg-border-gray my-7 h-px flex-1' />
 
       <p className='text-dark-gray text-center text-sm'>
         이미 계정이 있으신가요?{' '}
