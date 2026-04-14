@@ -57,6 +57,7 @@ const SignupInputSection = () => {
       console.error(err);
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
       {fields.map((field) => (
