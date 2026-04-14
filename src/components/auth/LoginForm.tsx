@@ -27,7 +27,7 @@ const LoginForm = () => {
       <Button
         type='button'
         label='이메일로 계속하기'
-        icon={<Mail size={20} />}
+        icon={<Mail size={20} className='text-[#4B5563]' />}
         className='text-dark h-[50px] w-[382px] border border-[#E5E7EB] bg-inherit font-medium hover:brightness-90 active:brightness-80'
       />
 

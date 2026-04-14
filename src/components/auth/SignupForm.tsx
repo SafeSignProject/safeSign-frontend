@@ -62,6 +62,7 @@ const SignupForm = () => {
         />
         <Input
           id='email'
+          type='emial'
           {...register('email')}
           label='이메일'
           placeholder='example@email.com'
@@ -69,6 +70,7 @@ const SignupForm = () => {
         />
         <Input
           id='password'
+          type='password'
           {...register('password')}
           label='비밀번호'
           placeholder='8자 이상 입력하세요'
@@ -76,6 +78,7 @@ const SignupForm = () => {
         />
         <Input
           id='passwordConfirm'
+          type='password'
           {...register('passwordConfirm')}
           label='비밀번호 확인'
           placeholder='비밀번호를 다시 입력하세요'
@@ -91,7 +94,7 @@ const SignupForm = () => {
           type='submit'
           label='가입하기'
           disabled={!isValid}
-          className='bg-primary h-12 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80'
+          className='bg-primary h-[50px] w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80'
         />
       </form>
 
