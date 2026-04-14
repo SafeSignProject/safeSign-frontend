@@ -1,5 +1,5 @@
 import { GoogleIcon, KakaoIcon } from '@/assets';
-import { Button } from '../common';
+import { Button } from '@/components/common';
 
 const SocialLoginSection = () => {
   return (

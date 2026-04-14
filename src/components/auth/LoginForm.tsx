@@ -1,4 +1,3 @@
-import { GoogleIcon, KakaoIcon } from '@/assets';
 import { Button } from '@/components/common';
 import { Mail } from 'lucide-react';
 import SocialLoginSection from './SocialLoginSection';
