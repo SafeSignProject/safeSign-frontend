@@ -31,9 +31,7 @@ const LoginForm = () => {
         className='text-dark h-[50px] w-[382px] border border-[#E5E7EB] bg-inherit font-medium hover:brightness-90 active:brightness-80'
       />
 
-      <div className='my-8 flex items-center gap-4'>
-        <div className='h-px flex-1 bg-[#E5E7EB]' />
-      </div>
+      <div className='my-8 h-px flex-1 bg-[#E5E7EB]' />
 
       <p className='text-dark-gray text-center text-sm break-keep'>
         계속 진행하려면 <span className='text-primary'>이용약관</span>과{' '}

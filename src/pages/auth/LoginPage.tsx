@@ -7,10 +7,7 @@ export const LoginPage = () => {
     <div className='flex flex-col items-center justify-center space-y-6'>
       <AuthHeader title='시작하기' desc='계정을 선택하여 로그인하세요' />
       <LoginForm />
-      <Link
-        to='/'
-        className='text-dark-gray text-sm transition hover:brightness-80 active:brightness-60'
-      >
+      <Link to='/' className='text-dark-gray text-sm hover:underline'>
         ← 홈으로 돌아가기
       </Link>
     </div>
