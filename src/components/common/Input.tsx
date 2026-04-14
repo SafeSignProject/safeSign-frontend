@@ -12,7 +12,7 @@ const Input = ({ label, error, className, id, icon, ...props }: InputProps) => {
   return (
     <div className='flex flex-col gap-1'>
       {label && (
-        <label htmlFor={id} className='mb-1 text-sm leading-5 font-medium text-[#111827]'>
+        <label htmlFor={id} className='text-dark mb-1 text-sm leading-5 font-medium'>
           {label}
         </label>
       )}
@@ -28,7 +28,7 @@ const Input = ({ label, error, className, id, icon, ...props }: InputProps) => {
           id={id}
           className={cn(
             'h-10.5 w-full rounded-sm border px-4 py-2 transition outline-none',
-            'border-[#E5E7EB] placeholder:text-gray-400 focus:border-black',
+            'border-border-gray placeholder:text-gray-400 focus:border-black',
             icon && 'pl-10',
             error && 'border-red-500 focus:border-red-500',
             className,

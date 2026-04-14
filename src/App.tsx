@@ -1,7 +1,13 @@
 import { Outlet } from 'react-router-dom';
+import { Toast } from '@/components/common';
 
 function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Toast />
+      <Outlet />
+    </>
+  );
 }
 
 export default App;
