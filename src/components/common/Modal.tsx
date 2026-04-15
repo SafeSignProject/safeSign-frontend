@@ -10,22 +10,24 @@ interface ModalProps {
 const Modal = ({ title, content, onConfirm, onCancel }: ModalProps) => {
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black/40'>
-      <div className='flex w-90 flex-col space-y-3 overflow-hidden rounded-[10px] bg-white px-5 py-8'>
-        <p className='text-center text-xl font-extrabold'>{title}</p>
-        <p className='px-8 text-center text-sm font-normal text-[#717182]'>{content}</p>
-        <Button
-          type='button'
-          onClick={onConfirm}
-          className='mt-3 bg-black p-2.5 text-sm font-semibold text-white'
-          label='삭제'
-        />
+      <div className='flex w-80 flex-col space-y-3 overflow-hidden rounded-[10px] bg-white px-6 py-8'>
+        <p className='text-dark text-center text-xl font-semibold'>{title}</p>
+        <p className='text-dark-gray px-8 text-center text-sm'>{content}</p>
 
-        <Button
-          type='button'
-          onClick={onCancel}
-          className='border border-[#DADADA] bg-white p-2.5 text-sm font-semibold'
-          label='취소'
-        />
+        <div className='mt-4 flex items-center gap-3'>
+          <Button
+            type='button'
+            onClick={onCancel}
+            className='flex-1 border border-[#DADADA] bg-white p-2.5 text-sm font-medium hover:brightness-95 active:brightness-90'
+            label='취소'
+          />
+          <Button
+            type='button'
+            onClick={onConfirm}
+            className='bg-primary flex-1 p-2.5 text-sm font-medium text-white hover:brightness-95 active:brightness-90'
+            label='삭제'
+          />
+        </div>
       </div>
     </div>
   );

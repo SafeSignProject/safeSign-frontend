@@ -1,7 +1,10 @@
 import { TrashIcon } from '@/assets';
 import { getRiskBadgeStyle } from '@/utils/getRisk';
 import { Clock, FileText } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Modal } from '@/components/common';
+import { showToast } from '@/utils/toast';
 
 interface ContractItemProps {
   item: {
@@ -15,6 +18,7 @@ interface ContractItemProps {
 }
 
 const ContractsItem = ({ item, isLast }: ContractItemProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const style = getRiskBadgeStyle(item.score);
 
   return (
@@ -46,8 +50,8 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           </div>
         </div>
 
-        <div className='flex items-center gap-4'>
-          <div className='flex flex-col'>
+        <div className='flex items-center gap-2.5'>
+          <div className='mr-1.5 flex flex-col'>
             <p className='text-dark-gray text-right text-sm'>위험도</p>
             <h3 className='text-dark leading-6 font-medium'>{item.score}점</h3>
           </div>
@@ -62,13 +66,29 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
             {style.level}
           </div>
 
-          <button className='cursor-pointer text-[#D1D5DB] transition hover:brightness-90 active:brightness-75'>
+          <button
+            type='button'
+            onClick={() => setIsModalOpen(true)}
+            className='rounded-full bg-white p-1.5 text-[#D1D5DB] transition hover:brightness-95 active:brightness-90'
+          >
             <TrashIcon />
           </button>
         </div>
       </section>
 
       {!isLast && <div className='bg-light-gray h-px flex-1' />}
+
+      {isModalOpen && (
+        <Modal
+          title=' 계약서를 삭제하시겠습니까?'
+          content='삭제 시 복구할 수 없습니다'
+          onConfirm={() => {
+            showToast.success('계약서가 삭제되었습니다');
+            setIsModalOpen(false);
+          }}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
     </>
   );
 };
