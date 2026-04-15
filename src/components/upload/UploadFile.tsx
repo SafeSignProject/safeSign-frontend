@@ -41,8 +41,8 @@ const UploadFile = () => {
     }
 
     for (const file of newFiles) {
-      if (!file.type.startsWith('image/')) {
-        return showToast.error('이미지 파일만 업로드 가능합니다');
+      if (!['image/jpeg', 'image/png'].includes(file.type)) {
+        return showToast.error('JPG, PNG 파일만 업로드 가능합니다');
       }
 
       if (file.size > 5 * 1024 * 1024) {
@@ -130,7 +130,7 @@ const UploadFile = () => {
               ref={imageInputRef}
               type='file'
               multiple
-              accept='image/*'
+              accept='image/jpeg, image/png'
               className='hidden'
               onChange={(e) => e.target.files && handleImageChange(e.target.files)}
             />
