@@ -15,7 +15,7 @@ const Header = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className='border-b-light-gray fixed top-0 left-0 z-50 flex h-16.25 w-full items-center justify-between border-b bg-white p-8'>
+    <nav className='border-b-light-gray fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b bg-white p-8'>
       <section className='flex items-center gap-2'>
         <Logo height={32} width={25.5313} />
         <span className='text-dark text-lg leading-7 font-semibold'>SafeSign</span>
@@ -30,10 +30,8 @@ const Header = () => {
               key={path}
               to={path}
               className={clsx(
-                'flex h-9 items-center gap-2 rounded-sm px-4',
-                isActive
-                  ? 'bg-accent text-primary'
-                  : 'text-dark-gray hover:bg-accent/60 active:bg-accent/90',
+                'flex h-9 items-center gap-2 rounded-sm px-4 transition hover:brightness-95 active:brightness-90',
+                isActive ? 'bg-accent text-primary' : 'text-dark-gray bg-white',
               )}
             >
               <Icon size={16} />
