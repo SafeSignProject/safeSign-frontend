@@ -1,6 +1,6 @@
 import { CheckList, ContractList, StatistList, RedirectList } from '@/components/home';
 
-export const Home = () => {
+const HomePage = () => {
   return (
     <main className='flex min-h-screen justify-center bg-[#F9FAFB] px-8 pt-32'>
       <div>
@@ -21,3 +21,5 @@ export const Home = () => {
     </main>
   );
 };
+
+export default HomePage;

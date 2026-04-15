@@ -107,7 +107,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
               type='submit'
               label='가입하기'
               disabled={!isValid}
-              className='bg-primary h-11.5 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80 disabled:brightness-75'
+              className='bg-primary h-11.5 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80'
             />
           </div>
         </form>
