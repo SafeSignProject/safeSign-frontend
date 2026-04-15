@@ -21,7 +21,7 @@ const Input = ({ label, error, className, id, isSearch, icon, ...props }: InputP
       <div className='relative'>
         {isSearch && (
           <span className='pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-[#6B7280]'>
-            <Search size={20} />
+            <Search size={20} strokeWidth={1.5} />
           </span>
         )}
 
@@ -34,7 +34,7 @@ const Input = ({ label, error, className, id, isSearch, icon, ...props }: InputP
         <input
           id={id}
           className={cn(
-            'h-10.5 w-full rounded-sm px-4 py-2 ring transition outline-none',
+            'h-10.5 w-full rounded-sm bg-white px-4 py-2 ring transition outline-none',
             'ring-light-gray focus:ring-primary placeholder:text-gray-400 focus:ring-2',
             isSearch && 'pl-10',
             icon && 'pl-10',

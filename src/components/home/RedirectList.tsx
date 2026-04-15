@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const RedirectList = () => {
   return (
-    <section className='mb-16 grid grid-cols-3 gap-6'>
+    <section className='mb-16 flex items-center justify-center gap-6'>
       <div className='bg-primary w-88 rounded-3xl p-8 shadow-[0px_8px_10px_-6px_rgba(52,201,135,0.15),0px_20px_25px_-5px_rgba(52,201,135,0.15)] transition hover:scale-102'>
         <div className='mb-4 inline-block rounded-2xl bg-white/20 p-3.5 text-white'>
           <Upload size={28} />
