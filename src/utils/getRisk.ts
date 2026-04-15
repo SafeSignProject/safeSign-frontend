@@ -11,7 +11,7 @@ export const getRiskStyle = (score: number) => {
 
   if (score > 30) {
     return {
-      level: '보통',
+      level: '주의',
       iconBg: '#FFF4E6',
       color: '#F79009',
       badgeBg: '#FFF4E6',
