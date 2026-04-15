@@ -34,7 +34,7 @@ const Header = () => {
   }, []);
 
   return (
-    <nav className='border-b-light-gray fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b bg-white pr-6 pl-8 md:pr-8'>
+    <nav className='border-b-light-gray fixed top-0 left-0 z-40 flex h-16 w-full items-center justify-between border-b bg-white pr-6 pl-8 md:pr-8'>
       <section className='flex items-center gap-2'>
         <Logo height={32} width={25.5313} />
         <span className='text-dark text-lg font-semibold'>SafeSign</span>
@@ -69,7 +69,7 @@ const Header = () => {
 
       <div
         className={clsx(
-          'border-light-gray absolute top-16 left-0 z-50 w-full border-b bg-white shadow-md md:hidden',
+          'border-light-gray absolute top-16 left-0 z-40 w-full border-b bg-white shadow-md md:hidden',
           'transform transition-all duration-300 ease-out',
           isOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-4 opacity-0',
         )}

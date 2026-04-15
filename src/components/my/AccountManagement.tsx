@@ -1,16 +1,22 @@
-import { Button } from '@/components/common';
+import { Button, Modal } from '@/components/common';
 import { showToast } from '@/utils/toast';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AccountManagement = () => {
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setIsLogoutModalOpen(false);
     navigate('/login');
     showToast.success('로그아웃되었습니다');
   };
 
   const handleAccountDelete = () => {
+    setIsDeleteModalOpen(false);
     navigate('/signup');
     showToast.success('계정이 삭제되었습니다');
   };
@@ -27,7 +33,7 @@ const AccountManagement = () => {
           type='button'
           label='로그아웃'
           className='border-light-gray text-dark h-10 border hover:brightness-95 active:brightness-90'
-          onClick={handleLogout}
+          onClick={() => setIsLogoutModalOpen(true)}
         />
       </div>
 
@@ -42,9 +48,28 @@ const AccountManagement = () => {
           type='button'
           label='삭제'
           className='h-10 border border-[#FEE2E2] text-[#EF4444] hover:bg-[#EF4444]/10 active:bg-[#EF4444]/20'
-          onClick={handleAccountDelete}
+          onClick={() => setIsDeleteModalOpen(true)}
         />
       </div>
+
+      {isLogoutModalOpen && (
+        <Modal
+          title=' 로그아웃 하시겠습니까?'
+          content='로그인 페이지로 돌아갑니다'
+          buttonLabel='로그아웃'
+          onConfirm={handleLogout}
+          onCancel={() => setIsLogoutModalOpen(false)}
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <Modal
+          title='계정을 삭제하시겠습니까?'
+          content='삭제 시 복구할 수 없습니다'
+          onConfirm={handleAccountDelete}
+          onCancel={() => setIsDeleteModalOpen(false)}
+        />
+      )}
     </section>
   );
 };
