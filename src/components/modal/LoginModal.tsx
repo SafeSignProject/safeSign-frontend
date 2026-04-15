@@ -78,7 +78,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
           </div>
           <div>
             <h5 className='text-dark text-xl leading-7 font-semibold'>이메일 로그인</h5>
-            <p className='text-dark-gray text-sm leading-5'>이메일 계정으로 로그인하세요</p>
+            <p className='text-dark-gray text-sm'>이메일 계정으로 로그인하세요</p>
           </div>
         </section>
 

@@ -19,7 +19,7 @@ const SocialLoginSection = () => {
 
       <div className='my-6 flex items-center gap-4'>
         <div className='bg-light-gray h-px flex-1' />
-        <span className='text-dark-gray text-sm leading-5'>또는</span>
+        <span className='text-dark-gray text-sm'>또는</span>
         <div className='bg-light-gray h-px flex-1' />
       </div>
     </>

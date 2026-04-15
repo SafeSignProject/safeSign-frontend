@@ -1,7 +1,8 @@
 import { Logo } from '@/assets';
 import clsx from 'clsx';
-import { FileText, House, TrendingUp, Upload, User } from 'lucide-react';
+import { FileText, House, TrendingUp, Upload, User, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const ITEMS = [
   { name: '홈', path: '/', icon: House },
@@ -13,15 +14,33 @@ const ITEMS = [
 
 const Header = () => {
   const { pathname } = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // 브라우저 크기 변하면 자동으로 false 처리
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+    const handleResize = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        setIsOpen(false);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleResize);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+    };
+  }, []);
 
   return (
-    <nav className='border-b-light-gray fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b bg-white p-8'>
+    <nav className='border-b-light-gray fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b bg-white pr-6 pl-8 md:pr-8'>
       <section className='flex items-center gap-2'>
         <Logo height={32} width={25.5313} />
-        <span className='text-dark text-lg leading-7 font-semibold'>SafeSign</span>
+        <span className='text-dark text-lg font-semibold'>SafeSign</span>
       </section>
 
-      <section className='flex items-center gap-1'>
+      <section className='hidden items-center gap-1 md:flex'>
         {ITEMS.map(({ name, path, icon: Icon }) => {
           const isActive = pathname === path;
 
@@ -35,11 +54,45 @@ const Header = () => {
               )}
             >
               <Icon size={16} />
-              <p className='text-sm leading-5'>{name}</p>
+              <p className='text-sm'>{name}</p>
             </Link>
           );
         })}
       </section>
+
+      <button
+        className='rounded-full bg-white p-1 transition hover:brightness-90 md:hidden'
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      <div
+        className={clsx(
+          'border-light-gray absolute top-16 left-0 z-50 w-full border-b bg-white shadow-md md:hidden',
+          'transform transition-all duration-300 ease-out',
+          isOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-4 opacity-0',
+        )}
+      >
+        {ITEMS.map(({ name, path, icon: Icon }) => {
+          const isActive = pathname === path;
+
+          return (
+            <Link
+              key={path}
+              to={path}
+              onClick={() => setIsOpen(false)}
+              className={clsx(
+                'flex items-center gap-3 px-6 py-4 transition hover:bg-gray-50 active:bg-gray-100',
+                isActive ? 'bg-accent text-primary' : 'text-dark-gray',
+              )}
+            >
+              <Icon size={18} />
+              <span>{name}</span>
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 };
