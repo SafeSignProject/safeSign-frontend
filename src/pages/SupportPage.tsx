@@ -1,6 +1,6 @@
 import { Input } from '@/components/common';
 import CommonHeader from '@/components/header/CommonHeader';
-import { SupportSuggestion, SupportList } from '@/components/support';
+import { SupportSuggestion, SupportList, SubsidyInfo } from '@/components/support';
 
 const SupportPage = () => {
   return (
@@ -13,6 +13,7 @@ const SupportPage = () => {
         <Input isSearch={true} placeholder='지원 프로그램 검색 (예: 청년, 전월세, 보증금)' />
         <SupportSuggestion />
         <SupportList />
+        <SubsidyInfo />
       </div>
     </main>
   );
