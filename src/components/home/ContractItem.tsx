@@ -1,0 +1,75 @@
+import { ArrowRight, Clock, FileText, TriangleAlert } from 'lucide-react';
+import { getRiskStyle } from '@/utils/getRisk';
+
+interface ContractItemProps {
+  item: {
+    title: string;
+    date: string;
+    riskCount: number;
+    score: number;
+  };
+  isLast: boolean;
+}
+
+const ContractItem = ({ item, isLast }: ContractItemProps) => {
+  const style = getRiskStyle(item.score);
+
+  return (
+    <>
+      <section className='flex items-center justify-between px-8'>
+        <div className='flex items-center gap-5'>
+          <div className='inline-block rounded-2xl p-3.5' style={{ backgroundColor: style.iconBg }}>
+            <FileText size={28} style={{ color: style.color }} />
+          </div>
+
+          <div className='flex flex-col gap-1'>
+            <h5 className='text-dark text-lg font-bold'>{item.title}</h5>
+
+            <div className='flex items-center gap-3'>
+              <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
+                <Clock size={16} /> {item.date}
+              </p>
+
+              {item.riskCount > 0 && (
+                <p
+                  className='flex items-center gap-1.5 text-sm font-medium'
+                  style={{ color: style.color }}
+                >
+                  <TriangleAlert size={16} />
+                  위험 {item.riskCount}개
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className='flex items-center gap-4'>
+          <div className='flex flex-col'>
+            <p className='text-dark-gray text-right text-sm'>위험도</p>
+            <h3 className='text-dark text-3xl font-bold'>{item.score}점</h3>
+          </div>
+
+          <div
+            className='flex h-9.5 items-center justify-center rounded-xl border px-4 text-sm font-bold'
+            style={{
+              backgroundColor: style.badgeBg,
+              borderColor: style.border,
+              color: style.color,
+            }}
+          >
+            {style.level}
+          </div>
+
+          <ArrowRight
+            size={20}
+            className='cursor-pointer text-[#D1D5DB] transition hover:brightness-90 active:brightness-75'
+          />
+        </div>
+      </section>
+
+      {!isLast && <div className='bg-light-gray my-6 h-px flex-1' />}
+    </>
+  );
+};
+
+export default ContractItem;
