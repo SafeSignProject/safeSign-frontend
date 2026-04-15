@@ -14,19 +14,18 @@
 
 html,
 body {
-  height: 100dvh;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
   font-family: var(--font-pretendard-jp);
-  overscroll-behavior: none;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 body {
-  min-height: 100dvh;
-  height: 100%;
-  overflow-x: hidden;
+  min-height: 100vh;
   line-height: 1;
 }
 
