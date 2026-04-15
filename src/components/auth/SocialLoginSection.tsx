@@ -8,13 +8,13 @@ const SocialLoginSection = () => {
         type='button'
         label='Google 로그인'
         icon={<GoogleIcon />}
-        className='text-dark border-light-gray h-12.5 w-95.5 border bg-inherit font-medium hover:brightness-90 active:brightness-80'
+        className='text-dark border-light-gray h-12.5 w-95.5 border bg-inherit font-medium hover:brightness-95 active:brightness-90'
       />
       <Button
         type='button'
         label='카카오 로그인'
         icon={<KakaoIcon />}
-        className='text-dark h-12.5 w-95.5 bg-[#FEE500] font-medium hover:brightness-90 active:brightness-80'
+        className='text-dark h-12.5 w-95.5 bg-[#FEE500] font-medium hover:brightness-95 active:brightness-90'
       />
 
       <div className='my-6 flex items-center gap-4'>

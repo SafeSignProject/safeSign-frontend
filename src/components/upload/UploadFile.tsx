@@ -2,6 +2,7 @@ import { Camera, FileText, Upload, X } from 'lucide-react';
 import { Button } from '@/components/common';
 import { useRef, useState } from 'react';
 import { showToast } from '@/utils/toast';
+import { useNavigate } from 'react-router-dom';
 
 const UploadFile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -9,6 +10,8 @@ const UploadFile = () => {
 
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+
+  const navigate = useNavigate();
 
   // PDF 업로드
   const handlePdfChange = (file: File) => {
@@ -83,17 +86,17 @@ const UploadFile = () => {
           <h5 className='text-dark mt-4 mb-1 text-lg leading-7 font-medium'>PDF 업로드</h5>
           <p className='text-dark-gray text-sm'>컴퓨터에 저장된 계약서 PDF 파일을 선택하세요</p>
           <div
-            className='border-light-gray mt-6 flex flex-col items-center justify-center rounded-sm border-2 border-dashed py-12.5'
+            className='border-light-gray hover:border-primary mt-6 flex flex-col items-center justify-center rounded-sm border-2 border-dashed py-12.5 transition'
             onDrop={handleDropPdf}
             onDragOver={(e) => e.preventDefault()}
           >
-            <Upload size={32} strokeWidth={1} className='text-dark-gray mb-4' />
+            <Upload size={32} strokeWidth={1.5} className='text-dark-gray mb-4' />
             <p className='text-dark mb-2 leading-6'>파일을 드래그하거나 클릭하여 선택</p>
             <p className='text-dark-gray mb-4 text-sm'>PDF 파일만 업로드 가능 (최대 10MB)</p>
             <Button
               type='button'
               label='파일 선택'
-              className='border-light-gray text-dark h-10 border bg-white hover:brightness-90 active:brightness-80'
+              className='border-light-gray text-dark h-10 border bg-white hover:brightness-95 active:brightness-90'
               onClick={() => fileInputRef.current?.click()}
             />
             <input
@@ -113,17 +116,17 @@ const UploadFile = () => {
             종이 계약서를 촬영하거나 이미지 파일을 업로드하세요
           </p>
           <div
-            className='border-light-gray mt-6 flex flex-col items-center justify-center rounded-sm border-2 border-dashed py-12.5'
+            className='border-light-gray hover:border-primary mt-6 flex flex-col items-center justify-center rounded-sm border-2 border-dashed py-12.5 transition'
             onDrop={handleDropImage}
             onDragOver={(e) => e.preventDefault()}
           >
-            <Camera size={32} strokeWidth={1} className='text-dark-gray mb-4' />
+            <Camera size={32} strokeWidth={1.5} className='text-dark-gray mb-4' />
             <p className='text-dark mb-2 leading-6'>사진 촬영 또는 선택</p>
             <p className='text-dark-gray mb-4 text-sm'>JPG, PNG 파일 (최대 5MB)</p>
             <Button
               type='button'
               label='사진 선택'
-              className='border-light-gray text-dark h-10 border bg-white hover:brightness-90 active:brightness-80'
+              className='border-light-gray text-dark h-10 border bg-white hover:brightness-95 active:brightness-90'
               onClick={() => imageInputRef.current?.click()}
             />
             <input
@@ -145,7 +148,7 @@ const UploadFile = () => {
             <button type='button' onClick={handleReset}>
               <X
                 size={20}
-                className='text-dark-gray transition hover:brightness-90 active:brightness-75'
+                className='text-dark-gray transition hover:brightness-75 active:brightness-60'
               />
             </button>
           </article>
@@ -160,7 +163,7 @@ const UploadFile = () => {
               <Button
                 type='button'
                 label='분석 시작'
-                className='bg-primary h-10 px-6 font-medium text-white hover:brightness-90 active:brightness-80'
+                className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
               />
             </article>
           )}
@@ -179,7 +182,8 @@ const UploadFile = () => {
               <Button
                 type='button'
                 label='분석 시작'
-                className='bg-primary h-10 px-6 font-medium text-white hover:brightness-90 active:brightness-80'
+                className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
+                onClick={() => navigate('/analyze')}
               />
             </article>
           )}

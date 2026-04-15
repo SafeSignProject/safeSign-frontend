@@ -26,7 +26,7 @@ const AccountManagement = () => {
         <Button
           type='button'
           label='로그아웃'
-          className='border-light-gray text-dark h-10 border hover:brightness-90 active:brightness-80'
+          className='border-light-gray text-dark h-10 border hover:brightness-95 active:brightness-90'
           onClick={handleLogout}
         />
       </div>

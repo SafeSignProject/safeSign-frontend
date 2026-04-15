@@ -9,6 +9,7 @@ import MyPage from './pages/MyPage';
 import UploadPage from './pages/upload/UploadPage';
 import ContractsPage from './pages/contracts/ContractsPage';
 import SupportPage from './pages/SupportPage';
+import AnalyzingPage from './pages/upload/AnalyzingPage';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
           {
             path: 'support',
             element: <SupportPage />,
+          },
+          {
+            path: 'analyze',
+            element: <AnalyzingPage />,
           },
         ],
       },
