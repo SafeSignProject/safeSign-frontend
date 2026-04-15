@@ -6,6 +6,10 @@ import PublicLayout from './layouts/PublicLayout';
 import { LoginPage, SignupPage } from './pages/auth';
 import ProtectedLayout from './layouts/ProtectedLayout';
 import MyPage from './pages/MyPage';
+import UploadPage from './pages/upload/UploadPage';
+import ContractsPage from './pages/contracts/ContractsPage';
+import SupportPage from './pages/SupportPage';
+import AnalyzingPage from './pages/upload/AnalyzingPage';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +41,22 @@ const router = createBrowserRouter([
           {
             path: 'my',
             element: <MyPage />,
+          },
+          {
+            path: 'upload',
+            element: <UploadPage />,
+          },
+          {
+            path: 'contracts',
+            element: <ContractsPage />,
+          },
+          {
+            path: 'support',
+            element: <SupportPage />,
+          },
+          {
+            path: 'analyze',
+            element: <AnalyzingPage />,
           },
         ],
       },

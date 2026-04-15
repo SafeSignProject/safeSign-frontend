@@ -15,7 +15,7 @@ const LoginForm = () => {
         type='button'
         label='이메일로 계속하기'
         icon={<Mail size={20} className='text-[#4B5563]' />}
-        className='text-dark h-12.5 w-95.5 border border-[#E5E7EB] bg-inherit font-medium hover:brightness-90 active:brightness-80'
+        className='text-dark h-12.5 w-95.5 border border-[#E5E7EB] bg-inherit font-medium hover:brightness-95 active:brightness-90'
         onClick={() => setIsOpen(true)}
       />
 

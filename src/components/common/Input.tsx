@@ -13,7 +13,7 @@ const Input = ({ label, error, className, id, isSearch, icon, ...props }: InputP
   return (
     <div className='flex w-full flex-col gap-1'>
       {label && (
-        <label htmlFor={id} className='text-dark mb-1 text-sm leading-5 font-medium'>
+        <label htmlFor={id} className='text-dark mb-1 text-sm font-medium'>
           {label}
         </label>
       )}
@@ -34,8 +34,8 @@ const Input = ({ label, error, className, id, isSearch, icon, ...props }: InputP
         <input
           id={id}
           className={cn(
-            'h-10.5 w-full rounded-sm border px-4 py-2 transition outline-none',
-            'border-light-gray placeholder:text-gray-400 focus:border-black',
+            'h-10.5 w-full rounded-sm px-4 py-2 ring transition outline-none',
+            'ring-light-gray focus:ring-primary placeholder:text-gray-400 focus:ring-2',
             isSearch && 'pl-10',
             icon && 'pl-10',
             error && 'border-red-500 focus:border-red-500',

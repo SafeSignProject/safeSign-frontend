@@ -70,7 +70,7 @@ const ProfileInfo = () => {
             type='submit'
             label='변경사항 저장'
             disabled={!isValid}
-            className='bg-primary mt-8 h-10 px-5.5 font-medium text-white hover:brightness-90 active:brightness-80'
+            className='bg-primary mt-8 h-10 px-5.5 font-medium text-white hover:brightness-95 active:brightness-90'
           />
         </form>
       </div>

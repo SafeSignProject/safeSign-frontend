@@ -78,7 +78,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
           </div>
           <div>
             <h5 className='text-dark text-xl leading-7 font-semibold'>이메일 로그인</h5>
-            <p className='text-dark-gray text-sm leading-5'>이메일 계정으로 로그인하세요</p>
+            <p className='text-dark-gray text-sm'>이메일 계정으로 로그인하세요</p>
           </div>
         </section>
 
@@ -99,7 +99,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
             <Button
               type='button'
               label='취소'
-              className='border-light-gray text-dark-gray h-11.5 w-full border bg-inherit leading-6 font-medium hover:brightness-90 active:brightness-80'
+              className='border-light-gray text-dark-gray h-11.5 w-full border bg-white leading-6 font-medium hover:brightness-95 active:brightness-90'
               onClick={onClose}
             />
 
@@ -107,7 +107,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
               type='submit'
               label='가입하기'
               disabled={!isValid}
-              className='bg-primary h-11.5 w-full leading-6 font-medium text-white hover:brightness-90 active:brightness-80'
+              className='bg-primary h-11.5 w-full leading-6 font-medium text-white hover:brightness-95 active:brightness-90'
             />
           </div>
         </form>
