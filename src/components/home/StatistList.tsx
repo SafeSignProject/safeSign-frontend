@@ -1,4 +1,4 @@
-import { STATISTICS_ITEM } from '@/constants/home';
+import { STATISTICS_ITEM } from '@/mocks/data';
 
 const StatistList = () => {
   return (
