@@ -164,6 +164,7 @@ const UploadFile = () => {
                 type='button'
                 label='분석 시작'
                 className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
+                onClick={() => navigate('/analyze')}
               />
             </article>
           )}
