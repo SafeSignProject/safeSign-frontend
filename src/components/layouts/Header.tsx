@@ -8,7 +8,7 @@ const ITEMS = [
   { name: '업로드', path: '/upload', icon: Upload },
   { name: '계약서', path: '/contracts', icon: FileText },
   { name: '지원', path: '/support', icon: TrendingUp },
-  { name: '마이', path: '/mypage', icon: User },
+  { name: '마이', path: '/my', icon: User },
 ];
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
               key={path}
               to={path}
               className={clsx(
-                'flex h-9 items-center gap-2 rounded-sm px-4 transition hover:brightness-95 active:brightness-90',
+                'flex h-9 items-center gap-2 rounded-sm px-4 whitespace-nowrap transition hover:brightness-95 active:brightness-90',
                 isActive ? 'bg-accent text-primary' : 'text-dark-gray bg-white',
               )}
             >
