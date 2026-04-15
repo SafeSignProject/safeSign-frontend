@@ -113,7 +113,7 @@ const UploadFile = () => {
           <Camera size={24} className='text-primary' />
           <h5 className='text-dark mt-4 mb-1 text-lg leading-7 font-medium'>사진 업로드</h5>
           <p className='text-dark-gray text-sm'>
-            종이 계약서를 촬영하거나 이미지 파일을 업로드하세요
+            종이 계약서를 촬영하거나 이미지 파일을 업로드하세요 (최대 3장)
           </p>
           <div
             className='border-light-gray hover:border-primary mt-6 flex flex-col items-center justify-center rounded-sm border-2 border-dashed py-12.5 transition'
@@ -164,7 +164,13 @@ const UploadFile = () => {
                 type='button'
                 label='분석 시작'
                 className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
-                onClick={() => navigate('/analyze')}
+                onClick={() =>
+                  navigate('/analyze', {
+                    state: {
+                      fileNames: [pdfFile.name],
+                    },
+                  })
+                }
               />
             </article>
           )}
@@ -184,7 +190,13 @@ const UploadFile = () => {
                 type='button'
                 label='분석 시작'
                 className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
-                onClick={() => navigate('/analyze')}
+                onClick={() =>
+                  navigate('/analyze', {
+                    state: {
+                      fileNames: imageFiles.map((file) => file.name),
+                    },
+                  })
+                }
               />
             </article>
           )}
