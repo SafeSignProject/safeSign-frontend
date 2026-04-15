@@ -1,9 +1,11 @@
 import { TrashIcon } from '@/assets';
-import { getRiskStyle } from '@/utils/getRisk';
+import { getRiskBadgeStyle } from '@/utils/getRisk';
 import { Clock, FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ContractItemProps {
   item: {
+    id: number;
     title: string;
     date: string;
     riskCount: number;
@@ -13,7 +15,7 @@ interface ContractItemProps {
 }
 
 const ContractsItem = ({ item, isLast }: ContractItemProps) => {
-  const style = getRiskStyle(item.score);
+  const style = getRiskBadgeStyle(item.score);
 
   return (
     <>
@@ -22,7 +24,12 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           <FileText size={20} className='text-dark-gray' />
 
           <div className='flex flex-col gap-1'>
-            <h5 className='text-dark leading-6 font-medium'>{item.title}</h5>
+            <Link
+              to={`/contracts/${item.id}`}
+              className='text-dark leading-6 font-medium hover:underline'
+            >
+              {item.title}
+            </Link>
 
             <div className='flex items-center gap-4'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
