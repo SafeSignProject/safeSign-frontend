@@ -70,6 +70,9 @@ const UploadFile = () => {
   const handleReset = () => {
     setPdfFile(null);
     setImageFiles([]);
+
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (imageInputRef.current) imageInputRef.current.value = '';
   };
 
   return (
