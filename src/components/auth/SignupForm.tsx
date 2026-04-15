@@ -4,12 +4,12 @@ import SignupInputSection from './SignupInputSection';
 
 const SignupForm = () => {
   return (
-    <section className='border-border-gray max-w-md space-y-4 rounded-sm border bg-white p-8'>
+    <section className='border-light-gray max-w-md space-y-4 rounded-sm border bg-white p-8'>
       <SocialLoginSection />
 
       <SignupInputSection />
 
-      <div className='bg-border-gray my-7 h-px flex-1' />
+      <div className='bg-light-gray my-7 h-px flex-1' />
 
       <p className='text-dark-gray text-center text-sm'>
         이미 계정이 있으신가요?{' '}

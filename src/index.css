@@ -14,19 +14,18 @@
 
 html,
 body {
-  height: 100dvh;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
   font-family: var(--font-pretendard-jp);
-  overscroll-behavior: none;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 body {
-  min-height: 100dvh;
-  height: 100%;
-  overflow-x: hidden;
+  min-height: 100vh;
   line-height: 1;
 }
 
@@ -64,6 +63,7 @@ button:disabled {
 @theme {
   --color-dark: #111827;
   --color-dark-gray: #6b7280;
-  --color-border-gray: #e5e7eb;
+  --color-light-gray: #e5e7eb;
   --color-primary: #34c987;
+  --color-accent: #e6f9f1;
 }

@@ -1,13 +1,23 @@
-import { Button, Badge, Input } from '@/components/common';
-import { BadgeCent } from 'lucide-react';
+import { CheckList, ContractList, StatistList, RedirectList } from '@/components/home';
 
 export const Home = () => {
   return (
-    <div className='space-y-4'>
-      <Button type='button' label='버튼' icon={<BadgeCent />} className='bg-red-300' />
-      <Badge tag={true} label='태그' className='bg-[#E8F9F0] font-medium text-[#34C987]' />
-      <Input id='email' label='이메일' error='에러 메세지' placeholder='이메일 입력' />
-      <Input icon={true} placeholder='계약서 검색...' />
-    </div>
+    <main className='flex min-h-screen justify-center bg-[#F9FAFB] px-8 pt-32'>
+      <div>
+        <header className='mb-8 space-y-4'>
+          <h1 className='text-dark text-center text-5xl leading-12 font-bold'>
+            안녕하세요, <span className='text-primary'>김철수</span>님
+          </h1>
+          <p className='text-dark-gray text-center text-xl leading-7'>
+            오늘도 안전한 계약을 위해 함께해요
+          </p>
+        </header>
+
+        <StatistList />
+        <RedirectList />
+        <ContractList />
+        <CheckList />
+      </div>
+    </main>
   );
 };

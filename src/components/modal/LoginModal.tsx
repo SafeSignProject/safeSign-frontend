@@ -73,7 +73,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <section className='mb-6 flex items-center justify-start gap-3'>
-          <div className='bg-border-gray text-dark-gray rounded-full p-2.5'>
+          <div className='bg-light-gray text-dark-gray rounded-full p-2.5'>
             <Mail size={20} />
           </div>
           <div>
@@ -99,7 +99,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
             <Button
               type='button'
               label='취소'
-              className='border-border-gray text-dark-gray h-11.5 w-full border bg-inherit leading-6 font-medium hover:brightness-90 active:brightness-80'
+              className='border-light-gray text-dark-gray h-11.5 w-full border bg-inherit leading-6 font-medium hover:brightness-90 active:brightness-80'
               onClick={onClose}
             />
 

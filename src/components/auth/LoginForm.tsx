@@ -8,7 +8,7 @@ const LoginForm = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className='border-border-gray max-w-md space-y-4 rounded-sm border bg-white p-8'>
+    <section className='border-light-gray max-w-md space-y-4 rounded-sm border bg-white p-8'>
       <SocialLoginSection />
 
       <Button

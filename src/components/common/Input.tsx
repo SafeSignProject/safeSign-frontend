@@ -28,7 +28,7 @@ const Input = ({ label, error, className, id, icon, ...props }: InputProps) => {
           id={id}
           className={cn(
             'h-10.5 w-full rounded-sm border px-4 py-2 transition outline-none',
-            'border-border-gray placeholder:text-gray-400 focus:border-black',
+            'border-light-gray placeholder:text-gray-400 focus:border-black',
             icon && 'pl-10',
             error && 'border-red-500 focus:border-red-500',
             className,
