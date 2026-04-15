@@ -33,17 +33,16 @@ const ProfileInfo = () => {
     <section className='border-light-gray mt-52 rounded-sm border bg-white p-8'>
       <h3 className='text-dark mb-6 text-left text-xl leading-7 font-medium'>프로필 정보</h3>
       <div className='flex gap-8'>
-        <div className='bg-primary flex h-20 w-20 items-center justify-center rounded-full text-2xl leading-8 font-semibold text-white'>
+        <div className='bg-primary flex h-20 min-w-20 items-center justify-center rounded-full text-2xl leading-8 font-semibold text-white'>
           정
         </div>
-        <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
+        <form className='w-full space-y-4' onSubmit={handleSubmit(onSubmit)}>
           <div className='flex items-center gap-4'>
             <Input
               label='이름'
               placeholder='홍길동'
               {...register('name')}
               error={errors.name?.message}
-              className='w-full'
             />
             <Input
               label='생년월일'
@@ -51,7 +50,6 @@ const ProfileInfo = () => {
               icon={<Calendar size={16} />}
               {...register('birth')}
               error={errors.birth?.message}
-              className='w-full'
             />
           </div>
           <Input
@@ -60,7 +58,6 @@ const ProfileInfo = () => {
             icon={<Mail size={16} />}
             {...register('email')}
             error={errors.email?.message}
-            className='w-full'
           />
           <Input
             label='휴대폰 번호'
@@ -68,7 +65,6 @@ const ProfileInfo = () => {
             icon={<Phone size={16} />}
             {...register('phone')}
             error={errors.phone?.message}
-            className='w-full'
           />
           <Button
             type='submit'

@@ -11,7 +11,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = ({ label, error, className, id, isSearch, icon, ...props }: InputProps) => {
   return (
-    <div className='flex flex-col gap-1'>
+    <div className='flex w-full flex-col gap-1'>
       {label && (
         <label htmlFor={id} className='text-dark mb-1 text-sm leading-5 font-medium'>
           {label}
