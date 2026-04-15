@@ -16,7 +16,7 @@ const Button = ({ label, type, className, icon, onClick, disabled = false }: But
       type={type}
       disabled={disabled}
       className={cn(
-        'flex items-center justify-center gap-2 rounded-sm bg-white px-4 py-2 transition outline-none disabled:brightness-80',
+        'flex items-center justify-center gap-2 rounded-sm bg-white px-4 py-2 whitespace-nowrap transition outline-none disabled:brightness-80',
         className,
       )}
       onClick={onClick}

@@ -10,6 +10,7 @@ import UploadPage from './pages/upload/UploadPage';
 import ContractsPage from './pages/contracts/ContractsPage';
 import SupportPage from './pages/SupportPage';
 import AnalyzingPage from './pages/upload/AnalyzingPage';
+import ContractsDetailPage from './pages/contracts/ContractsDetailPage';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,16 @@ const router = createBrowserRouter([
           },
           {
             path: 'contracts',
-            element: <ContractsPage />,
+            children: [
+              {
+                index: true,
+                element: <ContractsPage />,
+              },
+              {
+                path: ':id',
+                element: <ContractsDetailPage />,
+              },
+            ],
           },
           {
             path: 'support',

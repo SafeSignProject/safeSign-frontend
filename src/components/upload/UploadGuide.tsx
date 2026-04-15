@@ -14,7 +14,7 @@ const UploadGuide = () => {
         {GUIDE_ITEM.map((guide, idx) => (
           <div key={idx} className='flex items-center gap-1.5'>
             <div className='bg-primary h-1 min-w-1 rounded-full' />
-            <p className='text-dark-gray text-sm'>{guide}</p>
+            <p className='text-dark-gray white text-sm'>{guide}</p>
           </div>
         ))}
       </div>

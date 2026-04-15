@@ -8,7 +8,7 @@ const UploadPage = () => {
         title='계약서 업로드'
         desc='PDF 파일 또는 사진을 업로드하여 분석을 시작하세요'
       />
-      <div className='w-240 space-y-8'>
+      <div className='w-240 space-y-8 max-sm:px-8'>
         <UploadFile />
         <UploadGuide />
       </div>

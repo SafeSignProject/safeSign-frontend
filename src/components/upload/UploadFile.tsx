@@ -81,7 +81,7 @@ const UploadFile = () => {
   return (
     <>
       <div className='mt-52 flex flex-col items-center gap-8 md:flex-row md:gap-6'>
-        <section className='border-light-gray flex-1 rounded-sm border bg-white p-8'>
+        <section className='border-light-gray w-full flex-1 rounded-sm border bg-white p-8'>
           <FileText size={24} className='text-primary' />
           <h5 className='text-dark mt-4 mb-1 text-lg leading-7 font-medium'>PDF 업로드</h5>
           <p className='text-dark-gray text-sm'>컴퓨터에 저장된 계약서 PDF 파일을 선택하세요</p>
@@ -109,7 +109,7 @@ const UploadFile = () => {
           </div>
         </section>
 
-        <section className='border-light-gray flex-1 rounded-sm border bg-white p-8'>
+        <section className='border-light-gray w-full flex-1 rounded-sm border bg-white p-8'>
           <Camera size={24} className='text-primary' />
           <h5 className='text-dark mt-4 mb-1 text-lg leading-7 font-medium'>사진 업로드</h5>
           <p className='text-dark-gray text-sm'>

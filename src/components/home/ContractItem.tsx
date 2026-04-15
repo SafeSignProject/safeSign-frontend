@@ -1,8 +1,10 @@
 import { ArrowRight, Clock, FileText, TriangleAlert } from 'lucide-react';
 import { getRiskStyle } from '@/utils/getRisk';
+import { Link } from 'react-router-dom';
 
 interface ContractItemProps {
   item: {
+    id: number;
     title: string;
     date: string;
     riskCount: number;
@@ -59,11 +61,12 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
           >
             {style.level}
           </div>
-
-          <ArrowRight
-            size={20}
-            className='cursor-pointer text-[#D1D5DB] transition hover:brightness-90 active:brightness-75'
-          />
+          <Link to={`/contracts/${item.id}`}>
+            <ArrowRight
+              size={20}
+              className='cursor-pointer text-[#D1D5DB] transition hover:brightness-90 active:brightness-75'
+            />
+          </Link>
         </div>
       </section>
 

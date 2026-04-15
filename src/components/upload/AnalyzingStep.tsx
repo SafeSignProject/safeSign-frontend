@@ -38,7 +38,7 @@ const AnalyzingStep = () => {
   const step2 = getStepStatus(2);
   const step3 = getStepStatus(3);
   return (
-    <div className='mb-8 space-y-4'>
+    <div className='mb-8 space-y-4 max-sm:px-8'>
       <div>
         <div className='flex items-center gap-3'>
           {step0 === 'done' && (

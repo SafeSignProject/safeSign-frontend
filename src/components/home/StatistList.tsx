@@ -1,8 +1,8 @@
-import { STATISTICS_ITEM } from '@/constants/home';
+import { STATISTICS_ITEM } from '@/mocks/data';
 
 const StatistList = () => {
   return (
-    <section className='mb-16 grid grid-cols-3 gap-6'>
+    <section className='mb-16 flex items-center justify-center gap-6'>
       {STATISTICS_ITEM.map(({ title, value, desc, Icon, SubIcon }) => (
         <div
           key={title}
