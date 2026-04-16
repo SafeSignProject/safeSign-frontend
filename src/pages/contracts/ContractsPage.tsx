@@ -18,7 +18,7 @@ const ContractsPage = () => {
     <main className='flex min-h-screen justify-center bg-[#F9FAFB]'>
       <CommonHeader title='내 계약서' desc='분석된 모든 계약서를 확인하고 관리하세요' />
 
-      <div className='mt-52 w-275 space-y-8 max-xl:px-8'>
+      <div className='mt-52 mb-8 w-275 space-y-8 max-xl:px-8'>
         <ContractsSearch />
         <ContractsStats />
         <ContractsList />

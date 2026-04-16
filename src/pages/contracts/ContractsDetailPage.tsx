@@ -24,7 +24,7 @@ const ContractsDetailPage = () => {
         }
       />
 
-      <div className='mt-52 w-275 space-y-8 max-xl:px-8'>
+      <div className='md-8 mt-52 w-275 space-y-8 max-xl:px-8'>
         <ContractsResult />
       </div>
     </main>
