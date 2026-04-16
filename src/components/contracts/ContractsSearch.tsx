@@ -1,16 +1,24 @@
+import { contractsKeywordAtom, contractsSortAtom } from '@/atoms';
 import { Button, Input } from '@/components/common';
+import { useAtom } from 'jotai';
 import { Funnel, Check } from 'lucide-react';
 import { useState } from 'react';
 
 const ContractsSearch = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState('최신순');
+  const [keyword, setKeyword] = useAtom(contractsKeywordAtom);
+  const [selectedMenu, setSelectedMenu] = useAtom(contractsSortAtom);
 
   const menus = ['최신순', '오래된순', '위험도 높은순', '위험도 낮은순'];
 
   return (
     <div className='relative flex items-center gap-4'>
-      <Input isSearch={true} placeholder='계약서 검색...' />
+      <Input
+        isSearch={true}
+        placeholder='계약서 검색...'
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+      />
 
       <div className='relative'>
         <Button
