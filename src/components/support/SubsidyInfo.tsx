@@ -8,7 +8,7 @@ const INFO_ITEM = [
 
 const SubsidyInfo = () => {
   return (
-    <section className='border-light-gray mb-8 rounded-lg border bg-[#F0FDF7] p-6'>
+    <section className='border-light-gray mb-8 space-y-4 rounded-lg border bg-[#F0FDF7] p-6'>
       <div className='flex items-center gap-3'>
         <Shield size={20} className='text-primary' />
         <h5 className='text-dark text-lg leading-7 font-medium'>보조금24 정보</h5>
