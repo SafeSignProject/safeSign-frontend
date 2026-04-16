@@ -117,7 +117,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
 
             <Button
               type='submit'
-              label='가입하기'
+              label='로그인하기'
               disabled={!isValid}
               className='bg-primary h-11.5 w-full leading-6 font-medium text-white hover:brightness-95 active:brightness-90'
             />
