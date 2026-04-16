@@ -41,10 +41,10 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
               </p>
 
               {item.riskCount > 0 && (
-                <p className='text-dark-gray flex items-center gap-1.5 text-sm font-medium'>
+                <div className='text-dark-gray flex items-center gap-1.5 text-sm font-medium'>
                   <div className='bg-dark-gray h-1 min-w-1 rounded-full' />
-                  위험 요쇼 {item.riskCount}개 발견
-                </p>
+                  위험 요소 {item.riskCount}개 발견
+                </div>
               )}
             </div>
           </div>
