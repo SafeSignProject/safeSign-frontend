@@ -62,7 +62,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           </div>
 
           <div
-            className='flex h-7 items-center justify-center rounded-sm px-3 text-sm'
+            className='flex h-7 items-center justify-center rounded-sm px-3 text-sm whitespace-nowrap'
             style={{
               backgroundColor: style.badgeBg,
               color: style.color,
