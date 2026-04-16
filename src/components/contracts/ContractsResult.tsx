@@ -12,8 +12,8 @@ const ContractsResult = () => {
       : null;
 
   return (
-    <div className='flex gap-6'>
-      <section className='border-light-gray mb-8 max-w-full shrink rounded-sm border bg-white py-4 lg:w-164'>
+    <div className='mb-8 flex gap-6'>
+      <section className='border-light-gray h-fit max-w-full rounded-sm border bg-white pt-4 lg:w-164'>
         <h3 className='text-dark mb-4 px-6 text-xl leading-7 font-medium'>계약서 문서</h3>
 
         <div className='bg-light-gray h-px w-full' />
@@ -44,11 +44,14 @@ const ContractsResult = () => {
         </div>
       </section>
 
-      <section className='border-light-gray hidden flex-1 flex-col rounded-sm border bg-white lg:flex'>
+      <section className='border-light-gray hidden h-fit flex-1 flex-col rounded-sm border bg-white lg:flex'>
         {!selectedAnalysis ? (
-          <div className='flex flex-1 flex-col items-center justify-center'>
+          <div className='flex flex-1 flex-col items-center justify-center py-20'>
             <Eye size={32} className='mx-auto mb-4 text-[#D1D5DB]' />
-            <p className='text-dark-gray px-20 text-center'>하이라이트된 조항을 클릭하세요</p>
+            <p className='text-dark-gray px-20 text-center leading-6'>
+              하이라이트된 조항을 클릭하면 <br />
+              상세 분석을 확인할 수 있습니다
+            </p>
           </div>
         ) : (
           <div className=''>
@@ -67,7 +70,6 @@ const ContractsResult = () => {
 
             <div className='space-y-6 p-6'>
               <div className='flex items-center gap-3'>
-                <Eye size={20} className='text-[#F59E0B]' />
                 <div className='flex flex-col gap-1'>
                   <p
                     className={clsx(
@@ -123,7 +125,7 @@ const ContractsResult = () => {
               {selectedAnalysis.analysis && (
                 <div className='rounded bg-[#FFFBEB] p-4 text-[#92400E]'>
                   <div className='mb-2 flex items-center gap-2'>
-                    <TriangleAlert size={16} />
+                    <TriangleAlert size={16} strokeWidth={1.5} />
                     <p className='text-sm font-medium'>종합 분석</p>
                   </div>
                   <p className='text-sm leading-6'>{selectedAnalysis.analysis}</p>
