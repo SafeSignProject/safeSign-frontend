@@ -61,7 +61,14 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
           >
             {style.level}
           </div>
-          <Link to={`/contracts/${item.id}`}>
+          <Link
+            to={`/contracts/${item.id}`}
+            state={{
+              title: item.title,
+              score: item.score,
+              level: style.level,
+            }}
+          >
             <ArrowRight
               size={20}
               className='cursor-pointer text-[#D1D5DB] transition hover:brightness-90 active:brightness-75'

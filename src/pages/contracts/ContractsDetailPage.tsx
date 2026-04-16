@@ -1,3 +1,4 @@
+import { ContractsResult } from '@/components/contracts';
 import CommonHeader from '@/components/header/CommonHeader';
 import { useLocation } from 'react-router-dom';
 
@@ -22,6 +23,10 @@ const ContractsDetailPage = () => {
             : undefined
         }
       />
+
+      <div className='mt-52 w-275 space-y-8 max-xl:px-8'>
+        <ContractsResult />
+      </div>
     </main>
   );
 };
