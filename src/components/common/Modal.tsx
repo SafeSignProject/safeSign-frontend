@@ -11,10 +11,26 @@ interface ModalProps {
 
 const Modal = ({ title, content, buttonLabel = '삭제', onConfirm, onCancel }: ModalProps) => {
   useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
     document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
 
     return () => {
       document.body.style.overflow = 'auto';
+      document.body.style.paddingRight = '0px';
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCancel();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 

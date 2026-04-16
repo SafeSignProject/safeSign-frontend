@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const RedirectList = () => {
   return (
     <section className='mb-16 flex items-center justify-center gap-6'>
-      <div className='bg-primary w-88 rounded-3xl p-8 shadow-[0px_8px_10px_-6px_rgba(52,201,135,0.15),0px_20px_25px_-5px_rgba(52,201,135,0.15)] transition hover:scale-102'>
-        <div className='mb-4 inline-block rounded-2xl bg-white/20 p-3.5 text-white'>
+      <div className='group bg-primary w-88 rounded-3xl p-8 shadow-[0px_8px_10px_-6px_rgba(52,201,135,0.15),0px_20px_25px_-5px_rgba(52,201,135,0.15)] transition hover:scale-102'>
+        <div className='mb-4 inline-block rounded-2xl bg-white/20 p-3.5 text-white transition-transform duration-500 group-hover:scale-110'>
           <Upload size={28} />
         </div>
 
@@ -15,12 +15,15 @@ const RedirectList = () => {
           to='/upload'
           className='flex items-center gap-1 text-sm font-semibold text-white transition hover:text-white/80 active:text-white/65'
         >
-          시작하기 <ArrowRight size={16} />
+          시작하기
+          <span className='transition-transform duration-300 group-hover:translate-x-1'>
+            <ArrowRight size={16} strokeWidth={3} />
+          </span>
         </Link>
       </div>
 
-      <div className='border-light-gray w-88 rounded-3xl border bg-white p-8 shadow-lg transition hover:scale-102'>
-        <div className='text-primary mb-4 inline-block rounded-2xl bg-[#F0FDF7] p-3.5'>
+      <div className='group border-light-gray hover:border-primary w-88 rounded-3xl border bg-white p-8 shadow-lg transition hover:scale-102'>
+        <div className='text-primary mb-4 inline-block rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110'>
           <FileText size={28} />
         </div>
 
@@ -30,12 +33,15 @@ const RedirectList = () => {
           to='/contracts'
           className='text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
         >
-          보러가기 <ArrowRight size={16} />
+          보러가기
+          <span className='transition-transform duration-300 group-hover:translate-x-1'>
+            <ArrowRight size={16} strokeWidth={3} />
+          </span>
         </Link>
       </div>
 
-      <div className='border-light-gray w-88 rounded-3xl border bg-white p-8 shadow-lg transition hover:scale-102'>
-        <div className='text-primary mb-4 inline-block rounded-2xl bg-[#F0FDF7] p-3.5'>
+      <div className='group border-light-gray hover:border-primary w-88 rounded-3xl border bg-white p-8 shadow-lg transition hover:scale-102'>
+        <div className='text-primary mb-4 inline-block rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110'>
           <Shield size={28} />
         </div>
 
@@ -45,7 +51,10 @@ const RedirectList = () => {
           to='/support'
           className='text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
         >
-          탐색하기 <ArrowRight size={16} />
+          탐색하기
+          <span className='transition-transform duration-300 group-hover:translate-x-1'>
+            <ArrowRight size={16} strokeWidth={3} />
+          </span>
         </Link>
       </div>
     </section>

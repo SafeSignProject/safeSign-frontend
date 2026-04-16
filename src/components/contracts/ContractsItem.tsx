@@ -23,7 +23,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
 
   return (
     <>
-      <section className='py- flex items-center justify-between p-6'>
+      <section className='py- flex items-center justify-between bg-white p-6 transition hover:brightness-98'>
         <div className='flex items-center gap-4'>
           <FileText size={20} className='text-dark-gray' />
 

@@ -14,9 +14,12 @@ const ContractList = () => {
         <h3 className='text-dark text-2xl font-bold'>최근 분석한 계약서</h3>
         <Link
           to='/contracts'
-          className='text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
+          className='group text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
         >
-          전체 보기 <ArrowRight size={16} />
+          전체 보기
+          <span className='transition-transform duration-300 group-hover:translate-x-1'>
+            <ArrowRight size={16} />
+          </span>
         </Link>
       </header>
 

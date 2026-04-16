@@ -18,14 +18,16 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
 
   return (
     <>
-      <section className='flex items-center justify-between px-8'>
+      <section className='group flex items-center justify-between px-8'>
         <div className='flex items-center gap-5'>
           <div className='inline-block rounded-2xl p-3.5' style={{ backgroundColor: style.iconBg }}>
             <FileText size={28} style={{ color: style.color }} />
           </div>
 
           <div className='flex flex-col gap-1'>
-            <h5 className='text-dark text-lg font-bold'>{item.title}</h5>
+            <h5 className='text-dark group-hover:text-primary text-lg font-bold transition'>
+              {item.title}
+            </h5>
 
             <div className='flex items-center gap-3'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
@@ -71,7 +73,7 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
           >
             <ArrowRight
               size={20}
-              className='cursor-pointer text-[#D1D5DB] transition hover:brightness-90 active:brightness-75'
+              className='ransition-transform group-hover:text-primary cursor-pointer text-[#D1D5DB] transition duration-300 group-hover:translate-x-2 active:brightness-75'
             />
           </Link>
         </div>
