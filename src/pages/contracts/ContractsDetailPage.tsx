@@ -1,8 +1,28 @@
-import { useParams } from 'react-router-dom';
+import CommonHeader from '@/components/header/CommonHeader';
+import { useLocation } from 'react-router-dom';
 
 const ContractsDetailPage = () => {
-  const { id } = useParams();
+  const { state } = useLocation();
 
-  return <div className='mt-52'>contract id: {id}</div>;
+  const title = state?.title;
+  const score = state?.score;
+  const level = state?.level;
+
+  return (
+    <main className='flex min-h-screen justify-center bg-[#F9FAFB]'>
+      <CommonHeader
+        title='분석결과'
+        desc={title ?? '계약서 상세'}
+        riskState={
+          score
+            ? {
+                score,
+                level,
+              }
+            : undefined
+        }
+      />
+    </main>
+  );
 };
 export default ContractsDetailPage;

@@ -30,12 +30,17 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           <div className='flex flex-col gap-1'>
             <Link
               to={`/contracts/${item.id}`}
+              state={{
+                title: item.title,
+                score: item.score,
+                level: style.level,
+              }}
               className='text-dark leading-6 font-medium hover:underline'
             >
               {item.title}
             </Link>
 
-            <div className='flex items-center gap-4'>
+            <div className='flex items-center max-sm:flex-col sm:gap-4'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
                 <Clock size={12} /> {item.date}
               </p>
