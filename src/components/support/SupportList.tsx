@@ -50,7 +50,10 @@ const SupportList = ({ keyword = '' }) => {
 
           <section className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {filteredItems.map((item) => (
-              <article key={item.id} className='border-light-gray rounded-lg border bg-white p-6'>
+              <article
+                key={item.id}
+                className='border-light-gray hover:border-primary rounded-lg border bg-white p-6 transition hover:shadow-md'
+              >
                 <div className='mb-0.5 flex items-center justify-between'>
                   <h5 className='text-dark text-lg leading-7 font-semibold'>{item.title}</h5>
                   <a

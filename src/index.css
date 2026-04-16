@@ -16,17 +16,13 @@ html,
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   font-family: var(--font-pretendard-jp);
-}
-
-html {
-  overflow-y: scroll;
 }
 
 body {
   min-height: 100vh;
   line-height: 1;
+  overflow-x: hidden;
 }
 
 menu,
@@ -56,6 +52,11 @@ button:disabled {
   cursor: not-allowed;
 }
 
+body.modal-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0px);
+}
+
 /* Hide scrollbar */
 .hide-scrollbar {
   scrollbar-width: none;
@@ -67,6 +68,24 @@ button:disabled {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera */
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 @theme {

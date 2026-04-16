@@ -24,8 +24,8 @@ const STATS_ITEMS = [
 const ContractsStats = () => {
   return (
     <div className='flex items-center gap-4'>
-      {STATS_ITEMS.map((item) => (
-        <section className='border-light-gray w-full rounded-sm border bg-white p-4'>
+      {STATS_ITEMS.map((item, idx) => (
+        <section key={idx} className='border-light-gray w-full rounded-sm border bg-white p-4'>
           <p className='text-dark-gray mb-1 text-sm'>{item.title}</p>
           <h4 className='text-2xl leading-8 font-semibold' style={{ color: item.color }}>
             {item.count}

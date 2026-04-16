@@ -1,10 +1,19 @@
 import { Input } from '@/components/common';
 import CommonHeader from '@/components/header/CommonHeader';
 import { SupportList, SubsidyInfo } from '@/components/support';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SupportPage = () => {
   const [keyword, setKeyword] = useState('');
+  const [debouncedKeyword, setDebouncedKeyword] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(keyword);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [keyword]);
 
   return (
     <main className='flex min-h-screen justify-center bg-[#F9FAFB]'>
@@ -19,7 +28,7 @@ const SupportPage = () => {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <SupportList keyword={keyword} />
+        <SupportList keyword={debouncedKeyword} />
         <SubsidyInfo />
       </div>
     </main>
