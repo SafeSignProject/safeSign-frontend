@@ -53,6 +53,14 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
   };
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();

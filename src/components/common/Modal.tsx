@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Button from './Button';
 
 interface ModalProps {
@@ -9,6 +10,14 @@ interface ModalProps {
 }
 
 const Modal = ({ title, content, buttonLabel = '삭제', onConfirm, onCancel }: ModalProps) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/40'>
       <div className='flex w-80 flex-col space-y-3 overflow-hidden rounded-[10px] bg-white px-6 py-8'>
