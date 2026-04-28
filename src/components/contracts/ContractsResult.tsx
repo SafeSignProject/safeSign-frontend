@@ -28,13 +28,13 @@ const ContractsResult = () => {
   return (
     <div className='mb-8 flex gap-6'>
       <section className='border-light-gray h-fit max-w-full rounded-sm border bg-white pt-4 lg:w-164'>
-        <h3 className='text-dark mb-4 px-6 text-xl leading-7 font-semibold'>계약서 문서</h3>
+        <h3 className='text-dark mb-4 px-4 text-xl leading-7 font-semibold sm:px-6'>계약서 문서</h3>
 
         <div className='bg-light-gray h-px w-full' />
 
-        <div className='px-8'>
+        <div className='px-6 sm:px-8'>
           {CONTRACT_RESPONSE.map((contract) => (
-            <article key={contract.id} className='my-8 space-y-3'>
+            <article key={contract.id} className='my-6 space-y-3 sm:my-8'>
               <h4 className='text-dark text-lg leading-7 font-medium'>{contract.title}</h4>
               <p
                 onClick={() => {
