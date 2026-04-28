@@ -158,12 +158,12 @@ const UploadFile = () => {
               <div className='flex items-center gap-4'>
                 <FileText size={24} className='text-primary' />
 
-                <h5 className='text-dark leading-6 font-medium'>{pdfFile.name}</h5>
+                <h5 className='text-dark leading-6 font-medium max-sm:text-sm'>{pdfFile.name}</h5>
               </div>
               <Button
                 type='button'
                 label='분석 시작'
-                className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
+                className='bg-primary h-8.5 px-4 font-medium text-white hover:brightness-95 active:brightness-90 max-sm:text-sm sm:h-10 sm:px-6'
                 onClick={() =>
                   navigate('/analyze', {
                     state: {
@@ -189,7 +189,7 @@ const UploadFile = () => {
               <Button
                 type='button'
                 label='분석 시작'
-                className='bg-primary h-10 px-6 font-medium text-white hover:brightness-95 active:brightness-90'
+                className='bg-primary h-8.5 px-4 font-medium text-white hover:brightness-95 active:brightness-90 max-sm:text-sm sm:h-10 sm:px-6'
                 onClick={() =>
                   navigate('/analyze', {
                     state: {

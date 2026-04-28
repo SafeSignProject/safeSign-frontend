@@ -76,7 +76,7 @@ const AnalyzingStep = () => {
             파일 업로드 완료
           </p>
         </div>
-        <div className='text-dark-gray space-y-1 pl-9 text-left text-sm'>
+        <div className='text-dark-gray space-y-2 pl-9 text-left text-sm'>
           {fileNames.map((name, idx) => (
             <p key={idx}>{name}</p>
           ))}

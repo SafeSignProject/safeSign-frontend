@@ -3,7 +3,7 @@ import { AnalyzingBar, AnalyzingStep } from '@/components/upload';
 
 const AnalyzingPage = () => {
   return (
-    <main className='flex min-h-screen items-center justify-center bg-[#F9FAFB]'>
+    <main className='flex min-h-screen items-center justify-center bg-[#F9FAFB] px-4'>
       <section className='border-light-gray w-[384px] rounded-sm border bg-white p-8'>
         <header className='mb-8 flex flex-col items-center justify-center gap-2'>
           <div className='bg-accent text-primary mb-2 rounded-full p-4'>
