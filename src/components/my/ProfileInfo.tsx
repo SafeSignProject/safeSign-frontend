@@ -30,7 +30,7 @@ const ProfileInfo = () => {
     }
   };
   return (
-    <section className='border-light-gray rounded-sm border bg-white p-8'>
+    <section className='border-light-gray rounded-sm border bg-white p-6 sm:p-8'>
       <h3 className='text-dark mb-6 text-left text-xl leading-7 font-medium'>프로필 정보</h3>
       <div className='flex gap-8 max-sm:flex-col'>
         <div className='bg-primary flex h-20 max-w-20 min-w-20 items-center justify-center rounded-full text-2xl leading-8 font-semibold text-white'>
@@ -70,7 +70,7 @@ const ProfileInfo = () => {
             type='submit'
             label='변경사항 저장'
             disabled={!isValid}
-            className='bg-primary mt-8 h-10 px-5.5 font-medium text-white hover:brightness-95 active:brightness-90'
+            className='bg-primary mt-6 h-10 px-5.5 font-medium text-white hover:brightness-95 active:brightness-90 sm:mt-8'
           />
         </form>
       </div>
