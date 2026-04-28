@@ -23,24 +23,34 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
 
   return (
     <>
-      <section className='py- flex items-center justify-between bg-white p-6 transition hover:brightness-98'>
+      <section className='flex justify-between bg-white p-4 transition hover:brightness-98 max-sm:flex-col max-sm:gap-3 sm:items-center sm:p-6'>
         <div className='flex items-center gap-4'>
-          <FileText size={20} className='text-dark-gray' />
+          <FileText size={20} className='text-dark-gray shrink-0' />
 
-          <div className='flex flex-col gap-1'>
-            <Link
-              to={`/contracts/${item.id}`}
-              state={{
-                title: item.title,
-                score: item.score,
-                level: style.level,
-              }}
-              className='text-dark leading-6 font-medium hover:underline'
-            >
-              {item.title}
-            </Link>
+          <div className='flex w-full flex-col gap-1'>
+            <div className='flex items-start justify-between'>
+              <Link
+                to={`/contracts/${item.id}`}
+                state={{
+                  title: item.title,
+                  score: item.score,
+                  level: style.level,
+                }}
+                className='text-dark truncate leading-6 font-medium hover:underline'
+              >
+                {item.title}
+              </Link>
 
-            <div className='flex items-center max-sm:flex-col sm:gap-4'>
+              <button
+                type='button'
+                onClick={() => setIsModalOpen(true)}
+                className='rounded-full bg-white p-1.5 text-[#D1D5DB] transition hover:brightness-95 active:brightness-90 sm:hidden'
+              >
+                <TrashIcon />
+              </button>
+            </div>
+
+            <div className='flex items-center gap-4'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
                 <Clock size={12} /> {item.date}
               </p>
@@ -55,8 +65,8 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           </div>
         </div>
 
-        <div className='flex items-center gap-2.5'>
-          <div className='mr-1.5 flex flex-col'>
+        <div className='flex items-center gap-2.5 max-sm:pl-10'>
+          <div className='mr-1.5 flex max-sm:items-center max-sm:gap-1 sm:flex-col'>
             <p className='text-dark-gray text-right text-sm'>위험도</p>
             <h3 className='text-dark leading-6 font-medium'>{item.score}점</h3>
           </div>
@@ -74,7 +84,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           <button
             type='button'
             onClick={() => setIsModalOpen(true)}
-            className='rounded-full bg-white p-1.5 text-[#D1D5DB] transition hover:brightness-95 active:brightness-90'
+            className='rounded-full bg-white p-1.5 text-[#D1D5DB] transition hover:brightness-95 active:brightness-90 max-sm:hidden'
           >
             <TrashIcon />
           </button>
