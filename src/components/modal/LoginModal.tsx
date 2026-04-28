@@ -81,7 +81,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black/40' onClick={onClose}>
       <div
-        className='z-50 flex flex-col space-y-3 overflow-hidden rounded-lg bg-white p-8'
+        className='z-50 flex w-100 max-w-[90%] flex-col space-y-3 overflow-hidden rounded-lg bg-white p-8'
         onClick={(e) => e.stopPropagation()}
       >
         <section className='mb-6 flex items-center justify-start gap-3'>
@@ -90,11 +90,11 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
           </div>
           <div>
             <h5 className='text-dark text-xl leading-7 font-semibold'>이메일 로그인</h5>
-            <p className='text-dark-gray text-sm'>이메일 계정으로 로그인하세요</p>
+            <p className='text-dark-gray text-sm whitespace-nowrap'>이메일 계정으로 로그인하세요</p>
           </div>
         </section>
 
-        <form onSubmit={handleSubmit(onSubmit)} className='w-95.5 space-y-4'>
+        <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-4'>
           {fields.map((field) => (
             <Input
               key={field.name}
