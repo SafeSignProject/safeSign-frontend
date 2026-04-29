@@ -182,7 +182,7 @@ const UploadFile = () => {
               <div className='space-y-3'>
                 {imageFiles.map((image, idx) => (
                   <div key={idx} className='mr-4 flex items-center gap-2 sm:gap-4'>
-                    <FileText className='text-primary h-5 w-5 shrink-0 sm:h-6 sm:w-6' />
+                    <Camera className='text-primary h-5 w-5 shrink-0 sm:h-6 sm:w-6' />
                     <h6 className='text-dark line-clamp-1 leading-6 font-medium break-all max-sm:text-sm'>
                       {image.name}
                     </h6>
