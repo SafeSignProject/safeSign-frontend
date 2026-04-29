@@ -157,7 +157,7 @@ const UploadFile = () => {
             <article className='flex items-center justify-between bg-[#F9FAFB] p-4'>
               <div className='mr-4 flex items-center gap-2 sm:gap-4'>
                 <FileText className='text-primary h-5 w-5 shrink-0 sm:h-6 sm:w-6' />
-                <h6 className='text-dark line-clamp-1 leading-6 font-medium max-sm:text-sm'>
+                <h6 className='text-dark line-clamp-1 leading-6 font-medium break-all max-sm:text-sm'>
                   {pdfFile.name}
                 </h6>
               </div>

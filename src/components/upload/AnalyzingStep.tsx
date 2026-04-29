@@ -38,7 +38,7 @@ const AnalyzingStep = () => {
   const step2 = getStepStatus(2);
   const step3 = getStepStatus(3);
   return (
-    <div className='mb-8 space-y-4 max-sm:px-8'>
+    <div className='mb-8 space-y-4'>
       <div>
         <div className='flex items-center gap-3'>
           {step0 === 'done' && (
@@ -76,9 +76,11 @@ const AnalyzingStep = () => {
             파일 업로드 완료
           </p>
         </div>
-        <div className='text-dark-gray space-y-2 pl-9 text-left text-sm'>
+        <div className='space-y-2 pr-10 pl-9'>
           {fileNames.map((name, idx) => (
-            <p key={idx}>{name}</p>
+            <p key={idx} className='text-dark-gray line-clamp-1 text-left text-sm break-all'>
+              {name}
+            </p>
           ))}
         </div>
       </div>
