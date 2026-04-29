@@ -8,14 +8,14 @@ const LoginForm = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className='border-light-gray max-w-md space-y-4 rounded-sm border bg-white p-8'>
+    <section className='border-light-gray w-full max-w-md space-y-4 rounded-sm border bg-white p-6 sm:p-8'>
       <SocialLoginSection />
 
       <Button
         type='button'
         label='이메일로 계속하기'
         icon={<Mail size={20} className='text-[#4B5563]' />}
-        className='text-dark h-12.5 w-95.5 border border-[#E5E7EB] bg-inherit font-medium hover:brightness-95 active:brightness-90'
+        className='text-dark h-12.5 w-full border border-[#E5E7EB] bg-inherit font-medium hover:brightness-95 active:brightness-90'
         onClick={() => setIsOpen(true)}
       />
 

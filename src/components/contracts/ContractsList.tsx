@@ -44,7 +44,7 @@ const ContractsList = () => {
   const isEmpty = sorted.length === 0;
 
   return isEmpty ? (
-    <section className='flex flex-col items-center justify-center pt-16 text-center'>
+    <section className='flex flex-col items-center justify-center pt-12 text-center sm:pt-16'>
       <FileText size={48} strokeWidth={1.5} className='text-[#D1D5DB]' />
       <p className='text-dark mt-4 text-lg leading-7 font-medium'>검색 결과가 없습니다</p>
       <p className='text-dark-gray mt-2 text-sm'>다른 키워드로 검색해보세요</p>

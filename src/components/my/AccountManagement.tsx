@@ -22,7 +22,7 @@ const AccountManagement = () => {
   };
 
   return (
-    <section className='border-light-gray mb-8 rounded-sm border bg-white p-8'>
+    <section className='border-light-gray mb-8 rounded-sm border bg-white p-6 sm:p-8'>
       <h3 className='text-dark mb-6 text-left text-xl leading-7 font-medium'>계정 관리</h3>
       <div className='flex items-center justify-between'>
         <div>
@@ -32,7 +32,7 @@ const AccountManagement = () => {
         <Button
           type='button'
           label='로그아웃'
-          className='border-light-gray text-dark h-10 border hover:brightness-95 active:brightness-90'
+          className='border-light-gray text-dark h-8.5 border hover:brightness-95 active:brightness-90 max-sm:text-sm sm:h-10'
           onClick={() => setIsLogoutModalOpen(true)}
         />
       </div>
@@ -47,7 +47,7 @@ const AccountManagement = () => {
         <Button
           type='button'
           label='삭제'
-          className='h-10 border border-[#FEE2E2] text-[#EF4444] hover:bg-[#EF4444]/10 active:bg-[#EF4444]/20'
+          className='h-8.5 border border-[#FEE2E2] text-[#EF4444] hover:bg-[#EF4444]/10 active:bg-[#EF4444]/20 max-sm:text-sm sm:h-10'
           onClick={() => setIsDeleteModalOpen(true)}
         />
       </div>
