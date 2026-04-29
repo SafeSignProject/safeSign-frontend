@@ -9,9 +9,9 @@ const ContractList = () => {
     .slice(0, 3);
 
   return (
-    <section className='border-light-gray rounded-3xl border bg-white py-6 shadow-lg'>
-      <header className='mb-4 flex items-center justify-between px-8'>
-        <h3 className='text-dark text-2xl font-bold'>최근 분석한 계약서</h3>
+    <section className='border-light-gray w-full rounded-3xl border bg-white py-4 shadow-lg sm:py-6'>
+      <header className='mb-4 flex items-center justify-between px-6 sm:px-8'>
+        <h3 className='text-dark text-xl font-bold sm:text-2xl'>최근 분석한 계약서</h3>
         <Link
           to='/contracts'
           className='group text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
@@ -23,7 +23,7 @@ const ContractList = () => {
         </Link>
       </header>
 
-      <div className='bg-light-gray my-6 h-px flex-1' />
+      <div className='bg-light-gray my-4 h-px flex-1 sm:my-6' />
 
       {sortedItems.map((item, index) => (
         <ContractItem key={item.id} item={item} isLast={index === sortedItems.length - 1} />

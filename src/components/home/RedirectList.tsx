@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 const RedirectList = () => {
   return (
-    <section className='mb-16 flex items-center justify-center gap-6'>
-      <div className='group bg-primary w-88 rounded-3xl p-8 shadow-[0px_8px_10px_-6px_rgba(52,201,135,0.15),0px_20px_25px_-5px_rgba(52,201,135,0.15)] transition hover:scale-102'>
-        <div className='mb-4 inline-block rounded-2xl bg-white/20 p-3.5 text-white transition-transform duration-500 group-hover:scale-110'>
-          <Upload size={28} />
+    <section className='mb-8 flex flex-col items-center justify-center gap-4 sm:mb-16 sm:flex-row sm:gap-6'>
+      <div className='group bg-primary w-full rounded-3xl p-6 shadow-[0px_8px_10px_-6px_rgba(52,201,135,0.15),0px_20px_25px_-5px_rgba(52,201,135,0.15)] transition hover:scale-102 sm:p-8'>
+        <div className='mb-4 inline-block h-12 w-12 rounded-2xl bg-white/20 p-3.5 text-white transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14'>
+          <Upload className='h-full w-full' />
         </div>
 
         <p className='mb-2 text-xl leading-7 font-bold text-white'>새 계약서 업로드</p>
@@ -22,9 +22,9 @@ const RedirectList = () => {
         </Link>
       </div>
 
-      <div className='group border-light-gray hover:border-primary w-88 rounded-3xl border bg-white p-8 shadow-lg transition hover:scale-102'>
-        <div className='text-primary mb-4 inline-block rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110'>
-          <FileText size={28} />
+      <div className='group border-light-gray hover:border-primary w-full rounded-3xl border bg-white p-6 shadow-lg transition hover:scale-102 sm:p-8'>
+        <div className='text-primary mb-4 inline-block h-12 w-12 rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14'>
+          <FileText className='h-full w-full' />
         </div>
 
         <p className='text-dark mb-2 text-xl leading-7 font-bold'>내 계약서 보기</p>
@@ -40,9 +40,9 @@ const RedirectList = () => {
         </Link>
       </div>
 
-      <div className='group border-light-gray hover:border-primary w-88 rounded-3xl border bg-white p-8 shadow-lg transition hover:scale-102'>
-        <div className='text-primary mb-4 inline-block rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110'>
-          <Shield size={28} />
+      <div className='group border-light-gray hover:border-primary w-full rounded-3xl border bg-white p-6 shadow-lg transition hover:scale-102 sm:p-8'>
+        <div className='text-primary mb-4 inline-block h-12 w-12 rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14'>
+          <Shield className='h-full w-full' />
         </div>
 
         <p className='text-dark mb-2 text-xl leading-7 font-bold'>정부 지원 찾기</p>
