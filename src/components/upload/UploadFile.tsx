@@ -80,7 +80,7 @@ const UploadFile = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center gap-4 sm:gap-8 md:flex-row'>
+      <div className='flex w-full flex-col items-center gap-4 sm:gap-8 md:flex-row'>
         <section className='border-light-gray w-full flex-1 rounded-sm border bg-white p-6 sm:p-8'>
           <FileText size={24} className='text-primary' />
           <h5 className='text-dark mt-4 mb-1 text-lg leading-7 font-medium'>PDF 업로드</h5>
@@ -142,7 +142,7 @@ const UploadFile = () => {
       </div>
 
       {(pdfFile || imageFiles.length > 0) && (
-        <section className='border-light-gray rounded-sm border bg-white p-6'>
+        <section className='border-light-gray w-full rounded-sm border bg-white p-6'>
           <article className='mb-4 flex items-center justify-between'>
             <h4 className='text-dark text-left text-lg leading-7 font-medium'>업로드된 파일</h4>
             <button type='button' onClick={handleReset}>
@@ -155,11 +155,13 @@ const UploadFile = () => {
 
           {pdfFile && (
             <article className='flex items-center justify-between bg-[#F9FAFB] p-4'>
-              <div className='flex items-center gap-4'>
-                <FileText size={24} className='text-primary' />
-
-                <h5 className='text-dark leading-6 font-medium max-sm:text-sm'>{pdfFile.name}</h5>
+              <div className='mr-4 flex items-center gap-2 sm:gap-4'>
+                <FileText className='text-primary h-5 w-5 shrink-0 sm:h-6 sm:w-6' />
+                <h6 className='text-dark line-clamp-1 leading-6 font-medium max-sm:text-sm'>
+                  {pdfFile.name}
+                </h6>
               </div>
+
               <Button
                 type='button'
                 label='분석 시작'
@@ -179,9 +181,11 @@ const UploadFile = () => {
             <article className='flex items-center justify-between bg-[#F9FAFB] p-4'>
               <div className='space-y-3'>
                 {imageFiles.map((image, idx) => (
-                  <div key={idx} className='flex items-center gap-4'>
-                    <Camera size={24} className='text-primary' />
-                    <h5 className='text-dark leading-6 font-medium'>{image.name}</h5>
+                  <div key={idx} className='mr-4 flex items-center gap-2 sm:gap-4'>
+                    <FileText className='text-primary h-5 w-5 shrink-0 sm:h-6 sm:w-6' />
+                    <h6 className='text-dark line-clamp-1 leading-6 font-medium break-all max-sm:text-sm'>
+                      {image.name}
+                    </h6>
                   </div>
                 ))}
               </div>
