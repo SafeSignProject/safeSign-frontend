@@ -4,7 +4,7 @@ import SignupInputSection from './SignupInputSection';
 
 const SignupForm = () => {
   return (
-    <section className='border-light-gray max-w-md space-y-4 rounded-sm border bg-white p-8'>
+    <section className='border-light-gray w-full max-w-md space-y-4 rounded-sm border bg-white p-6 sm:p-8'>
       <SocialLoginSection />
 
       <SignupInputSection />
