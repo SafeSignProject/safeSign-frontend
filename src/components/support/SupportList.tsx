@@ -1,6 +1,7 @@
 import { SUPPORT_ITEMS } from '@/mocks/supportItem';
 import { FileText, SquareArrowOutUpRight, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/common';
+import clsx from 'clsx';
 
 const SupportList = ({ keyword = '' }) => {
   const items = SUPPORT_ITEMS ?? [];
@@ -27,7 +28,7 @@ const SupportList = ({ keyword = '' }) => {
       ) : (
         <>
           {!keyword && (
-            <section className='border-primary flex gap-4 rounded-sm border bg-white p-6'>
+            <section className='border-primary mt-8 flex gap-4 rounded-sm border bg-white p-6'>
               <TrendingUp size={24} className='text-primary' />
 
               <div className='flex flex-col gap-1.5'>
@@ -48,7 +49,9 @@ const SupportList = ({ keyword = '' }) => {
             </section>
           )}
 
-          <section className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+          <section
+            className={clsx('grid grid-cols-1 gap-4 sm:grid-cols-2', keyword !== '' && 'mt-8')}
+          >
             {filteredItems.map((item) => (
               <article
                 key={item.id}
