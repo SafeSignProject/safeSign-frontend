@@ -29,9 +29,13 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
 
           <div className='flex w-full flex-col gap-1'>
             <div className='flex w-full items-center justify-between'>
-              <h5 className='text-dark group-hover:text-primary font-bold transition sm:text-lg'>
+              <Link
+                to={`/contracts/${item.id}`}
+                state={{ title: item.title, score: item.score, level: style.level }}
+                className='text-dark group-hover:text-primary font-bold transition sm:text-lg'
+              >
                 {item.title}
-              </h5>
+              </Link>
               <Link
                 to={`/contracts/${item.id}`}
                 state={{ title: item.title, score: item.score, level: style.level }}
