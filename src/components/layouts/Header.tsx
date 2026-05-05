@@ -12,7 +12,11 @@ const ITEMS = [
   { name: '마이', path: '/my', icon: User },
 ];
 
-const Header = () => {
+interface HeaderProps {
+  showAuthButtons?: boolean;
+}
+
+const Header = ({ showAuthButtons = false }: HeaderProps) => {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,33 +43,51 @@ const Header = () => {
         <Logo height={32} width={25.5313} />
         <span className='text-dark text-lg font-semibold'>SafeSign</span>
       </Link>
+      {showAuthButtons ? (
+        <div className='flex items-center gap-2 sm:gap-3'>
+          <Link
+            to='/login'
+            className='hover:text-dark px-3 py-1.5 text-sm text-dark-gray transition-colors sm:px-4 sm:py-2'
+          >
+            로그인
+          </Link>
+          <Link
+            to='/signup'
+            className='rounded-lg bg-primary px-3 py-1.5 text-sm text-white transition hover:brightness-95 active:brightness-90 sm:px-5 sm:py-2.5'
+          >
+            회원가입
+          </Link>
+        </div>
+      ) : (
+        <>
+          <section className='hidden items-center gap-1 md:flex'>
+            {ITEMS.map(({ name, path, icon: Icon }) => {
+              const isActive = pathname === path;
 
-      <section className='hidden items-center gap-1 md:flex'>
-        {ITEMS.map(({ name, path, icon: Icon }) => {
-          const isActive = pathname === path;
+              return (
+                <Link
+                  key={path}
+                  to={path}
+                  className={clsx(
+                    'flex h-9 items-center gap-2 rounded-sm px-4 whitespace-nowrap transition hover:brightness-95 active:brightness-90',
+                    isActive ? 'bg-accent text-primary' : 'text-dark-gray bg-white',
+                  )}
+                >
+                  <Icon size={16} />
+                  <p className='text-sm'>{name}</p>
+                </Link>
+              );
+            })}
+          </section>
 
-          return (
-            <Link
-              key={path}
-              to={path}
-              className={clsx(
-                'flex h-9 items-center gap-2 rounded-sm px-4 whitespace-nowrap transition hover:brightness-95 active:brightness-90',
-                isActive ? 'bg-accent text-primary' : 'text-dark-gray bg-white',
-              )}
-            >
-              <Icon size={16} />
-              <p className='text-sm'>{name}</p>
-            </Link>
-          );
-        })}
-      </section>
-
-      <button
-        className='rounded-full bg-white p-1 transition hover:brightness-90 md:hidden'
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+          <button
+            className='rounded-full bg-white p-1 transition hover:brightness-90 md:hidden'
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </>
+      )}
 
       <div
         className={clsx(

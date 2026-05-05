@@ -11,6 +11,7 @@ import ContractsPage from './pages/contracts/ContractsPage';
 import SupportPage from './pages/SupportPage';
 import AnalyzingPage from './pages/upload/AnalyzingPage';
 import ContractsDetailPage from './pages/contracts/ContractsDetailPage';
+import LandingPage from './pages/LandingPage';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
           {
             path: 'signup',
             element: <SignupPage />,
+          },
+          {
+            path: 'landing',
+            element: <LandingPage />,
           },
         ],
       },
