@@ -14,7 +14,7 @@ const LandingInfo = () => {
   }, []);
 
   return (
-    <div className='relative flex min-h-screen snap-start items-center justify-center overflow-hidden'>
+    <div className='relative flex min-h-screen snap-start items-center justify-center overflow-hidden w-full'>
       <div className='absolute inset-0 bg-linear-to-br from-accent via-[#F0FDF7] to-[#D1FAE5]' />
       <div className='absolute top-20 left-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl sm:h-96 sm:w-96' />
       <div className='absolute right-20 bottom-20 h-80 w-80 rounded-full bg-primary/5 blur-3xl sm:h-125 sm:w-125' />

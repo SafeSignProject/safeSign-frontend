@@ -7,13 +7,10 @@ const PublicLayout = () => {
   const isLanding = pathname === '/landing';
 
   return (
-    <>
+    <main className='flex min-h-screen items-center justify-center bg-[#F9FAFB]'>
       {isLanding && <Header showAuthButtons={true} />}
-
-      <main className='flex min-h-screen items-center justify-center bg-[#F9FAFB]'>
-        <Outlet />
-      </main>
-    </>
+      <Outlet />
+    </main>
   );
 };
 

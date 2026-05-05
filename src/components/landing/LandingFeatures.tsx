@@ -1,11 +1,10 @@
-import React from 'react';
 import AnimatedSection from './AnimatedSection';
 import { Check, Eye, FileText, Shield } from 'lucide-react';
 
 const LandingFeatures = () => {
   return (
     <section className='flex min-h-screen snap-start items-center justify-center bg-white py-16 sm:py-24'>
-      <div className='mx-auto px-4 sm:px-8'>
+      <div className='mx-auto px-4 sm:px-8 max-w-7xl'>
         <AnimatedSection>
           <div className='mb-12 text-center sm:mb-20 '>
             <div className='mb-4 inline-block rounded-full border border-primary/30 bg-accent px-4 py-2 text-xs font-medium text-primary sm:mb-6 sm:text-sm'>
@@ -23,7 +22,7 @@ const LandingFeatures = () => {
         <div className='grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3'>
           <AnimatedSection delay={0.2}>
             <div className='group relative overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white p-6 transition-all hover:border-primary hover:shadow-2xl sm:p-10'>
-              <div className='absolute inset-0 bg-accent/0 transition-colors group-hover:bg-accent/50'></div>
+              <div className='absolute inset-0 bg-accent/0 transition-colors group-hover:bg-accent/50' />
               <div className='relative'>
                 <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16'>
                   <Shield className='h-6 w-6 text-white sm:h-8 sm:w-8' strokeWidth={2} />
@@ -45,7 +44,7 @@ const LandingFeatures = () => {
 
           <AnimatedSection delay={0.4}>
             <div className='group relative overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white p-6 transition-all hover:border-primary hover:shadow-2xl sm:p-10'>
-              <div className='absolute inset-0 bg-accent/0 transition-colors group-hover:bg-accent/50'></div>
+              <div className='absolute inset-0 bg-accent/0 transition-colors group-hover:bg-accent/50' />
               <div className='relative'>
                 <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2BA371] transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16'>
                   <Eye className='h-6 w-6 text-white sm:h-8 sm:w-8' strokeWidth={2} />
@@ -66,7 +65,7 @@ const LandingFeatures = () => {
 
           <AnimatedSection delay={0.6}>
             <div className='group relative overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white p-6 transition-all hover:border-primary hover:shadow-2xl sm:p-10 md:col-span-2 lg:col-span-1'>
-              <div className='absolute inset-0 bg-accent/0 transition-colors group-hover:bg-accent/50'></div>
+              <div className='absolute inset-0 bg-accent/0 transition-colors group-hover:bg-accent/50' />
               <div className='relative'>
                 <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#248C5F] transition-transform group-hover:scale-110 sm:mb-6 sm:h-16 sm:w-16'>
                   <FileText className='h-6 w-6 text-white sm:h-8 sm:w-8' strokeWidth={2} />

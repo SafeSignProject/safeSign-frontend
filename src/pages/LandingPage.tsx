@@ -5,7 +5,7 @@ import LandingFeatures from '@/components/landing/LandingFeatures';
 
 const LandingPage = () => {
   return (
-    <div className='h-screen snap-y snap-mandatory overflow-y-scroll'>
+    <div className='h-screen snap-y snap-mandatory overflow-y-scroll w-screen'>
       <LandingInfo />
       <LandingFeatures />
       <LandingCTA />

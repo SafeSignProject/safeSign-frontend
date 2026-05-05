@@ -33,7 +33,7 @@ const LandingCTA = () => {
           </p>
           <Link
             to='/signup'
-            className='inline-flex items-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-bold text-white transition-all hover:scale-105 hover:bg-[#2BA371] hover:shadow-2xl sm:gap-3 sm:px-12 sm:py-5 sm:text-lg'
+            className='inline-flex items-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-bold text-white transition-all hover:scale-102 hover:brightness-95 active:brightness-90 hover:shadow-2xl sm:gap-3 sm:px-12 sm:py-5 sm:text-lg'
           >
             무료로 시작하기
             <ArrowRight className='h-5 w-5 sm:h-6 sm:w-6' strokeWidth={2} />
