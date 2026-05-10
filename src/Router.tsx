@@ -8,7 +8,6 @@ import ProtectedLayout from './layouts/ProtectedLayout';
 import MyPage from './pages/MyPage';
 import UploadPage from './pages/upload/UploadPage';
 import ContractsPage from './pages/contracts/ContractsPage';
-import SupportPage from './pages/SupportPage';
 import AnalyzingPage from './pages/upload/AnalyzingPage';
 import ContractsDetailPage from './pages/contracts/ContractsDetailPage';
 import LandingPage from './pages/LandingPage';
@@ -64,10 +63,6 @@ const router = createBrowserRouter([
                 element: <ContractsDetailPage />,
               },
             ],
-          },
-          {
-            path: 'support',
-            element: <SupportPage />,
           },
           {
             path: 'analyze',

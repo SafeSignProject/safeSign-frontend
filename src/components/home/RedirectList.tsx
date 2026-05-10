@@ -1,4 +1,4 @@
-import { ArrowRight, FileText, Shield, Upload } from 'lucide-react';
+import { ArrowRight, FileText, Upload } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const RedirectList = () => {
@@ -34,24 +34,6 @@ const RedirectList = () => {
           className='text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
         >
           보러가기
-          <span className='transition-transform duration-300 group-hover:translate-x-1'>
-            <ArrowRight size={16} strokeWidth={3} />
-          </span>
-        </Link>
-      </div>
-
-      <div className='group border-light-gray hover:border-primary w-full rounded-3xl border bg-white p-6 shadow-lg transition hover:scale-102 sm:p-8'>
-        <div className='text-primary mb-4 inline-block h-12 w-12 rounded-2xl bg-[#F0FDF7] p-3.5 transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14'>
-          <Shield className='h-full w-full' />
-        </div>
-
-        <p className='text-dark mb-2 text-xl leading-7 font-bold'>정부 지원 찾기</p>
-        <p className='text-dark-gray mb-4 text-sm'>맞춤 지원 서비스 추천</p>
-        <Link
-          to='/support'
-          className='text-primary flex items-center gap-1 text-sm font-semibold transition hover:brightness-90 active:brightness-75'
-        >
-          탐색하기
           <span className='transition-transform duration-300 group-hover:translate-x-1'>
             <ArrowRight size={16} strokeWidth={3} />
           </span>

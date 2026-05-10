@@ -1,6 +1,6 @@
 import { Logo } from '@/assets';
 import clsx from 'clsx';
-import { FileText, House, TrendingUp, Upload, User, Menu, X } from 'lucide-react';
+import { FileText, House, Upload, User, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -8,7 +8,6 @@ const ITEMS = [
   { name: '홈', path: '/', icon: House },
   { name: '업로드', path: '/upload', icon: Upload },
   { name: '계약서', path: '/contracts', icon: FileText },
-  { name: '지원', path: '/support', icon: TrendingUp },
   { name: '마이', path: '/my', icon: User },
 ];
 
