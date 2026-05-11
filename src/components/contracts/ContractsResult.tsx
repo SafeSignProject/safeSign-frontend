@@ -36,22 +36,22 @@ const ContractsResult = () => {
           {CONTRACT_RESPONSE.map((contract) => (
             <article key={contract.id} className='my-6 space-y-3 sm:my-8'>
               <h4 className='text-dark text-lg leading-7 font-medium'>{contract.title}</h4>
-              <p
-                onClick={() => {
-                  if (contract.highlight) {
-                    setSelectedId(contract.id);
-                  }
-                }}
-                className={clsx(
-                  'text-dark text-sm',
-                  contract.highlight && 'cursor-pointer transition hover:brightness-95',
-                  contract.highlight === 'danger' &&
-                    'inline-block border-l-2 border-[#EF4444] bg-[#FEE2E2] px-2.5 py-1',
-                  contract.highlight === 'warning' &&
-                    'border-l-2 border-[#F59E0B] bg-[#FEF3C7] px-2.5 py-1',
+              <p className='text-dark text-sm leading-6'>
+                {contract.content && <span>{contract.content} </span>} <br />
+                {contract.highlightContent && (
+                  <span
+                    onClick={() => setSelectedId(contract.id)}
+                    className={clsx(
+                      'cursor-pointer transition hover:brightness-95',
+                      contract.highlight === 'danger' &&
+                        'border-l-2 border-[#EF4444] bg-[#FEE2E2] px-2.5 py-1',
+                      contract.highlight === 'warning' &&
+                        'border-l-2 border-[#F59E0B] bg-[#FEF3C7] px-2.5 py-1',
+                    )}
+                  >
+                    {contract.highlightContent}
+                  </span>
                 )}
-              >
-                {contract.content}
               </p>
             </article>
           ))}
@@ -83,11 +83,11 @@ const ContractsResult = () => {
             <div className='bg-light-gray h-px w-full' />
 
             <div className='space-y-6 p-6'>
-              <div className='flex items-center gap-3'>
+              <div className='flex items-center justify-between'>
                 <div className='flex flex-col gap-1'>
                   <p
                     className={clsx(
-                      'inline-block items-center justify-center rounded-sm px-3 py-1 text-sm',
+                      'inline-block items-center justify-center rounded-sm px-2 py-1 text-sm',
                       selectedAnalysis.type === 'danger'
                         ? 'bg-[#FEE2E2] text-[#991B1B]'
                         : 'bg-[#FEF3C7] text-[#92400E]',
@@ -97,12 +97,22 @@ const ContractsResult = () => {
                   </p>
                   <p className='text-dark-gray text-xs leading-4'>{selectedAnalysis.subtitle}</p>
                 </div>
+                <div className='flex flex-col'>
+                  <p className='text-sm text-dark-gray'>위험도 점수</p>
+                  <h6 className='text-xl font-semibold'>{selectedAnalysis.score}점</h6>
+                </div>
               </div>
 
               {selectedAnalysis.relation && (
                 <div className='space-y-3 rounded border border-[#D1F4E8] bg-[#F0FDF7] p-4'>
                   <div className='flex items-center gap-2'>
-                    <Link2 size={16} className='text-primary' />
+                    <button
+                      type='button'
+                      className='rounded-full text-primary transition hover:bg-[#ecf1ec]'
+                      onClick={() => window.open(selectedAnalysis.relation.lawUrl, '_blank')}
+                    >
+                      <Link2 size={16} />
+                    </button>
                     <p className='text-dark text-sm font-medium'>연관 조항 1개</p>
                   </div>
 
@@ -114,7 +124,13 @@ const ContractsResult = () => {
                       <p className='text-primary text-xs font-medium'>
                         {selectedAnalysis.relation.title}
                       </p>
-                      <CircleAlert size={12} className='text-[#F59E0B]' />
+                      <button
+                        type='button'
+                        className='rounded-full text-[#F59E0B] transition hover:bg-[#FEF3C7]'
+                        onClick={() => window.open(selectedAnalysis.relation.lawUrl, '_blank')}
+                      >
+                        <CircleAlert size={12} />
+                      </button>
                     </div>
                     <p className='text-dark-gray text-xs leading-4'>
                       {selectedAnalysis.relation.content}
@@ -123,18 +139,18 @@ const ContractsResult = () => {
                 </div>
               )}
 
-              <h5 className='text-dark mb-2 text-sm font-medium'>문제 조항</h5>
-              <p className='text-dark border-light-gray rounded-sm border bg-[#F9FAFB] p-3 text-sm leading-6'>
-                {selectedAnalysis.issue}
-              </p>
-
               <h5 className='text-dark mb-2 text-sm font-medium'>왜 위험한가요?</h5>
               <p className='text-dark text-sm leading-6'>{selectedAnalysis.reason}</p>
 
               <h5 className='text-dark mb-2 text-sm font-medium'>관련 법령</h5>
-              <p className='text-dark border-light-gray rounded-sm border bg-[#F9FAFB] p-3 text-sm leading-6'>
+              <a
+                href={selectedAnalysis.lawUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-dark border-light-gray block rounded-sm border bg-[#F9FAFB] p-3 text-sm leading-6 transition hover:brightness-95 active:brightness-90'
+              >
                 {selectedAnalysis.law}
-              </p>
+              </a>
 
               {selectedAnalysis.analysis && (
                 <div className='rounded bg-[#FFFBEB] p-4 text-[#92400E]'>
@@ -142,7 +158,9 @@ const ContractsResult = () => {
                     <TriangleAlert size={16} strokeWidth={1.5} />
                     <p className='text-sm font-medium'>종합 분석</p>
                   </div>
-                  <p className='text-sm leading-6'>{selectedAnalysis.analysis}</p>
+                  <p className='text-sm leading-6 whitespace-pre-line'>
+                    {selectedAnalysis.analysis}
+                  </p>
                 </div>
               )}
 
@@ -178,11 +196,11 @@ const ContractsResult = () => {
               <div className='bg-light-gray h-px w-full' />
 
               <div className='space-y-6 p-6'>
-                <div className='flex items-center gap-3'>
+                <div className='flex items-center justify-between'>
                   <div className='flex flex-col gap-1'>
                     <p
                       className={clsx(
-                        'inline-block items-center justify-center rounded-sm px-3 py-1 text-sm',
+                        'inline-block items-center justify-center rounded-sm px-2 py-1 text-sm',
                         selectedAnalysis.type === 'danger'
                           ? 'bg-[#FEE2E2] text-[#991B1B]'
                           : 'bg-[#FEF3C7] text-[#92400E]',
@@ -192,12 +210,22 @@ const ContractsResult = () => {
                     </p>
                     <p className='text-dark-gray text-xs leading-4'>{selectedAnalysis.subtitle}</p>
                   </div>
+                  <div className='flex flex-col'>
+                    <p className='text-sm text-dark-gray'>위험도 점수</p>
+                    <h6 className='text-xl font-semibold'>{selectedAnalysis.score}점</h6>
+                  </div>
                 </div>
 
                 {selectedAnalysis.relation && (
                   <div className='space-y-3 rounded border border-[#D1F4E8] bg-[#F0FDF7] p-4'>
                     <div className='flex items-center gap-2'>
-                      <Link2 size={16} className='text-primary' />
+                      <button
+                        type='button'
+                        className='rounded-full text-primary transition hover:bg-[#ecf1ec]'
+                        onClick={() => window.open(selectedAnalysis.relation.lawUrl, '_blank')}
+                      >
+                        <Link2 size={16} />
+                      </button>
                       <p className='text-dark text-sm font-medium'>연관 조항 1개</p>
                     </div>
 
@@ -209,7 +237,13 @@ const ContractsResult = () => {
                         <p className='text-primary text-xs font-medium'>
                           {selectedAnalysis.relation.title}
                         </p>
-                        <CircleAlert size={12} className='text-[#F59E0B]' />
+                        <button
+                          type='button'
+                          className='rounded-full text-[#F59E0B] transition hover:bg-[#FEF3C7]'
+                          onClick={() => window.open(selectedAnalysis.relation.lawUrl, '_blank')}
+                        >
+                          <CircleAlert size={12} />
+                        </button>
                       </div>
                       <p className='text-dark-gray text-xs leading-4'>
                         {selectedAnalysis.relation.content}
@@ -218,18 +252,18 @@ const ContractsResult = () => {
                   </div>
                 )}
 
-                <h5 className='text-dark mb-2 text-sm font-medium'>문제 조항</h5>
-                <p className='text-dark border-light-gray rounded-sm border bg-[#F9FAFB] p-3 text-sm leading-6'>
-                  {selectedAnalysis.issue}
-                </p>
-
                 <h5 className='text-dark mb-2 text-sm font-medium'>왜 위험한가요?</h5>
                 <p className='text-dark text-sm leading-6'>{selectedAnalysis.reason}</p>
 
                 <h5 className='text-dark mb-2 text-sm font-medium'>관련 법령</h5>
-                <p className='text-dark border-light-gray rounded-sm border bg-[#F9FAFB] p-3 text-sm leading-6'>
+                <a
+                  href={selectedAnalysis.lawUrl}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-dark border-light-gray block rounded-sm border bg-[#F9FAFB] p-3 text-sm leading-6 transition hover:brightness-95 active:brightness-90'
+                >
                   {selectedAnalysis.law}
-                </p>
+                </a>
 
                 {selectedAnalysis.analysis && (
                   <div className='rounded bg-[#FFFBEB] p-4 text-[#92400E]'>
@@ -237,7 +271,9 @@ const ContractsResult = () => {
                       <TriangleAlert size={16} strokeWidth={1.5} />
                       <p className='text-sm font-medium'>종합 분석</p>
                     </div>
-                    <p className='text-sm leading-6'>{selectedAnalysis.analysis}</p>
+                    <p className='text-sm leading-6  whitespace-pre-line'>
+                      {selectedAnalysis.analysis}
+                    </p>
                   </div>
                 )}
 

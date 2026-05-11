@@ -1,5 +1,5 @@
 export const getRiskStyle = (score: number) => {
-  if (score > 60) {
+  if (score >= 75) {
     return {
       level: '위험',
       iconBg: '#FFEBE9',
@@ -9,7 +9,7 @@ export const getRiskStyle = (score: number) => {
     };
   }
 
-  if (score > 30) {
+  if (score > 25) {
     return {
       level: '주의',
       iconBg: '#FFF4E6',
@@ -29,7 +29,7 @@ export const getRiskStyle = (score: number) => {
 };
 
 export const getRiskBadgeStyle = (score: number) => {
-  if (score > 60) {
+  if (score >= 75) {
     return {
       level: '높음',
       color: '#991B1B',
@@ -37,7 +37,7 @@ export const getRiskBadgeStyle = (score: number) => {
     };
   }
 
-  if (score > 30) {
+  if (score > 25) {
     return {
       level: '보통',
       color: '#92400E',

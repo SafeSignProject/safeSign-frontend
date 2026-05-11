@@ -58,7 +58,7 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
                   style={{ color: style.color }}
                 >
                   <TriangleAlert size={16} />
-                  위험 {item.riskCount}개
+                  위험 요소 {item.riskCount}개
                 </p>
               )}
             </div>

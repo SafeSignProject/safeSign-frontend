@@ -68,7 +68,9 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
         <div className='flex items-center gap-2.5 max-sm:pl-10'>
           <div className='mr-1.5 flex max-sm:items-center max-sm:gap-1 sm:flex-col'>
             <p className='text-dark-gray text-right text-sm'>위험도</p>
-            <h3 className='text-dark leading-6 font-medium'>{item.score}점</h3>
+            <h3 className='text-dark leading-6 font-medium' style={{ color: style.color }}>
+              {item.score}점
+            </h3>
           </div>
 
           <div
