@@ -1,7 +1,9 @@
 import { Logo } from '@/assets';
-import { Button } from '../common';
+import { Button, Modal } from '../common';
 import { Activity, LayoutDashboard, LogOut, Users } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { showToast } from '@/utils/toast';
 
 const menus = [
   {
@@ -27,6 +29,14 @@ const AdminSidebar = () => {
 
   const isActive = (path: string) => {
     return location.pathname.startsWith(path);
+  };
+
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    setIsLogoutModalOpen(false);
+    navigate('/login');
+    showToast.success('로그아웃되었습니다');
   };
 
   return (
@@ -79,11 +89,19 @@ const AdminSidebar = () => {
           icon={<LogOut size={20} />}
           className='
             w-full justify-start rounded-lg py-3 gap-3 text-dark-gray font-medium leading-6 hover:bg-red-50 hover:text-red-500 transition'
-          onClick={() => {
-            console.log('logout');
-          }}
+          onClick={() => setIsLogoutModalOpen(true)}
         />
       </div>
+
+      {isLogoutModalOpen && (
+        <Modal
+          title=' 로그아웃 하시겠습니까?'
+          content='로그인 페이지로 돌아갑니다'
+          buttonLabel='로그아웃'
+          onConfirm={handleLogout}
+          onCancel={() => setIsLogoutModalOpen(false)}
+        />
+      )}
     </aside>
   );
 };
