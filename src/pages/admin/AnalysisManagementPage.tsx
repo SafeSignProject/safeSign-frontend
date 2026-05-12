@@ -1,4 +1,4 @@
-import { AnalysisStats } from '@/components/admin';
+import { AnalysisManagement, AnalysisStats } from '@/components/admin';
 import AdminCommonHeader from '@/components/header/AdminCommonHeader';
 
 const AnalysisManagementPage = () => {
@@ -8,6 +8,7 @@ const AnalysisManagementPage = () => {
 
       <div className='flex flex-col gap-6 px-8'>
         <AnalysisStats />
+        <AnalysisManagement />
       </div>
     </div>
   );

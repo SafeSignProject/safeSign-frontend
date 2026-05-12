@@ -6,3 +6,5 @@ export const resetContractsAtom = atom(null, (_, set) => {
   set(contractsKeywordAtom, '');
   set(contractsSortAtom, '최신순');
 });
+
+export const adminAnalysisKeywordAtom = atom('');
