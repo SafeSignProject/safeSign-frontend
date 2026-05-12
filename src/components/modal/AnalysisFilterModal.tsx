@@ -1,19 +1,42 @@
-import { Check, X } from 'lucide-react';
-import { useState } from 'react';
+import { analysisFilterAtom } from '@/atoms';
 import { Button } from '../common';
+import { useAtom } from 'jotai';
+import { Check, ChevronDown, X } from 'lucide-react';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 interface AnalysisFilterModalProps {
   onClose: () => void;
 }
 
+const DEFAULT_FILTER = {
+  period: '전체기간',
+  status: '전체',
+};
+
 const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
+  const [filter, setFilter] = useAtom(analysisFilterAtom);
   const [isOpenPeriodMenu, setIsOpenPeriodMenu] = useState(false);
   const [isOpenStatusMenu, setIsOpenStatusMenu] = useState(false);
-  const [selectedPeriodMenu, setSelectedPeriodMenu] = useState('전체기간');
-  const [selectedStatusMenu, setSelectedStatusMenu] = useState('전체');
+  const [selectedPeriodMenu, setSelectedPeriodMenu] = useState(filter.period);
+  const [selectedStatusMenu, setSelectedStatusMenu] = useState(filter.status);
 
   const periodMenus = ['전체기간', '오늘', '최근 7일', '최근 30일'];
   const statusMenus = ['전체', '성공', '실패'];
+
+  const handleReset = () => {
+    setSelectedPeriodMenu(DEFAULT_FILTER.period);
+    setSelectedStatusMenu(DEFAULT_FILTER.status);
+
+    setFilter(DEFAULT_FILTER);
+  };
+
+  const handleApply = () => {
+    setFilter({
+      period: selectedPeriodMenu,
+      status: selectedStatusMenu,
+    });
+  };
 
   return (
     <div
@@ -21,7 +44,7 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
       onClick={onClose}
     >
       <div
-        className='flex w-md max-w-[90%] flex-col space-y-5 overflow-visible rounded-xl bg-white p-6'
+        className='flex w-md max-w-[90%] flex-col space-y-6 overflow-visible rounded-xl bg-white p-6'
         onClick={(e) => e.stopPropagation()}
       >
         <article className='flex items-center justify-between'>
@@ -43,13 +66,20 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
           <div className='relative w-full'>
             <button
               type='button'
-              className='w-full rounded-lg border border-light-gray bg-white px-4 py-3 text-left transition hover:brightness-95 active:brightness-90'
+              className='flex rounded-lg items-center w-full justify-between border border-light-gray bg-white px-4 py-3 text-left transition hover:brightness-95 active:brightness-90'
               onClick={() => {
                 setIsOpenPeriodMenu((prev) => !prev);
                 setIsOpenStatusMenu(false);
               }}
             >
               {selectedPeriodMenu}
+              <ChevronDown
+                size={20}
+                className={clsx(
+                  'text-dark-gray transform transition-transform duration-300 ease-in-out',
+                  isOpenPeriodMenu ? 'rotate-180' : 'rotate-0',
+                )}
+              />
             </button>
 
             {isOpenPeriodMenu && (
@@ -60,7 +90,7 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
                   return (
                     <button
                       key={menu}
-                      className='flex w-full items-center justify-between bg-white px-4 py-2 text-left text-sm hover:bg-gray-50'
+                      className='flex w-full items-center justify-between px-4 py-2 text-left text-sm hover:bg-gray-50'
                       onClick={() => {
                         setSelectedPeriodMenu(menu);
                         setIsOpenPeriodMenu(false);
@@ -84,13 +114,20 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
           <div className='relative w-full'>
             <button
               type='button'
-              className='w-full rounded-lg border border-light-gray bg-white px-4 py-3 text-left transition hover:brightness-95 active:brightness-90'
+              className='flex rounded-lg items-center w-full justify-between border border-light-gray bg-white px-4 py-3 text-left transition hover:brightness-95 active:brightness-90'
               onClick={() => {
                 setIsOpenStatusMenu((prev) => !prev);
                 setIsOpenPeriodMenu(false);
               }}
             >
               {selectedStatusMenu}
+              <ChevronDown
+                size={20}
+                className={clsx(
+                  'text-dark-gray transform transition-transform duration-300 ease-in-out',
+                  isOpenStatusMenu ? 'rotate-180' : 'rotate-0',
+                )}
+              />
             </button>
 
             {isOpenStatusMenu && (
@@ -122,12 +159,14 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
           <Button
             type='button'
             label='초기화'
-            className='border border-light-gray bg-white text-dark-gray hover:brightness-95 active:brightness-90 py-2.5 rounded-lg leading-6 font-medium'
+            onClick={handleReset}
+            className='rounded-lg border border-light-gray bg-white py-2.5 font-medium leading-6 text-dark-gray hover:brightness-95 active:brightness-90'
           />
           <Button
             type='button'
             label='적용하기'
-            className=' bg-dark text-white hover:brightness-95 active:brightness-90 py-2.5 rounded-lg leading-6 font-medium'
+            onClick={handleApply}
+            className='rounded-lg bg-dark py-2.5 font-medium leading-6 text-white hover:brightness-95 active:brightness-90'
           />
         </article>
       </div>

@@ -1,4 +1,4 @@
-import { adminAnalysisKeywordAtom } from '@/atoms';
+import { adminAnalysisKeywordAtom, analysisFilterAtom } from '@/atoms';
 import { Button, Input } from '@/components/common';
 import { ANALYSIS_LOGS } from '@/mocks/analysisLogs';
 import clsx from 'clsx';
@@ -10,6 +10,18 @@ import AnalysisFilterModal from '../modal/AnalysisFilterModal';
 const AnalysisManagement = () => {
   const [keyword, setKeyword] = useAtom(adminAnalysisKeywordAtom);
   const [isOpenfilterModal, setIsOpenfilterModal] = useState(false);
+
+  const [filter] = useAtom(analysisFilterAtom);
+
+  const filteredLogs = ANALYSIS_LOGS.filter((log) => {
+    // 검색어
+    const matchedKeyword = log.fileName.includes(keyword) || log.user.includes(keyword);
+
+    // 상태
+    const matchedStatus = filter.status === '전체' ? true : log.status === filter.status;
+
+    return matchedKeyword && matchedStatus;
+  });
 
   return (
     <section className='bg-white rounded-xl border border-light-gray py-6 mb-8'>
@@ -36,7 +48,7 @@ const AnalysisManagement = () => {
 
       <div className='h-px w-full bg-light-gray my-6' />
 
-      {ANALYSIS_LOGS.map((log, index) => (
+      {filteredLogs.map((log, index) => (
         <article key={log.id}>
           <div className='px-6'>
             <div className='flex items-start justify-between'>
