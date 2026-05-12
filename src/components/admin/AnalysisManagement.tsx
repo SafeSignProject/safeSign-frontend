@@ -4,9 +4,12 @@ import { ANALYSIS_LOGS } from '@/mocks/analysisLogs';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { CircleCheck, Eye, Funnel } from 'lucide-react';
+import { useState } from 'react';
+import AnalysisFilterModal from '../modal/AnalysisFilterModal';
 
 const AnalysisManagement = () => {
   const [keyword, setKeyword] = useAtom(adminAnalysisKeywordAtom);
+  const [isOpenfilterModal, setIsOpenfilterModal] = useState(false);
 
   return (
     <section className='bg-white rounded-xl border border-light-gray py-6 mb-8'>
@@ -26,6 +29,7 @@ const AnalysisManagement = () => {
             label='필터'
             className='border-light-gray h-10.5 border rounded-lg hover:brightness-95 active:brightness-90 text-dark-gray'
             icon={<Funnel size={16} />}
+            onClick={() => setIsOpenfilterModal(true)}
           />
         </div>
       </article>
@@ -93,6 +97,8 @@ const AnalysisManagement = () => {
           {index !== ANALYSIS_LOGS.length - 1 && <div className='h-px w-full bg-light-gray my-6' />}
         </article>
       ))}
+
+      {isOpenfilterModal && <AnalysisFilterModal onClose={() => setIsOpenfilterModal(false)} />}
     </section>
   );
 };

@@ -40,7 +40,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <aside className='fixed top-0 left-0 flex flex-col w-66.25 h-screen bg-white z-50 border-r border-light-gray'>
+    <aside className='fixed top-0 left-0 flex flex-col w-66.25 h-screen bg-white z-40 border-r border-light-gray'>
       <div>
         <div className='flex items-center gap-2 p-6'>
           <Logo width={25.53} height={32} />

@@ -79,9 +79,12 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
   }, [onClose]);
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-black/40' onClick={onClose}>
+    <div
+      className='z-50 fixed inset-0 flex items-center justify-center bg-black/40'
+      onClick={onClose}
+    >
       <div
-        className='z-50 flex w-100 max-w-[90%] flex-col space-y-3 overflow-hidden rounded-lg bg-white p-8'
+        className='flex w-100 max-w-[90%] flex-col space-y-3 overflow-hidden rounded-lg bg-white p-8'
         onClick={(e) => e.stopPropagation()}
       >
         <section className='mb-6 flex items-center justify-start gap-3'>
