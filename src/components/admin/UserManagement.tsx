@@ -3,7 +3,7 @@ import { ChevronDown, Mail, Search, TriangleAlert, User } from 'lucide-react';
 
 import { KakaoIcon, GoogleIcon } from '@/assets';
 import { Input } from '@/components/common';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const USERS = [
   {
@@ -38,7 +38,22 @@ const USERS = [
 
 const UserManagement = () => {
   const [keyword, setKeyword] = useState('');
+  const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(keyword);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [keyword]);
+
+  const filteredUsers = USERS.filter(
+    (user) =>
+      user.name.toLowerCase().includes(debouncedKeyword.toLowerCase()) ||
+      user.email.toLowerCase().includes(debouncedKeyword.toLowerCase()),
+  );
 
   return (
     <section className='w-full rounded-2xl border border-light-gray bg-white pt-8'>
@@ -72,87 +87,92 @@ const UserManagement = () => {
           </thead>
 
           <tbody>
-            {USERS.map((user) => {
-              const isOpen = openMenuId === user.id;
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => {
+                const isOpen = openMenuId === user.id;
 
-              return (
-                <tr
-                  key={user.id}
-                  className='border-b border-light-gray text-center text-sm last:border-b-0'
-                >
-                  <td className='px-6 py-9 font-medium text-dark-gray'>{user.id}</td>
-                  <td className='px-6 py-9 text-base font-semibold text-dark'>{user.name}</td>
-                  <td className='px-6 py-9 text-dark-gray'>{user.email}</td>
-                  <td className='px-6 py-9 text-dark-gray'>{user.joinedAt}</td>
-                  <td className='px-6 py-9'>
-                    <span
-                      className={clsx(
-                        'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium',
-                        user.provider === 'Email' && 'bg-[#F3F4F6] text-[#374151]',
-                        user.provider === 'Kakao' && 'bg-[#FEE500] text-[#3C1E1E]',
-                        user.provider === 'Google' && 'bg-[#F3F4F6] text-[#374151]',
-                      )}
-                    >
-                      {user.provider === 'Email' && <Mail size={14} />}
-
-                      {user.provider === 'Kakao' && <KakaoIcon width={12} height={12} />}
-
-                      {user.provider === 'Google' && <GoogleIcon width={12} height={12} />}
-
-                      {user.provider}
-                    </span>
-                  </td>
-
-                  <td className='relative px-6 py-9'>
-                    <div className='flex justify-center'>
-                      <button
-                        type='button'
-                        className='flex items-center justify-between gap-1 rounded-lg border border-light-gray bg-white px-4 py-1 text-dark-gray transition hover:brightness-95 active:brightness-90'
-                        onClick={() => {
-                          setOpenMenuId((prev) => (prev === user.id ? null : user.id));
-                        }}
+                return (
+                  <tr
+                    key={user.id}
+                    className='border-b border-light-gray text-center text-sm last:border-b-0'
+                  >
+                    <td className='px-6 py-9 font-medium text-dark-gray'>{user.id}</td>
+                    <td className='px-6 py-9 text-base font-semibold text-dark'>{user.name}</td>
+                    <td className='px-6 py-9 text-dark-gray'>{user.email}</td>
+                    <td className='px-6 py-9 text-dark-gray'>{user.joinedAt}</td>
+                    <td className='px-6 py-9'>
+                      <span
+                        className={clsx(
+                          'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium',
+                          user.provider === 'Email' && 'bg-[#F3F4F6] text-[#374151]',
+                          user.provider === 'Kakao' && 'bg-[#FEE500] text-[#3C1E1E]',
+                          user.provider === 'Google' && 'bg-[#F3F4F6] text-[#374151]',
+                        )}
                       >
-                        관리
-                        <ChevronDown
-                          size={16}
-                          className={clsx(
-                            'text-dark-gray transition-transform duration-300 ease-in-out',
-                            isOpen ? 'rotate-180' : 'rotate-0',
-                          )}
-                        />
-                      </button>
-                    </div>
+                        {user.provider === 'Email' && <Mail size={14} />}
+                        {user.provider === 'Kakao' && <KakaoIcon width={12} height={12} />}
+                        {user.provider === 'Google' && <GoogleIcon width={12} height={12} />}
+                        {user.provider}
+                      </span>
+                    </td>
 
-                    {isOpen && (
-                      <div className='absolute right-10 top-18 z-40 w-45 overflow-hidden rounded-lg border border-light-gray bg-white py-2 shadow-lg duration-150'>
+                    <td className='relative px-6 py-9'>
+                      <div className='flex justify-center'>
                         <button
                           type='button'
-                          className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
+                          className='flex items-center justify-between gap-1 rounded-lg border border-light-gray bg-white px-4 py-1 text-dark-gray transition hover:brightness-95 active:brightness-90'
+                          onClick={() => {
+                            setOpenMenuId((prev) => (prev === user.id ? null : user.id));
+                          }}
                         >
-                          <User size={16} />
-                          상세정보
-                        </button>
-                        <button
-                          type='button'
-                          className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
-                        >
-                          <Search size={16} />
-                          분석이력
-                        </button>
-                        <div className='my-1 border-t border-light-gray' />
-                        <button
-                          type='button'
-                          className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-[#D92D20] font-medium transition-colors hover:bg-red-50'
-                        >
-                          <TriangleAlert size={16} />
-                          회원삭제
+                          관리
+                          <ChevronDown
+                            size={16}
+                            className={clsx(
+                              'text-dark-gray transition-transform duration-300 ease-in-out',
+                              isOpen ? 'rotate-180' : 'rotate-0',
+                            )}
+                          />
                         </button>
                       </div>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+
+                      {isOpen && (
+                        <div className='absolute right-10 top-18 z-40 w-45 overflow-hidden rounded-lg border border-light-gray bg-white py-2 shadow-lg duration-150'>
+                          <button
+                            type='button'
+                            className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
+                          >
+                            <User size={16} />
+                            상세정보
+                          </button>
+                          <button
+                            type='button'
+                            className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
+                          >
+                            <Search size={16} />
+                            분석이력
+                          </button>
+                          <div className='my-1 border-t border-light-gray' />
+                          <button
+                            type='button'
+                            className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-[#D92D20] font-medium transition-colors hover:bg-red-50'
+                          >
+                            <TriangleAlert size={16} />
+                            회원삭제
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={6} className='py-11 text-center text-dark-gray'>
+                  검색 결과가 없습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
 
