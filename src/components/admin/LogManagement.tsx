@@ -35,7 +35,7 @@ const LogManagement = () => {
 
               <span
                 className={clsx(
-                  'rounded-md px-3 py-1 text-xs font-medium bg-[#F3F4F6] text-[#374151] flex items-center gap-1.5',
+                  'rounded-md px-3 py-1.5 text-xs font-medium bg-[#F3F4F6] text-[#374151] flex items-center gap-1.5',
                   user.provider === 'Kakao' && 'bg-[#FEE500] text-[#3C1E1E]',
                 )}
               >

@@ -5,19 +5,19 @@ import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { CircleCheck, Eye, Funnel } from 'lucide-react';
 import { useState } from 'react';
-import AnalysisFilterModal from '../modal/AnalysisFilterModal';
+import { AnalysisFilterModal, AnalysisLogDetailModal } from '@/components/modal';
 
 const AnalysisManagement = () => {
   const [keyword, setKeyword] = useAtom(adminAnalysisKeywordAtom);
   const [isOpenfilterModal, setIsOpenfilterModal] = useState(false);
 
+  const [selectedLog, setSelectedLog] = useState<(typeof ANALYSIS_LOGS)[number] | null>(null);
+
   const [filter] = useAtom(analysisFilterAtom);
 
   const filteredLogs = ANALYSIS_LOGS.filter((log) => {
-    // 검색어
     const matchedKeyword = log.fileName.includes(keyword) || log.user.includes(keyword);
 
-    // 상태
     const matchedStatus = filter.status === '전체' ? true : log.status === filter.status;
 
     return matchedKeyword && matchedStatus;
@@ -27,6 +27,7 @@ const AnalysisManagement = () => {
     <section className='bg-white rounded-xl border border-light-gray py-6 mb-8'>
       <article className='space-y-4 px-6'>
         <h3 className='text-xl leading-8 text-dark font-semibold'>분석 로그</h3>
+
         <div className='relative flex items-center gap-4'>
           <Input
             isSearch={true}
@@ -55,6 +56,7 @@ const AnalysisManagement = () => {
               <div className='space-y-1.5'>
                 <div className='flex items-center gap-3'>
                   <h4 className='text-lg leading-7 font-medium text-dark'>{log.fileName}</h4>
+
                   <span
                     className={clsx(
                       'rounded-md px-3 py-1 text-xs font-medium',
@@ -76,6 +78,7 @@ const AnalysisManagement = () => {
                 label='상세'
                 icon={<Eye size={16} />}
                 className='h-8.5 border border-light-gray px-3 py-1 bg-white rounded-lg text-dark-gray hover:brightness-95 active:brightness-90'
+                onClick={() => setSelectedLog(log)}
               />
             </div>
 
@@ -91,16 +94,19 @@ const AnalysisManagement = () => {
 
               <div>
                 <p className='text-xs text-dark-gray'>분석 시간</p>
+
                 <p className=' mt-1 text-sm leading-5 text-dark'>{log.analysisTime}</p>
               </div>
 
               <div>
                 <p className='text-xs text-dark-gray'>위험도 점수</p>
+
                 <p className='mt-1 text-sm leading-5 text-dark'>{log.riskScore}</p>
               </div>
 
               <div>
                 <p className='text-xs text-dark-gray'>발견된 이슈</p>
+
                 <p className='mt-1 text-sm leading-5 text-dark'>{log.issueCount}</p>
               </div>
             </div>
@@ -111,6 +117,10 @@ const AnalysisManagement = () => {
       ))}
 
       {isOpenfilterModal && <AnalysisFilterModal onClose={() => setIsOpenfilterModal(false)} />}
+
+      {selectedLog && (
+        <AnalysisLogDetailModal log={selectedLog} onClose={() => setSelectedLog(null)} />
+      )}
     </section>
   );
 };
