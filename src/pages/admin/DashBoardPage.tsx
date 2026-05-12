@@ -1,5 +1,4 @@
-import { DashboardStats } from '@/components/admin';
-import LogManagement from '@/components/admin/LogManagement';
+import { DashboardStats, LogManagement } from '@/components/admin';
 import AdminCommonHeader from '@/components/header/AdminCommonHeader';
 
 const DashBoardPage = () => {
