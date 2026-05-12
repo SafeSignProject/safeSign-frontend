@@ -5,6 +5,7 @@ import { Input } from '@/components/common';
 import { useEffect, useState } from 'react';
 import UserPagination from './UserPagination';
 import { USERS } from '@/mocks/users';
+import { UserDetailInfoModal, AnalysisRecordModal, DeleteUserModal } from '../modal';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -12,6 +13,10 @@ const UserManagement = () => {
   const [keyword, setKeyword] = useState('');
   const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+
+  const [isOpenUserInfoModal, setIsOpenUserInfoModal] = useState(false);
+  const [isOpenAnalysisModal, setIsOpenAnalysisModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -126,6 +131,7 @@ const UserManagement = () => {
                           <button
                             type='button'
                             className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
+                            onClick={() => setIsOpenUserInfoModal(true)}
                           >
                             <User size={16} />
                             상세정보
@@ -133,6 +139,7 @@ const UserManagement = () => {
                           <button
                             type='button'
                             className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
+                            onClick={() => setIsOpenAnalysisModal(true)}
                           >
                             <Search size={16} />
                             분석이력
@@ -141,6 +148,7 @@ const UserManagement = () => {
                           <button
                             type='button'
                             className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-[#D92D20] font-medium transition-colors hover:bg-red-50'
+                            onClick={() => setIsOpenDeleteModal(true)}
                           >
                             <TriangleAlert size={16} />
                             회원삭제
@@ -174,6 +182,10 @@ const UserManagement = () => {
           />
         </div>
       </article>
+
+      {isOpenUserInfoModal && <UserDetailInfoModal onClose={() => setIsOpenUserInfoModal(false)} />}
+      {isOpenAnalysisModal && <AnalysisRecordModal onClose={() => setIsOpenAnalysisModal(false)} />}
+      {isOpenDeleteModal && <DeleteUserModal onClose={() => setIsOpenDeleteModal(false)} />}
     </section>
   );
 };
