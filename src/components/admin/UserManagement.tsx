@@ -1,45 +1,23 @@
 import clsx from 'clsx';
 import { ChevronDown, Mail, Search, TriangleAlert, User } from 'lucide-react';
-
 import { KakaoIcon, GoogleIcon } from '@/assets';
 import { Input } from '@/components/common';
 import { useEffect, useState } from 'react';
+import UserPagination from './UserPagination';
+import { USERS } from '@/mocks/users';
 
-const USERS = [
-  {
-    id: 'U001',
-    name: '홍길동',
-    email: 'hong@safe.com',
-    joinedAt: '2026-04-01',
-    provider: 'Email',
-  },
-  {
-    id: 'U002',
-    name: '김철수',
-    email: 'chul@kakao.com',
-    joinedAt: '2026-04-05',
-    provider: 'Kakao',
-  },
-  {
-    id: 'U003',
-    name: '이영희',
-    email: 'young@gmail.com',
-    joinedAt: '2026-04-08',
-    provider: 'Google',
-  },
-  {
-    id: 'U004',
-    name: '박지민',
-    email: 'jimin@naver.com',
-    joinedAt: '2026-04-09',
-    provider: 'Email',
-  },
-];
+const ITEMS_PER_PAGE = 5;
 
 const UserManagement = () => {
   const [keyword, setKeyword] = useState('');
   const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedKeyword]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,6 +32,13 @@ const UserManagement = () => {
       user.name.toLowerCase().includes(debouncedKeyword.toLowerCase()) ||
       user.email.toLowerCase().includes(debouncedKeyword.toLowerCase()),
   );
+
+  const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+
+  const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
 
   return (
     <section className='w-full rounded-2xl border border-light-gray bg-white pt-8'>
@@ -73,7 +58,7 @@ const UserManagement = () => {
         </div>
       </article>
 
-      <article className='mt-8 overflow-hidden border-t border-light-gray'>
+      <article className='mt-8 border-t border-light-gray'>
         <table className='w-full border-collapse'>
           <thead className='bg-[#FAFAFA]'>
             <tr className='border-b border-light-gray text-sm font-semibold text-dark'>
@@ -88,7 +73,7 @@ const UserManagement = () => {
 
           <tbody>
             {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => {
+              paginatedUsers.map((user) => {
                 const isOpen = openMenuId === user.id;
 
                 return (
@@ -177,25 +162,16 @@ const UserManagement = () => {
         </table>
 
         <div className='flex items-center justify-between border-t border-light-gray px-8 py-5'>
-          <p className='font-medium leading-6 text-dark-gray'>총 3,847명 중 1-10</p>
+          <p className='font-medium leading-6 text-dark-gray'>
+            총 {filteredUsers.length}명 중 {startIndex + 1}-
+            {Math.min(endIndex, filteredUsers.length)}
+          </p>
 
-          <div className='flex items-center gap-2'>
-            <button className='rounded-lg h-9.5 border border-light-gray px-4 text-sm leading-5 font-medium text-dark-gray transition hover:brightness-95 active:brightness-90 bg-white'>
-              이전
-            </button>
-            <button className='flex h-9.5 w-9.5 items-center justify-center rounded-lg bg-primary text-sm font-semibold leading-5 text-white transition hover:brightness-95 active:brightness-90'>
-              1
-            </button>
-            <button className='flex h-9.5 w-9.5 items-center justify-center rounded-lg border border-light-gray text-sm font-medium leading-5 text-dark transition hover:brightness-95 active:brightness-90 bg-white'>
-              2
-            </button>
-            <button className='flex h-9.5 w-9.5 items-center justify-center rounded-lg border border-light-gray text-sm font-medium leading-5 text-dark transition hover:brightness-95 active:brightness-90 bg-white'>
-              3
-            </button>
-            <button className='rounded-lg h-9.5 border border-light-gray px-4  text-sm leading-5 font-medium text-dark-gray transition hover:brightness-95 active:brightness-90 bg-white'>
-              다음
-            </button>
-          </div>
+          <UserPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       </article>
     </section>
