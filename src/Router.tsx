@@ -11,6 +11,10 @@ import ContractsPage from './pages/contracts/ContractsPage';
 import AnalyzingPage from './pages/upload/AnalyzingPage';
 import ContractsDetailPage from './pages/contracts/ContractsDetailPage';
 import LandingPage from './pages/LandingPage';
+import AdminLayout from './layouts/AdminLayout';
+import DashBoardPage from './pages/admin/DashBoardPage';
+import AnalysisManagementPage from './pages/admin/AnalysisManagementPage';
+import UsersManagementPage from './pages/admin/UsersManagementPage';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +71,23 @@ const router = createBrowserRouter([
           {
             path: 'analyze',
             element: <AnalyzingPage />,
+          },
+        ],
+      },
+      {
+        element: <AdminLayout />,
+        children: [
+          {
+            path: 'dashboard',
+            element: <DashBoardPage />,
+          },
+          {
+            path: 'analysis-management',
+            element: <AnalysisManagementPage />,
+          },
+          {
+            path: 'users-management',
+            element: <UsersManagementPage />,
           },
         ],
       },
