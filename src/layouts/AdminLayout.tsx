@@ -7,7 +7,7 @@ const AdminLayout = () => {
     <div className='flex min-h-screen bg-[#F9FAFB]'>
       <AdminSidebar />
 
-      <main className=' p-6'>
+      <main className='ml-66.25 min-h-screen w-full'>
         <Outlet />
       </main>
     </div>
