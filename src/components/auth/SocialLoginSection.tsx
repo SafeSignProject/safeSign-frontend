@@ -7,13 +7,13 @@ const SocialLoginSection = () => {
       <Button
         type='button'
         label='Google 로그인'
-        icon={<GoogleIcon />}
+        icon={<GoogleIcon width='20' height='20' />}
         className='text-dark border-light-gray h-12.5 w-full border bg-inherit font-medium hover:brightness-95 active:brightness-90'
       />
       <Button
         type='button'
         label='카카오 로그인'
-        icon={<KakaoIcon />}
+        icon={<KakaoIcon width='18' height='17' />}
         className='text-dark h-12.5 w-full bg-[#FEE500] font-medium hover:brightness-95 active:brightness-90'
       />
 
