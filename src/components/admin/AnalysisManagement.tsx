@@ -85,7 +85,6 @@ const AnalysisManagement = () => {
             <div className='mt-6 grid grid-cols-4'>
               <div>
                 <p className='text-xs text-dark-gray'>OCR 상태</p>
-
                 <div className='flex items-center gap-1.5 text-dark mt-1'>
                   <CircleCheck size={16} className='text-primary' />
                   <span className='text-sm leading-5'>{log.ocrTime}</span>
@@ -94,19 +93,16 @@ const AnalysisManagement = () => {
 
               <div>
                 <p className='text-xs text-dark-gray'>분석 시간</p>
-
                 <p className=' mt-1 text-sm leading-5 text-dark'>{log.analysisTime}</p>
               </div>
 
               <div>
                 <p className='text-xs text-dark-gray'>위험도 점수</p>
-
                 <p className='mt-1 text-sm leading-5 text-dark'>{log.riskScore}</p>
               </div>
 
               <div>
                 <p className='text-xs text-dark-gray'>발견된 이슈</p>
-
                 <p className='mt-1 text-sm leading-5 text-dark'>{log.issueCount}</p>
               </div>
             </div>
