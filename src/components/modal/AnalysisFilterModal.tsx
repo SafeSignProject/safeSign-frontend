@@ -2,7 +2,7 @@ import { analysisFilterAtom } from '@/atoms';
 import { Button } from '../common';
 import { useAtom } from 'jotai';
 import { Check, ChevronDown, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 interface AnalysisFilterModalProps {
@@ -37,6 +37,18 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
       status: selectedStatusMenu,
     });
   };
+
+  useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.paddingRight = '0px';
+    };
+  }, []);
 
   return (
     <div

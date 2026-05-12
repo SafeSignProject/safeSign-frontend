@@ -1,6 +1,7 @@
 import { ANALYSIS_LOGS } from '@/mocks/analysisLogs';
 import clsx from 'clsx';
 import { CheckCircle2 } from 'lucide-react';
+import { useEffect } from 'react';
 
 interface AnalysisLogDetailModalProps {
   onClose: () => void;
@@ -26,6 +27,18 @@ const ISSUE_LIST = [
 ];
 
 const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) => {
+  useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.paddingRight = '0px';
+    };
+  }, []);
+
   return (
     <div
       className='fixed inset-0 z-50 flex items-center justify-center bg-black/40'
