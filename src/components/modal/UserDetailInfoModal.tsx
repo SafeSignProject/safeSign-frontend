@@ -26,12 +26,12 @@ const UserDetailInfoModal = ({ onClose, user }: UserDetailInfoModalProps) => {
       onClick={onClose}
     >
       <div
-        className='flex w-md max-w-[90%] flex-col overflow-visible rounded-xl bg-white p-6'
+        className='flex w-md max-w-[90%] flex-col overflow-visible rounded-xl bg-white p-8'
         onClick={(e) => e.stopPropagation()}
       >
         <p className='text-lg leading-7 font-semibold text-dark'>회원 상세 정보</p>
 
-        <section className='flex flex-col items-center justify-center'>
+        <section className='flex flex-col items-center justify-center mt-8'>
           <div className='bg-primary h-20 w-20 text-white text-3xl font-bold leading-9 flex items-center justify-center rounded-full'>
             {user.name[0]}
           </div>
@@ -63,7 +63,7 @@ const UserDetailInfoModal = ({ onClose, user }: UserDetailInfoModalProps) => {
         <Button
           type='button'
           label='확인'
-          className='bg-[#1F2937] w-full h-13 text-white font-semibold rounded-xl hover:brightness-110 active:brightness-90'
+          className='bg-[#1F2937] w-full h-13 text-white font-semibold rounded-xl hover:brightness-90 active:brightness-80 mt-4'
           onClick={onClose}
         />
       </div>

@@ -188,12 +188,24 @@ const UserManagement = () => {
         </div>
       </article>
 
-      {isOpenUserInfoModal && selectedUser && (
-        <UserDetailInfoModal user={selectedUser} onClose={() => setIsOpenUserInfoModal(false)} />
-      )}
-      {isOpenAnalysisModal && <AnalysisRecordModal onClose={() => setIsOpenAnalysisModal(false)} />}
-      {isOpenDeleteModal && selectedUser && (
-        <DeleteUserModal user={selectedUser} onClose={() => setIsOpenDeleteModal(false)} />
+      {selectedUser && (
+        <>
+          {isOpenUserInfoModal && (
+            <UserDetailInfoModal
+              user={selectedUser}
+              onClose={() => setIsOpenUserInfoModal(false)}
+            />
+          )}
+          {isOpenAnalysisModal && (
+            <AnalysisRecordModal
+              user={selectedUser}
+              onClose={() => setIsOpenAnalysisModal(false)}
+            />
+          )}
+          {isOpenDeleteModal && (
+            <DeleteUserModal user={selectedUser} onClose={() => setIsOpenDeleteModal(false)} />
+          )}
+        </>
       )}
     </section>
   );
