@@ -13,7 +13,7 @@ export const ANALYSIS_LOGS = [
   },
   {
     id: 2,
-    fileName: '상가입대차계약서.pdf',
+    fileName: '상가임대차계약서.pdf',
     status: '성공',
     user: '이영희',
     userCode: 'U023',
