@@ -18,6 +18,8 @@ const UserManagement = () => {
   const [isOpenAnalysisModal, setIsOpenAnalysisModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
+  const [selectedUser, setSelectedUser] = useState<(typeof USERS)[number] | null>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -131,7 +133,10 @@ const UserManagement = () => {
                           <button
                             type='button'
                             className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
-                            onClick={() => setIsOpenUserInfoModal(true)}
+                            onClick={() => {
+                              setSelectedUser(user);
+                              setIsOpenUserInfoModal(true);
+                            }}
                           >
                             <User size={16} />
                             상세정보
@@ -183,7 +188,9 @@ const UserManagement = () => {
         </div>
       </article>
 
-      {isOpenUserInfoModal && <UserDetailInfoModal onClose={() => setIsOpenUserInfoModal(false)} />}
+      {isOpenUserInfoModal && selectedUser && (
+        <UserDetailInfoModal user={selectedUser} onClose={() => setIsOpenUserInfoModal(false)} />
+      )}
       {isOpenAnalysisModal && <AnalysisRecordModal onClose={() => setIsOpenAnalysisModal(false)} />}
       {isOpenDeleteModal && <DeleteUserModal onClose={() => setIsOpenDeleteModal(false)} />}
     </section>
