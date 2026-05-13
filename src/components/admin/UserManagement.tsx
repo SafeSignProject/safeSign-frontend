@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { ChevronDown, Mail, Search, TriangleAlert, User } from 'lucide-react';
 import { KakaoIcon, GoogleIcon } from '@/assets';
 import { Input } from '@/components/common';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import UserPagination from './UserPagination';
 import { USERS } from '@/mocks/users';
 import { UserDetailInfoModal, AnalysisRecordModal, DeleteUserModal } from '../modal';
@@ -22,6 +22,8 @@ const UserManagement = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedKeyword]);
@@ -33,6 +35,20 @@ const UserManagement = () => {
 
     return () => clearTimeout(timer);
   }, [keyword]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpenMenuId(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const filteredUsers = USERS.filter(
     (user) =>
@@ -89,9 +105,13 @@ const UserManagement = () => {
                     className='border-b border-light-gray text-center text-sm last:border-b-0'
                   >
                     <td className='px-6 py-9 font-medium text-dark-gray'>{user.id}</td>
+
                     <td className='px-6 py-9 text-base font-semibold text-dark'>{user.name}</td>
+
                     <td className='px-6 py-9 text-dark-gray'>{user.email}</td>
+
                     <td className='px-6 py-9 text-dark-gray'>{user.joinedAt}</td>
+
                     <td className='px-6 py-9'>
                       <span
                         className={clsx(
@@ -104,12 +124,13 @@ const UserManagement = () => {
                         {user.provider === 'Email' && <Mail size={14} />}
                         {user.provider === 'Kakao' && <KakaoIcon width={12} height={12} />}
                         {user.provider === 'Google' && <GoogleIcon width={12} height={12} />}
+
                         {user.provider}
                       </span>
                     </td>
 
                     <td className='relative px-6 py-9'>
-                      <div className='flex justify-center'>
+                      <div ref={isOpen ? menuRef : null} className='flex justify-center'>
                         <button
                           type='button'
                           className='flex items-center justify-between gap-1 rounded-lg border border-light-gray bg-white px-4 py-1 text-dark-gray transition hover:brightness-95 active:brightness-90'
@@ -126,40 +147,52 @@ const UserManagement = () => {
                             )}
                           />
                         </button>
-                      </div>
 
-                      {isOpen && (
-                        <div className='absolute right-10 top-18 z-40 w-45 overflow-hidden rounded-lg border border-light-gray bg-white py-2 shadow-lg duration-150'>
-                          <button
-                            type='button'
-                            className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
-                            onClick={() => {
-                              setSelectedUser(user);
-                              setIsOpenUserInfoModal(true);
-                            }}
-                          >
-                            <User size={16} />
-                            상세정보
-                          </button>
-                          <button
-                            type='button'
-                            className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-dark font-medium transition-colors hover:bg-gray-50'
-                            onClick={() => setIsOpenAnalysisModal(true)}
-                          >
-                            <Search size={16} />
-                            분석이력
-                          </button>
-                          <div className='my-1 border-t border-light-gray' />
-                          <button
-                            type='button'
-                            className='flex items-center gap-3 w-full px-4 py-2.5 text-left text-sm text-[#D92D20] font-medium transition-colors hover:bg-red-50'
-                            onClick={() => setIsOpenDeleteModal(true)}
-                          >
-                            <TriangleAlert size={16} />
-                            회원삭제
-                          </button>
-                        </div>
-                      )}
+                        {isOpen && (
+                          <div className='absolute right-10 top-18 z-40 w-45 overflow-hidden rounded-lg border border-light-gray bg-white py-2 shadow-lg duration-150'>
+                            <button
+                              type='button'
+                              className='flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm font-medium text-dark transition-colors hover:bg-gray-50'
+                              onClick={() => {
+                                setSelectedUser(user);
+                                setIsOpenUserInfoModal(true);
+                                setOpenMenuId(null);
+                              }}
+                            >
+                              <User size={16} />
+                              상세정보
+                            </button>
+
+                            <button
+                              type='button'
+                              className='flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm font-medium text-dark transition-colors hover:bg-gray-50'
+                              onClick={() => {
+                                setSelectedUser(user);
+                                setIsOpenAnalysisModal(true);
+                                setOpenMenuId(null);
+                              }}
+                            >
+                              <Search size={16} />
+                              분석이력
+                            </button>
+
+                            <div className='my-1 border-t border-light-gray' />
+
+                            <button
+                              type='button'
+                              className='flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm font-medium text-[#D92D20] transition-colors hover:bg-red-50'
+                              onClick={() => {
+                                setSelectedUser(user);
+                                setIsOpenDeleteModal(true);
+                                setOpenMenuId(null);
+                              }}
+                            >
+                              <TriangleAlert size={16} />
+                              회원삭제
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
@@ -196,12 +229,14 @@ const UserManagement = () => {
               onClose={() => setIsOpenUserInfoModal(false)}
             />
           )}
+
           {isOpenAnalysisModal && (
             <AnalysisRecordModal
               user={selectedUser}
               onClose={() => setIsOpenAnalysisModal(false)}
             />
           )}
+
           {isOpenDeleteModal && (
             <DeleteUserModal user={selectedUser} onClose={() => setIsOpenDeleteModal(false)} />
           )}
