@@ -192,7 +192,9 @@ const UserManagement = () => {
         <UserDetailInfoModal user={selectedUser} onClose={() => setIsOpenUserInfoModal(false)} />
       )}
       {isOpenAnalysisModal && <AnalysisRecordModal onClose={() => setIsOpenAnalysisModal(false)} />}
-      {isOpenDeleteModal && <DeleteUserModal onClose={() => setIsOpenDeleteModal(false)} />}
+      {isOpenDeleteModal && selectedUser && (
+        <DeleteUserModal user={selectedUser} onClose={() => setIsOpenDeleteModal(false)} />
+      )}
     </section>
   );
 };
