@@ -6,6 +6,8 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input } from '../common';
 import { showToast } from '@/utils/toast';
+import { useMutation } from '@tanstack/react-query';
+import { postAdminLogin } from '@/api/auth';
 
 const fields = [
   {
@@ -29,6 +31,17 @@ interface LoginModalProps {
 const LoginModal = ({ onClose }: LoginModalProps) => {
   const navigate = useNavigate();
 
+  const adminLoginMutation = useMutation({
+    mutationFn: postAdminLogin,
+    onSuccess: async () => {
+      showToast.success('관리자 로그인에 성공했습니다.');
+      navigate('/');
+    },
+    onError: () => {
+      showToast.error('관리자 로그인에 실패했습니다.');
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -43,13 +56,7 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
   });
 
   const onSubmit: SubmitHandler<LoginType> = async (data) => {
-    try {
-      console.log('로그인 성공:', data);
-      showToast.success('로그인 되었습니다');
-      navigate('/');
-    } catch (err) {
-      console.error(err);
-    }
+    adminLoginMutation.mutate(data);
   };
 
   useEffect(() => {
