@@ -1,16 +1,40 @@
-// AdminLayout.tsx
 import { getMyInfo } from '@/api/auth';
 import AdminSidebar from '@/components/layouts/AdminSidebar';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useQuery } from '@tanstack/react-query';
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const AdminLayout = () => {
-  const { data } = useQuery({
+  const navigate = useNavigate();
+
+  const { getAccessToken } = useLocalStorage();
+  const token = getAccessToken();
+
+  // 토큰 자체가 없으면 로그인으로
+  useEffect(() => {
+    if (!token) {
+      navigate('/login', { replace: true });
+    }
+  }, [token, navigate]);
+
+  const { data, isLoading } = useQuery({
     queryKey: ['myInfo'],
     queryFn: getMyInfo,
+    enabled: !!token, // 토큰 있을 때만 호출
   });
 
-  console.log('AdminLayout - myInfo:', data);
+  // ADMIN 아니면 홈으로
+  useEffect(() => {
+    if (!isLoading && data) {
+      if (data.role !== 'ADMIN') {
+        navigate('/', { replace: true });
+      }
+    }
+  }, [data, isLoading, navigate]);
+
+  // 아직 권한 확인 중이면 아무것도 안 보여줌
+  if (!token || isLoading) return null;
 
   return (
     <div className='flex min-h-screen bg-[#F9FAFB]'>
