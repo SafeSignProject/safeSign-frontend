@@ -8,11 +8,11 @@ const OauthSuccessPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const login = async () => {
+    const socialLogin = async () => {
       try {
-        const response = await reissueToken();
+        const res = await reissueToken();
 
-        const accessToken = response.accessToken;
+        const accessToken = res.accessToken;
 
         if (!accessToken) {
           throw new Error();
@@ -21,17 +21,14 @@ const OauthSuccessPage = () => {
         localStorage.setItem('accessToken', accessToken);
 
         showToast.success('로그인에 성공하였습니다.');
-
-        setTimeout(() => {
-          navigate('/', { replace: true });
-        }, 2000);
+        navigate('/', { replace: true });
       } catch (error) {
         showToast.error('로그인에 실패하였습니다.');
         navigate('/login', { replace: true });
       }
     };
 
-    login();
+    socialLogin();
   }, [navigate]);
 
   return (
