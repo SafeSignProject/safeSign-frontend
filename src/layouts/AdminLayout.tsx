@@ -1,8 +1,17 @@
 // AdminLayout.tsx
+import { getMyInfo } from '@/api/auth';
 import AdminSidebar from '@/components/layouts/AdminSidebar';
+import { useQuery } from '@tanstack/react-query';
 import { Outlet } from 'react-router-dom';
 
 const AdminLayout = () => {
+  const { data } = useQuery({
+    queryKey: ['myInfo'],
+    queryFn: getMyInfo,
+  });
+
+  console.log('AdminLayout - myInfo:', data);
+
   return (
     <div className='flex min-h-screen bg-[#F9FAFB]'>
       <AdminSidebar />

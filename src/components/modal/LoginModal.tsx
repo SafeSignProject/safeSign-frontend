@@ -8,6 +8,7 @@ import { Button, Input } from '../common';
 import { showToast } from '@/utils/toast';
 import { useMutation } from '@tanstack/react-query';
 import { postAdminLogin } from '@/api/auth';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const fields = [
   {
@@ -31,11 +32,16 @@ interface LoginModalProps {
 const LoginModal = ({ onClose }: LoginModalProps) => {
   const navigate = useNavigate();
 
+  const { setTokens } = useLocalStorage();
+
   const adminLoginMutation = useMutation({
     mutationFn: postAdminLogin,
-    onSuccess: async () => {
+    onSuccess: (data) => {
+      const { accessToken } = data;
+
+      setTokens(accessToken);
       showToast.success('관리자 로그인에 성공했습니다.');
-      navigate('/');
+      navigate('/dashboard');
     },
     onError: () => {
       showToast.error('관리자 로그인에 실패했습니다.');
