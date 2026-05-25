@@ -14,6 +14,12 @@ export const getMyInfo = async (): Promise<ResponseMyInfo> => {
   return data;
 };
 
+export const reissueToken = async (): Promise<{ accessToken: string }> => {
+  const { data } = await axiosInstance.post('/auth/reissue');
+
+  return data;
+};
+
 export const postLogout = async () => {
   const { data } = await axiosInstance.post('/auth/logout');
   return data;
