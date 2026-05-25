@@ -1,19 +1,30 @@
 import { GoogleIcon, KakaoIcon } from '@/assets';
 import { Button } from '@/components/common';
 
+const OAUTH_URL = {
+  google: 'https://safesign-ai.site/oauth2/authorization/google',
+  kakao: 'https://safesign-ai.site/oauth2/authorization/kakao',
+};
+
 const SocialLoginSection = () => {
+  const handleSocialLogin = (provider: 'google' | 'kakao') => {
+    window.location.href = OAUTH_URL[provider];
+  };
+
   return (
     <>
       <Button
         type='button'
         label='Google 로그인'
         icon={<GoogleIcon width='20' height='20' />}
+        onClick={() => handleSocialLogin('google')}
         className='text-dark border-light-gray h-12.5 w-full border bg-inherit font-medium hover:brightness-95 active:brightness-90'
       />
       <Button
         type='button'
         label='카카오 로그인'
         icon={<KakaoIcon width='18' height='17' />}
+        onClick={() => handleSocialLogin('kakao')}
         className='text-dark h-12.5 w-full bg-[#FEE500] font-medium hover:brightness-95 active:brightness-90'
       />
 

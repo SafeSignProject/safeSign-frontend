@@ -4,6 +4,8 @@ import { Activity, LayoutDashboard, LogOut, Users } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { showToast } from '@/utils/toast';
+import { postLogout } from '@/api/auth';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const menus = [
   {
@@ -27,13 +29,17 @@ const AdminSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { clearTokens } = useLocalStorage();
+
   const isActive = (path: string) => {
     return location.pathname.startsWith(path);
   };
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await postLogout();
+    clearTokens();
     setIsLogoutModalOpen(false);
     navigate('/login');
     showToast.success('로그아웃되었습니다');
