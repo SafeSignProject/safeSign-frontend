@@ -15,7 +15,12 @@ const UserPagination = ({ currentPage, totalPages, onPageChange }: UserPaginatio
         type='button'
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
-        className='h-9.5 rounded-lg border border-light-gray bg-white px-4 text-sm font-medium leading-5 text-dark-gray transition hover:brightness-95 active:brightness-90 disabled:cursor-not-allowed disabled:opacity-40'
+        className={clsx(
+          'h-9.5 rounded-lg border border-light-gray bg-white px-4 text-sm font-medium leading-5 text-dark-gray transition',
+          currentPage === 1
+            ? 'cursor-not-allowed opacity-40'
+            : 'hover:brightness-95 active:brightness-90',
+        )}
       >
         이전
       </button>
@@ -40,7 +45,12 @@ const UserPagination = ({ currentPage, totalPages, onPageChange }: UserPaginatio
         type='button'
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className='h-9.5 rounded-lg border border-light-gray bg-white px-4 text-sm font-medium leading-5 text-dark-gray transition hover:brightness-95 active:brightness-90 disabled:cursor-not-allowed disabled:opacity-40'
+        className={clsx(
+          'h-9.5 rounded-lg border border-light-gray bg-white px-4 text-sm font-medium leading-5 text-dark-gray transition',
+          currentPage === totalPages
+            ? 'cursor-not-allowed opacity-40'
+            : 'hover:brightness-95 active:brightness-90',
+        )}
       >
         다음
       </button>
