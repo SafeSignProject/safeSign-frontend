@@ -1,4 +1,6 @@
+import { deleteUser, postLogout } from '@/api/auth';
 import { Button, Modal } from '@/components/common';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { showToast } from '@/utils/toast';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,13 +11,18 @@ const AccountManagement = () => {
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const { clearTokens } = useLocalStorage();
+
+  const handleLogout = async () => {
+    await postLogout();
+    clearTokens();
     setIsLogoutModalOpen(false);
     navigate('/login');
     showToast.success('로그아웃되었습니다');
   };
 
-  const handleAccountDelete = () => {
+  const handleAccountDelete = async () => {
+    await deleteUser();
     setIsDeleteModalOpen(false);
     navigate('/signup');
     showToast.success('계정이 삭제되었습니다');

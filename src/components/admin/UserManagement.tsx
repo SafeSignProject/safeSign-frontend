@@ -105,13 +105,9 @@ const UserManagement = () => {
                     className='border-b border-light-gray text-center text-sm last:border-b-0'
                   >
                     <td className='px-6 py-9 font-medium text-dark-gray'>{user.id}</td>
-
                     <td className='px-6 py-9 text-base font-semibold text-dark'>{user.name}</td>
-
                     <td className='px-6 py-9 text-dark-gray'>{user.email}</td>
-
                     <td className='px-6 py-9 text-dark-gray'>{user.joinedAt}</td>
-
                     <td className='px-6 py-9'>
                       <span
                         className={clsx(

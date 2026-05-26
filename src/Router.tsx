@@ -15,6 +15,7 @@ import AdminLayout from './layouts/AdminLayout';
 import DashBoardPage from './pages/admin/DashBoardPage';
 import AnalysisManagementPage from './pages/admin/AnalysisManagementPage';
 import UsersManagementPage from './pages/admin/UsersManagementPage';
+import OauthSuccessPage from './pages/OauthSuccessPage';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             path: 'landing',
             element: <LandingPage />,
+          },
+          {
+            path: 'oauth/success',
+            element: <OauthSuccessPage />,
           },
         ],
       },

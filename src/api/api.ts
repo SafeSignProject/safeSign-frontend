@@ -1,3 +1,4 @@
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import axios, { type InternalAxiosRequestConfig } from 'axios';
 
 interface CustomInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -17,8 +18,25 @@ if (!baseURL) {
 // 인스턴스 정의
 export const axiosInstance = axios.create({
   baseURL,
-  withCredentials: true, // 쿠키 허용
+  withCredentials: true,
 });
+
+// 요청 인터셉터 : 모든 요청 전에 accessToken을 Authozation 헤더에 추가
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const { getAccessToken } = useLocalStorage();
+    const accessToken = getAccessToken();
+
+    if (accessToken && config.headers) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.error('request 실패', error);
+    return Promise.reject(error);
+  },
+);
 
 // 응답 인터셉터 : 401에러 발생 -> refresh토큰을 통한 토큰 갱신
 axiosInstance.interceptors.response.use(
@@ -27,7 +45,7 @@ axiosInstance.interceptors.response.use(
     console.log('error', error);
     const request: CustomInternalAxiosRequestConfig = error.config;
 
-    if (!request || request.url?.includes('/auth/refresh')) {
+    if (!request || request.url?.includes('/auth/reissue')) {
       return Promise.reject(error);
     }
 
