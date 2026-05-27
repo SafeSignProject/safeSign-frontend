@@ -8,7 +8,7 @@ const AnalyzingBar = () => {
           className='bg-primary h-full'
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
-          transition={{ duration: 20, ease: 'linear' }}
+          transition={{ duration: 80, ease: 'linear' }}
         />
       </div>
 

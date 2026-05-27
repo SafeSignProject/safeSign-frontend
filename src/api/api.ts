@@ -45,31 +45,53 @@ axiosInstance.interceptors.response.use(
     console.log('error', error);
     const request: CustomInternalAxiosRequestConfig = error.config;
 
-    if (!request || request.url?.includes('/auth/reissue')) {
+    if (!request) {
       return Promise.reject(error);
     }
 
-    // 401 에러면서, 아직 재시도 하지 않은 요청
-    if (error.response && error.response.status === 401 && !request._retry) {
-      request._retry = true; // 재시도 플래그 설정 -> 요청을 한번만 보내도록 함
+    // reissue 자체 실패는 바로 로그인
+    if (request.url?.includes('/auth/reissue')) {
+      const { clearTokens } = useLocalStorage();
+
+      clearTokens();
+
+      window.location.href = '/login';
+
+      return Promise.reject(error);
+    }
+
+    // access token 만료
+    if (error.response?.status === 401 && !request._retry) {
+      request._retry = true;
 
       if (!refreshPromise) {
         refreshPromise = (async () => {
           try {
-            await axiosInstance.post('/auth/refresh');
+            const { setTokens } = useLocalStorage();
+
+            // 기본 axios 사용 (인터셉터 방지)
+            const response = await axios.post(
+              `${baseURL}/auth/reissue`,
+              {},
+              {
+                withCredentials: true,
+              },
+            );
+
+            const newAccessToken = response.data.accessToken;
+
+            setTokens(newAccessToken);
           } catch (err) {
-            // 리프레시 실패 → 로그인 페이지로 이동
-            console.error('토큰 리프레시 실패', err);
+            console.error('토큰 재발급 실패', err);
 
-            const PUBLIC_ROUTES = ['/', '/login', '/role', '/kakao/success'];
-            const currentPath = window.location.pathname;
+            const { clearTokens } = useLocalStorage();
 
-            if (!PUBLIC_ROUTES.includes(currentPath)) {
-              window.location.href = '/login';
-            }
+            clearTokens();
+
+            window.location.href = '/login';
+
             throw err;
           } finally {
-            // 다음 401 때를 위해 초기화
             refreshPromise = null;
           }
         })();
