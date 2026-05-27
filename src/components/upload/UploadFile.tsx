@@ -21,14 +21,15 @@ const UploadFile = () => {
     mutationFn: () => {
       const files = pdfFile ? [pdfFile] : imageFiles;
 
-      const imageTitle =
-        imageFiles.length === 1
+      const title = pdfFile
+        ? pdfFile.name.replace('.pdf', '')
+        : imageFiles.length === 1
           ? imageFiles[0].name
           : `${imageFiles[0].name} 외 ${imageFiles.length - 1}개`;
 
       return postContracts(
         {
-          title: pdfFile ? pdfFile.name.replace('.pdf', '') : imageTitle,
+          title,
           uploadType: pdfFile ? 'PDF' : 'IMAGE',
         },
         files,
@@ -44,7 +45,8 @@ const UploadFile = () => {
         },
       });
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       showToast.error('업로드에 실패했습니다');
     },
   });

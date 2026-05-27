@@ -27,7 +27,7 @@ const AnalyzingStep = () => {
       setTimeout(() => {
         showToast.success('계약서 분석이 완료되었습니다');
         navigate('/contracts');
-      }, 80000),
+      }, 120000),
     ];
 
     return () => timers.forEach(clearTimeout);
