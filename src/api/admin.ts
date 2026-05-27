@@ -1,5 +1,5 @@
 import { axiosInstance } from './api';
-import type { ResponseAdminDashboard, ResponseAdminAnalysisLogs } from '@/types/admin';
+import type { ResponseAdminDashboard, ResponseAdminAnalysisLogs, ResponseAdminAnalysisDetail } from '@/types/admin';
 
 export const getAdminDashboard = async (): Promise<ResponseAdminDashboard> => {
   const { data } = await axiosInstance.get('/admin/dashboard');
@@ -23,5 +23,12 @@ export const getAdminAnalysisLogsFilter = async (
       keyword: keyword || undefined,
     },
   });
+  return data;
+};
+
+export const getAdminAnalysisDetail = async (
+  analysisId: number
+): Promise<ResponseAdminAnalysisDetail> => {
+  const { data } = await axiosInstance.get(`/admin/analysis/logs/${analysisId}`);
   return data;
 };
