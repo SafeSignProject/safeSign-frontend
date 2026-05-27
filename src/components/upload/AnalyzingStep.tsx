@@ -22,12 +22,12 @@ const AnalyzingStep = () => {
   useEffect(() => {
     const timers = [
       setTimeout(() => setStep(1), 5000),
-      setTimeout(() => setStep(2), 10000),
-      setTimeout(() => setStep(3), 15000),
+      setTimeout(() => setStep(2), 30000),
+      setTimeout(() => setStep(3), 60000),
       setTimeout(() => {
         showToast.success('계약서 분석이 완료되었습니다');
         navigate('/contracts');
-      }, 20000),
+      }, 80000),
     ];
 
     return () => timers.forEach(clearTimeout);

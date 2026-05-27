@@ -25,11 +25,7 @@ export const postContracts = async (
     formData.append('files', file);
   });
 
-  const { data } = await axiosInstance.post('/contracts', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const { data } = await axiosInstance.post('/contracts', formData);
 
   return data;
 };
