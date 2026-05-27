@@ -1,7 +1,7 @@
+// 관리자 페이지 대시보드 스켈레톤
 const DashboardSkeleton = () => {
   return (
     <div className='flex flex-col gap-6 w-full animate-pulse'>
-      {/* Stats Card Skeletons */}
       <div className='grid grid-cols-3 gap-6'>
         {[1, 2, 3].map((i) => (
           <div key={i} className='rounded-xl border border-light-gray bg-white p-6 h-[178px] flex flex-col justify-between shadow-sm'>
@@ -17,7 +17,6 @@ const DashboardSkeleton = () => {
         ))}
       </div>
 
-      {/* Logs Side-by-Side Skeletons */}
       <div className='grid grid-cols-2 gap-5'>
         {[1, 2].map((i) => (
           <div key={i} className='rounded-xl border border-light-gray bg-white p-6 h-[300px] flex flex-col shadow-sm'>
