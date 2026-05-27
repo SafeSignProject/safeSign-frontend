@@ -30,6 +30,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
     mutationFn: () => deleteContract(item.contractId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
       showToast.success('계약서가 삭제되었습니다');
       setIsModalOpen(false);
     },

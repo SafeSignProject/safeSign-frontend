@@ -1,7 +1,9 @@
-import { Camera, FileText, Upload, X } from 'lucide-react';
+import { postContracts } from '@/api/contract';
 import { Button } from '@/components/common';
-import { useRef, useState } from 'react';
 import { showToast } from '@/utils/toast';
+import { useMutation } from '@tanstack/react-query';
+import { Camera, FileText, Upload, X } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const UploadFile = () => {
@@ -12,6 +14,36 @@ const UploadFile = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
 
   const navigate = useNavigate();
+
+  const { mutate: uploadMutation } = useMutation({
+    mutationFn: () => {
+      const files = pdfFile ? [pdfFile] : imageFiles;
+
+      return postContracts(
+        {
+          title: pdfFile ? pdfFile.name.replace('.pdf', '') : '이미지 계약서',
+
+          uploadType: pdfFile ? 'PDF' : 'IMAGE',
+        },
+        files,
+      );
+    },
+
+    onSuccess: (data) => {
+      showToast.success('계약서 분석이 시작되었습니다');
+
+      navigate('/analyze', {
+        state: {
+          contractId: data.contractId,
+          fileNames: pdfFile ? [pdfFile.name] : imageFiles.map((file) => file.name),
+        },
+      });
+    },
+
+    onError: () => {
+      showToast.error('업로드에 실패했습니다');
+    },
+  });
 
   // PDF 업로드
   const handlePdfChange = (file: File) => {
@@ -166,13 +198,7 @@ const UploadFile = () => {
                 type='button'
                 label='분석 시작'
                 className='bg-primary h-8.5 px-4 font-medium text-white hover:brightness-95 active:brightness-90 max-sm:text-sm sm:h-10 sm:px-6'
-                onClick={() =>
-                  navigate('/analyze', {
-                    state: {
-                      fileNames: [pdfFile.name],
-                    },
-                  })
-                }
+                onClick={() => uploadMutation()}
               />
             </article>
           )}
@@ -194,13 +220,7 @@ const UploadFile = () => {
                 type='button'
                 label='분석 시작'
                 className='bg-primary h-8.5 px-4 font-medium text-white hover:brightness-95 active:brightness-90 max-sm:text-sm sm:h-10 sm:px-6'
-                onClick={() =>
-                  navigate('/analyze', {
-                    state: {
-                      fileNames: imageFiles.map((file) => file.name),
-                    },
-                  })
-                }
+                onClick={() => uploadMutation()}
               />
             </article>
           )}
