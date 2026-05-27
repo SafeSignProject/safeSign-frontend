@@ -29,6 +29,7 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
     setSelectedStatusMenu(DEFAULT_FILTER.status);
 
     setFilter(DEFAULT_FILTER);
+    onClose();
   };
 
   const handleApply = () => {
@@ -36,6 +37,7 @@ const AnalysisFilterModal = ({ onClose }: AnalysisFilterModalProps) => {
       period: selectedPeriodMenu,
       status: selectedStatusMenu,
     });
+    onClose();
   };
 
   useEffect(() => {
