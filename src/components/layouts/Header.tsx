@@ -37,7 +37,7 @@ const Header = ({ showAuthButtons = false }: HeaderProps) => {
   }, []);
 
   return (
-    <nav className='border-b-light-gray fixed top-0 left-0 z-40 flex h-16 w-full items-center justify-between border-b bg-white px-4 sm:px-8'>
+    <nav className='border-b-light-gray fixed top-0 left-0 z-40 flex h-16 w-full items-center justify-between border-b bg-white/80 px-4 sm:px-8'>
       <Link to='/' className='flex items-center gap-2'>
         <Logo height={32} width={25.5313} />
         <span className='text-dark text-lg font-semibold'>SafeSign</span>
