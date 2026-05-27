@@ -7,14 +7,70 @@ import { CircleCheck, Eye, Funnel } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { AnalysisFilterModal, AnalysisLogDetailModal } from '@/components/modal';
 
+import { useAdminAnalysisLogsFilter } from '@/hooks/useAdminDashboard';
+
+const mapPeriodToApi = (period: string): string => {
+  if (period === '전체기간' || period === '전체 기간') return 'ALL';
+  if (period === '오늘') return 'TODAY';
+  if (period === '최근 7일') return 'WEEK';
+  if (period === '최근 30일') return 'MONTH';
+  return 'ALL';
+};
+
+const mapStatusToApi = (status: string): string => {
+  if (status === '전체') return 'ALL';
+  if (status === '성공') return 'SUCCESS';
+  if (status === '실패') return 'FAIL';
+  return 'ALL';
+};
+
+// UTC -> KST 변환
+const formatDate = (dateStr: string) => {
+  try {
+    if (!dateStr) return dateStr;
+
+    let isoStr = dateStr;
+    if (!dateStr.endsWith('Z') && !dateStr.includes('+')) {
+      isoStr = dateStr.replace(' ', 'T') + 'Z';
+    }
+
+    const d = new Date(isoStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+  } catch {
+    return dateStr;
+  }
+};
+
 const AnalysisManagement = () => {
   const [keyword, setKeyword] = useAtom(adminAnalysisKeywordAtom);
   const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [isOpenfilterModal, setIsOpenfilterModal] = useState(false);
 
-  const [selectedLog, setSelectedLog] = useState<(typeof ANALYSIS_LOGS)[number] | null>(null);
-
   const [filter] = useAtom(analysisFilterAtom);
+
+  const apiPeriod = mapPeriodToApi(filter.period);
+  const apiStatus = mapStatusToApi(filter.status);
+
+  const { data } = useAdminAnalysisLogsFilter(apiPeriod, apiStatus, debouncedKeyword);
+  const apiLogs = data?.logs;
+
+  const logsSource = apiLogs
+    ? apiLogs.map((log) => ({
+      id: log.analysisId,
+      fileName: log.fileName,
+      status: log.status.toUpperCase() === 'SUCCESS' || log.status === '성공' ? '성공' : '실패',
+      user: log.userName,
+      userCode: log.userCode,
+      createdAt: formatDate(log.analyzedAt),
+      ocrTime: `${log.ocrTimeSeconds.toFixed(1)}초`,
+      analysisTime: `${log.analysisTimeSeconds.toFixed(1)}초`,
+      riskScore: `${log.riskScore}점`,
+      issueCount: `${log.issueCount}건`,
+    }))
+    : ANALYSIS_LOGS;
+
+  const [selectedLog, setSelectedLog] = useState<(typeof ANALYSIS_LOGS)[number] | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,7 +80,7 @@ const AnalysisManagement = () => {
     return () => clearTimeout(timer);
   }, [keyword]);
 
-  const filteredLogs = ANALYSIS_LOGS.filter((log) => {
+  const filteredLogs = logsSource.filter((log) => {
     const matchedKeyword =
       log.fileName.includes(debouncedKeyword) || log.user.includes(debouncedKeyword);
 

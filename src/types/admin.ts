@@ -28,3 +28,43 @@ export interface ResponseAdminDashboard {
   recentUsers: AdminRecentUser[];
   recentAnalysisLogs: AdminRecentAnalysisLog[];
 }
+
+export interface AdminAnalysisStats {
+  ocrSuccessRate: number;
+  averageAnalysisTimeSeconds: number;
+  totalAnalysisCount: number;
+}
+
+export interface AdminAnalysisLog {
+  analysisId: number;
+  fileName: string;
+  status: string;
+  userName: string;
+  userCode: string;
+  analyzedAt: string;
+  ocrTimeSeconds: number;
+  analysisTimeSeconds: number;
+  riskScore: number;
+  issueCount: number;
+}
+
+export interface ResponseAdminAnalysisLogs {
+  stats: AdminAnalysisStats;
+  logs: AdminAnalysisLog[];
+}
+
+export interface AdminAnalysisIssue {
+  title: string;
+  description: string;
+  riskType: string;
+}
+
+export interface ResponseAdminAnalysisDetail {
+  analysisId: number;
+  fileName: string;
+  analyzedAt: string;
+  totalTimeSeconds: number;
+  riskScore: number;
+  issueCount: number;
+  issues: AdminAnalysisIssue[];
+}
