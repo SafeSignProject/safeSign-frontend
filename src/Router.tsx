@@ -1,21 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import HomePage from './pages/HomePage';
 import ErrorPage from './pages/ErrorPage';
-import PublicLayout from './layouts/PublicLayout';
-import { LoginPage, SignupPage } from './pages/auth';
-import ProtectedLayout from './layouts/ProtectedLayout';
+import HomePage from './pages/HomePage';
+import LandingPage from './pages/LandingPage';
 import MyPage from './pages/MyPage';
 import UploadPage from './pages/upload/UploadPage';
-import ContractsPage from './pages/contracts/ContractsPage';
 import AnalyzingPage from './pages/upload/AnalyzingPage';
+import ContractsPage from './pages/contracts/ContractsPage';
 import ContractsDetailPage from './pages/contracts/ContractsDetailPage';
-import LandingPage from './pages/LandingPage';
-import AdminLayout from './layouts/AdminLayout';
 import DashBoardPage from './pages/admin/DashBoardPage';
 import AnalysisManagementPage from './pages/admin/AnalysisManagementPage';
 import UsersManagementPage from './pages/admin/UsersManagementPage';
 import OauthSuccessPage from './pages/OauthSuccessPage';
+import PublicLayout from './layouts/PublicLayout';
+import ProtectedLayout from './layouts/ProtectedLayout';
+import AdminLayout from './layouts/AdminLayout';
+import { LoginPage, SignupPage } from './pages/auth';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
         element: <PublicLayout />,
         children: [
           {
+            path: '/landing',
+            element: <LandingPage />,
+          },
+          {
             path: 'login',
             element: <LoginPage />,
           },
@@ -35,16 +39,11 @@ const router = createBrowserRouter([
             element: <SignupPage />,
           },
           {
-            path: 'landing',
-            element: <LandingPage />,
-          },
-          {
             path: 'oauth/success',
             element: <OauthSuccessPage />,
           },
         ],
       },
-
       {
         element: <ProtectedLayout />,
         children: [
@@ -61,6 +60,10 @@ const router = createBrowserRouter([
             element: <UploadPage />,
           },
           {
+            path: 'analyze',
+            element: <AnalyzingPage />,
+          },
+          {
             path: 'contracts',
             children: [
               {
@@ -72,10 +75,6 @@ const router = createBrowserRouter([
                 element: <ContractsDetailPage />,
               },
             ],
-          },
-          {
-            path: 'analyze',
-            element: <AnalyzingPage />,
           },
         ],
       },

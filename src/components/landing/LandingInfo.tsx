@@ -60,7 +60,7 @@ const LandingInfo = () => {
             className='mb-6 flex flex-col items-stretch gap-4 sm:mb-8 sm:flex-row sm:items-center'
           >
             <Link
-              to='/signup'
+              to='/login'
               className='inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 max-sm:text-sm font-semibold text-white transition-all hover:scale-102 hover:brightness-95 active:brightness-90 hover:shadow-2xl sm:px-8 sm:py-4'
             >
               무료로 시작하기

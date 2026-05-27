@@ -32,7 +32,7 @@ const LandingCTA = () => {
             계약서 문장 하나하나, SafeSign이 꼼꼼하게 검토합니다.
           </p>
           <Link
-            to='/signup'
+            to='/login'
             className='inline-flex items-center gap-2 rounded-2xl bg-primary px-8 py-4 text-base font-bold text-white transition-all hover:scale-102 hover:brightness-95 active:brightness-90 hover:shadow-2xl sm:gap-3 sm:px-12 sm:py-5 sm:text-lg'
           >
             무료로 시작하기

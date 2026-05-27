@@ -1,10 +1,35 @@
-import { STATISTICS_ITEM } from '@/mocks/data';
+import { FileText, TriangleAlert, TrendingUp, Sparkles, Zap, Award } from 'lucide-react';
+import type { ResponseDashboard } from '@/types/dashboard';
 
-const StatistList = () => {
+const StatistList = ({ data }: { data: ResponseDashboard }) => {
+  const statisticsItems = [
+    {
+      title: '전체 계약서',
+      value: data.summary.totalContracts,
+      desc: '총 분석 완료',
+      Icon: FileText,
+      SubIcon: Sparkles,
+    },
+    {
+      title: '위험 계약서',
+      value: data.summary.riskyContracts,
+      desc: '주의 필요',
+      Icon: TriangleAlert,
+      SubIcon: Zap,
+    },
+    {
+      title: '이번 달 분석',
+      value: data.summary.monthlyAnalyses,
+      desc: '활발한 활동 중',
+      Icon: TrendingUp,
+      SubIcon: Award,
+    },
+  ];
+
   return (
     <>
       <section className='mb-16 flex items-center justify-center gap-4 max-sm:hidden sm:gap-6'>
-        {STATISTICS_ITEM.map(({ title, value, desc, Icon, SubIcon }) => (
+        {statisticsItems.map(({ title, value, desc, Icon, SubIcon }) => (
           <div
             key={title}
             className='group border-light-gray w-full rounded-3xl border bg-white p-8 shadow-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl'
@@ -26,7 +51,7 @@ const StatistList = () => {
       </section>
 
       <section className='border-light-gray mb-8 w-full rounded-3xl border bg-white py-6 shadow-lg sm:mb-16 sm:hidden'>
-        {STATISTICS_ITEM.map(({ title, value, desc, Icon }, index) => (
+        {statisticsItems.map(({ title, value, desc, Icon }, index) => (
           <div key={title} className=''>
             <article className='flex items-center space-x-3 px-6'>
               <div className='text-primary h-12 w-12 rounded-2xl bg-[#F0FDF7] p-3.5'>
@@ -39,7 +64,7 @@ const StatistList = () => {
               <h5 className='text-dark mb-1 text-2xl leading-10 font-bold sm:text-4xl'>{value}</h5>
             </article>
 
-            {index !== STATISTICS_ITEM.length - 1 && (
+            {index !== statisticsItems.length - 1 && (
               <div className='bg-light-gray my-6 h-px flex-1' />
             )}
           </div>
