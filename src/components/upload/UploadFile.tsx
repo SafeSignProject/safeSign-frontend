@@ -1,7 +1,7 @@
 import { postContracts } from '@/api/contract';
 import { Button } from '@/components/common';
 import { showToast } from '@/utils/toast';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Camera, FileText, Upload, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,22 +15,27 @@ const UploadFile = () => {
 
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+
   const { mutate: uploadMutation } = useMutation({
     mutationFn: () => {
       const files = pdfFile ? [pdfFile] : imageFiles;
 
+      const imageTitle =
+        imageFiles.length === 1
+          ? imageFiles[0].name
+          : `${imageFiles[0].name} 외 ${imageFiles.length - 1}개`;
+
       return postContracts(
         {
-          title: pdfFile ? pdfFile.name.replace('.pdf', '') : '이미지 계약서',
-
+          title: pdfFile ? pdfFile.name.replace('.pdf', '') : imageTitle,
           uploadType: pdfFile ? 'PDF' : 'IMAGE',
         },
         files,
       );
     },
-
     onSuccess: (data) => {
-      showToast.success('계약서 분석이 시작되었습니다');
+      queryClient.invalidateQueries({ queryKey: ['contracts'] });
 
       navigate('/analyze', {
         state: {
@@ -39,7 +44,6 @@ const UploadFile = () => {
         },
       });
     },
-
     onError: () => {
       showToast.error('업로드에 실패했습니다');
     },
