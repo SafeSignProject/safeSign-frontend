@@ -1,4 +1,5 @@
 import { Button, Input } from '@/components/common';
+import useMyInfo from '@/hooks/useMyInfo';
 import { userEditSchema, type userEditType } from '@/schemas/userEditSchema';
 import { showToast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -6,6 +7,9 @@ import { Calendar, Mail, Phone } from 'lucide-react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 const ProfileInfo = () => {
+  const { data } = useMyInfo();
+  console.log('내 정보:', data);
+
   const {
     register,
     handleSubmit,
@@ -14,9 +18,9 @@ const ProfileInfo = () => {
     resolver: zodResolver(userEditSchema),
     mode: 'onChange', // 실시간 validation
     defaultValues: {
-      name: '김철수',
+      name: data?.name || '김철수',
       birth: '2000-01-01',
-      email: 'kimCS@example.com',
+      email: data?.email || 'kimCS@example.com',
       phone: '010-1234-5678',
     },
   });
@@ -34,7 +38,7 @@ const ProfileInfo = () => {
       <h3 className='text-dark mb-6 text-left text-xl leading-7 font-medium'>프로필 정보</h3>
       <div className='flex gap-8 max-sm:flex-col'>
         <div className='bg-primary flex h-20 max-w-20 min-w-20 items-center justify-center rounded-full text-2xl leading-8 font-semibold text-white'>
-          김
+          {data?.name ? data.name[0] : '김'}
         </div>
         <form className='w-full space-y-4' onSubmit={handleSubmit(onSubmit)}>
           <div className='flex items-center gap-4 max-sm:flex-col'>

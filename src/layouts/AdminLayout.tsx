@@ -1,15 +1,12 @@
-import { getMyInfo } from '@/api/auth';
 import AdminSidebar from '@/components/layouts/AdminSidebar';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { useQuery } from '@tanstack/react-query';
+import useMyInfo from '@/hooks/useMyInfo';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
 
-  const { getAccessToken } = useLocalStorage();
-  const token = getAccessToken();
+  const { token, data, isLoading } = useMyInfo();
 
   // 토큰 자체가 없으면 로그인으로
   useEffect(() => {
@@ -17,12 +14,6 @@ const AdminLayout = () => {
       navigate('/login', { replace: true });
     }
   }, [token, navigate]);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['myInfo'],
-    queryFn: getMyInfo,
-    enabled: !!token, // 토큰 있을 때만 호출
-  });
 
   // ADMIN 아니면 홈으로
   useEffect(() => {

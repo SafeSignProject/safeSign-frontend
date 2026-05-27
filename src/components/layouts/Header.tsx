@@ -43,20 +43,12 @@ const Header = ({ showAuthButtons = false }: HeaderProps) => {
         <span className='text-dark text-lg font-semibold'>SafeSign</span>
       </Link>
       {showAuthButtons ? (
-        <div className='flex items-center gap-2 sm:gap-3'>
-          <Link
-            to='/login'
-            className='hover:text-dark px-3 py-1.5 text-sm text-dark-gray transition-colors sm:px-4 sm:py-2'
-          >
-            로그인
-          </Link>
-          <Link
-            to='/signup'
-            className='rounded-lg bg-primary px-3 py-1.5 text-sm text-white transition hover:brightness-95 active:brightness-90 sm:px-5 sm:py-2.5'
-          >
-            회원가입
-          </Link>
-        </div>
+        <Link
+          to='/signup'
+          className='rounded-lg bg-primary px-3 py-1.5 text-sm text-white transition hover:brightness-95 active:brightness-90 sm:px-5 sm:py-2.5'
+        >
+          로그인
+        </Link>
       ) : (
         <>
           <section className='hidden items-center gap-1 md:flex'>
