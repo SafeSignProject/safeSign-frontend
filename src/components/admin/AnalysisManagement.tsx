@@ -7,10 +7,49 @@ import { CircleCheck, Eye, Funnel } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { AnalysisFilterModal, AnalysisLogDetailModal } from '@/components/modal';
 
+import { useAdminAnalysisLogs } from '@/hooks/useAdminDashboard';
+
+const formatDate = (dateStr: string) => {
+  try {
+    if (!dateStr) return dateStr;
+    
+    // 타임존 지시자(Z 또는 +오프셋)가 생략된 형태로 백엔드에서 데이터가 내려올 경우,
+    // 자바스크립트 Date 엔진이 이를 브라우저 현지 시간(KST)으로 자동 오해하는 문제를 방지하기 위해 강제로 Z(UTC) 타임존을 선언해 줍니다.
+    let isoStr = dateStr;
+    if (!dateStr.endsWith('Z') && !dateStr.includes('+')) {
+      isoStr = dateStr.replace(' ', 'T') + 'Z';
+    }
+    
+    const d = new Date(isoStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+  } catch {
+    return dateStr;
+  }
+};
+
 const AnalysisManagement = () => {
   const [keyword, setKeyword] = useAtom(adminAnalysisKeywordAtom);
   const [debouncedKeyword, setDebouncedKeyword] = useState('');
   const [isOpenfilterModal, setIsOpenfilterModal] = useState(false);
+
+  const { data } = useAdminAnalysisLogs();
+  const apiLogs = data?.logs;
+
+  const logsSource = apiLogs
+    ? apiLogs.map((log) => ({
+        id: log.analysisId,
+        fileName: log.fileName,
+        status: log.status.toUpperCase() === 'SUCCESS' || log.status === '성공' ? '성공' : '실패',
+        user: log.userName,
+        userCode: log.userCode,
+        createdAt: formatDate(log.analyzedAt),
+        ocrTime: `${log.ocrTimeSeconds.toFixed(1)}초`,
+        analysisTime: `${log.analysisTimeSeconds.toFixed(1)}초`,
+        riskScore: `${log.riskScore}점`,
+        issueCount: `${log.issueCount}건`,
+      }))
+    : ANALYSIS_LOGS;
 
   const [selectedLog, setSelectedLog] = useState<(typeof ANALYSIS_LOGS)[number] | null>(null);
 
@@ -24,7 +63,7 @@ const AnalysisManagement = () => {
     return () => clearTimeout(timer);
   }, [keyword]);
 
-  const filteredLogs = ANALYSIS_LOGS.filter((log) => {
+  const filteredLogs = logsSource.filter((log) => {
     const matchedKeyword =
       log.fileName.includes(debouncedKeyword) || log.user.includes(debouncedKeyword);
 
