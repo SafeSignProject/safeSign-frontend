@@ -8,7 +8,6 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 
 const ProfileInfo = () => {
   const { data } = useMyInfo();
-  console.log('내 정보:', data);
 
   const {
     register,

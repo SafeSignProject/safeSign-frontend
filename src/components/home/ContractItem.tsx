@@ -1,20 +1,20 @@
 import { ArrowRight, Clock, FileText, TriangleAlert } from 'lucide-react';
-import { getRiskStyle } from '@/utils/getRisk';
 import { Link } from 'react-router-dom';
+import { getRiskStyle } from '@/utils/getRisk';
 
 interface ContractItemProps {
   item: {
-    id: number;
+    contractId: number;
     title: string;
-    date: string;
+    analyzedAt: string;
     riskCount: number;
-    score: number;
+    riskScore: number;
   };
   isLast: boolean;
 }
 
 const ContractItem = ({ item, isLast }: ContractItemProps) => {
-  const style = getRiskStyle(item.score);
+  const style = getRiskStyle(item.riskScore);
 
   return (
     <>
@@ -30,15 +30,24 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
           <div className='flex w-full flex-col gap-1'>
             <div className='flex w-full items-center justify-between'>
               <Link
-                to={`/contracts/${item.id}`}
-                state={{ title: item.title, score: item.score, level: style.level }}
+                to={`/contracts/${item.contractId}`}
+                state={{
+                  title: item.title,
+                  score: item.riskScore,
+                  level: style.level,
+                }}
                 className='text-dark group-hover:text-primary font-bold transition sm:text-lg'
               >
                 {item.title}
               </Link>
+
               <Link
-                to={`/contracts/${item.id}`}
-                state={{ title: item.title, score: item.score, level: style.level }}
+                to={`/contracts/${item.contractId}`}
+                state={{
+                  title: item.title,
+                  score: item.riskScore,
+                  level: style.level,
+                }}
               >
                 <ArrowRight
                   size={20}
@@ -49,7 +58,9 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
 
             <div className='flex items-center gap-3'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm whitespace-nowrap'>
-                <Clock size={16} /> {item.date}
+                <Clock size={16} />
+
+                {new Date(item.analyzedAt).toLocaleDateString('ko-KR')}
               </p>
 
               {item.riskCount > 0 && (
@@ -68,7 +79,8 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
         <div className='flex items-center gap-3 max-sm:pl-15 sm:gap-4'>
           <div className='flex max-sm:items-center max-sm:gap-1 sm:flex-col'>
             <p className='text-dark-gray text-right text-sm'>위험도</p>
-            <h3 className='text-dark font-bold sm:text-3xl'>{item.score}점</h3>
+
+            <h3 className='text-dark font-bold sm:text-3xl'>{item.riskScore}점</h3>
           </div>
 
           <div
@@ -83,8 +95,12 @@ const ContractItem = ({ item, isLast }: ContractItemProps) => {
           </div>
 
           <Link
-            to={`/contracts/${item.id}`}
-            state={{ title: item.title, score: item.score, level: style.level }}
+            to={`/contracts/${item.contractId}`}
+            state={{
+              title: item.title,
+              score: item.riskScore,
+              level: style.level,
+            }}
           >
             <ArrowRight
               size={20}
