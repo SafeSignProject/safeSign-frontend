@@ -10,11 +10,11 @@ import { deleteContract } from '@/api/contract';
 
 interface ContractItemProps {
   item: {
-    id: number;
+    contractId: number;
     title: string;
-    date: string;
+    analyzedAt: string;
     riskCount: number;
-    score: number;
+    riskScore: number;
   };
   isLast: boolean;
 }
@@ -24,19 +24,15 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
 
   const queryClient = useQueryClient();
 
-  const style = getRiskBadgeStyle(item.score);
+  const style = getRiskBadgeStyle(item.riskScore);
 
   const { mutate: deleteMutate } = useMutation({
-    mutationFn: () => deleteContract(item.id),
-
+    mutationFn: () => deleteContract(item.contractId),
     onSuccess: () => {
-      showToast.success('계약서가 삭제되었습니다');
-
       queryClient.invalidateQueries({ queryKey: ['contracts'] });
-
+      showToast.success('계약서가 삭제되었습니다');
       setIsModalOpen(false);
     },
-
     onError: () => {
       showToast.error('계약서 삭제에 실패했습니다');
       setIsModalOpen(false);
@@ -52,10 +48,10 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           <div className='flex w-full flex-col gap-1'>
             <div className='flex items-start justify-between'>
               <Link
-                to={`/contracts/${item.id}`}
+                to={`/contracts/${item.contractId}`}
                 state={{
                   title: item.title,
-                  score: item.score,
+                  score: item.riskScore,
                   level: style.level,
                 }}
                 className='text-dark truncate leading-6 font-medium hover:underline'
@@ -74,7 +70,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
 
             <div className='flex items-center gap-4'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
-                <Clock size={12} /> {item.date}
+                <Clock size={12} /> {item.analyzedAt}
               </p>
 
               {item.riskCount > 0 && (
@@ -92,7 +88,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
             <p className='text-dark-gray text-right text-sm'>위험도</p>
 
             <h3 className='text-dark leading-6 font-medium' style={{ color: style.color }}>
-              {item.score}점
+              {item.riskScore}점
             </h3>
           </div>
 
