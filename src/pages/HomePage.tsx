@@ -10,8 +10,6 @@ const HomePage = () => {
     gcTime: 1000 * 60 * 10, // 10분
   });
 
-  console.log(data);
-
   return (
     <main className='flex min-h-screen justify-center bg-[#F9FAFB] pt-28 sm:pt-32'>
       <div className='w-full max-w-6xl px-4 sm:px-6'>

@@ -1,25 +1,44 @@
 import { TrashIcon } from '@/assets';
+import { Modal } from '@/components/common';
 import { getRiskBadgeStyle } from '@/utils/getRisk';
+import { showToast } from '@/utils/toast';
 import { Clock, FileText } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Modal } from '@/components/common';
-import { showToast } from '@/utils/toast';
+import { deleteContract } from '@/api/contract';
 
 interface ContractItemProps {
   item: {
-    id: number;
+    contractId: number;
     title: string;
-    date: string;
+    analyzedAt: string;
     riskCount: number;
-    score: number;
+    riskScore: number;
   };
   isLast: boolean;
 }
 
 const ContractsItem = ({ item, isLast }: ContractItemProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const style = getRiskBadgeStyle(item.score);
+
+  const queryClient = useQueryClient();
+
+  const style = getRiskBadgeStyle(item.riskScore);
+
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: () => deleteContract(item.contractId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      showToast.success('계약서가 삭제되었습니다');
+      setIsModalOpen(false);
+    },
+    onError: () => {
+      showToast.error('계약서 삭제에 실패했습니다');
+      setIsModalOpen(false);
+    },
+  });
 
   return (
     <>
@@ -30,10 +49,10 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
           <div className='flex w-full flex-col gap-1'>
             <div className='flex items-start justify-between'>
               <Link
-                to={`/contracts/${item.id}`}
+                to={`/contracts/${item.contractId}`}
                 state={{
                   title: item.title,
-                  score: item.score,
+                  score: item.riskScore,
                   level: style.level,
                 }}
                 className='text-dark truncate leading-6 font-medium hover:underline'
@@ -52,7 +71,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
 
             <div className='flex items-center gap-4'>
               <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
-                <Clock size={12} /> {item.date}
+                <Clock size={12} /> {item.analyzedAt}
               </p>
 
               {item.riskCount > 0 && (
@@ -68,8 +87,9 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
         <div className='flex items-center gap-2.5 max-sm:pl-10'>
           <div className='mr-1.5 flex max-sm:items-center max-sm:gap-1 sm:flex-col'>
             <p className='text-dark-gray text-right text-sm'>위험도</p>
+
             <h3 className='text-dark leading-6 font-medium' style={{ color: style.color }}>
-              {item.score}점
+              {item.riskScore}점
             </h3>
           </div>
 
@@ -99,10 +119,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
         <Modal
           title=' 계약서를 삭제하시겠습니까?'
           content='삭제 시 복구할 수 없습니다'
-          onConfirm={() => {
-            showToast.success('계약서가 삭제되었습니다');
-            setIsModalOpen(false);
-          }}
+          onConfirm={() => deleteMutate()}
           onCancel={() => setIsModalOpen(false)}
         />
       )}

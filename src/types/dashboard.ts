@@ -1,24 +1,24 @@
-export interface RecentContract {
+export type RecentContract = {
   analyzedAt: string;
   contractId: number;
   riskCount: number;
   riskScore: number;
   title: string;
-}
+};
 
-export interface DashboardSummary {
+export type DashboardSummary = {
   monthlyAnalyses: number;
   riskyContracts: number;
   totalContracts: number;
-}
+};
 
-export interface DashboardUser {
+export type DashboardUser = {
   name: string;
   userId: number;
-}
+};
 
-export interface ResponseDashboard {
+export type ResponseDashboard = {
   recentContracts: RecentContract[];
   summary: DashboardSummary;
   user: DashboardUser;
-}
+};

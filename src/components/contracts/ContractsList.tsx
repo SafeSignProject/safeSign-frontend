@@ -1,47 +1,15 @@
-import { CONTRACTS_ITEM } from '@/mocks/data';
-import ContractsItem from '@/components/contracts/ContractsItem';
-import { useAtom } from 'jotai';
-import { contractsKeywordAtom, contractsSortAtom } from '@/atoms';
-import { useEffect, useState } from 'react';
 import { FileText } from 'lucide-react';
+import ContractsItem from '@/components/contracts/ContractsItem';
+import type { ResponseContracts } from '@/types/contracts';
 
-const ContractsList = () => {
-  const [keyword] = useAtom(contractsKeywordAtom);
-  const [sort] = useAtom(contractsSortAtom);
-  const [debouncedKeyword, setDebouncedKeyword] = useState('');
+interface ContractsListProps {
+  data?: ResponseContracts;
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedKeyword(keyword);
-    }, 500);
+const ContractsList = ({ data }: ContractsListProps) => {
+  const contracts = data?.contracts ?? [];
 
-    return () => clearTimeout(timer);
-  }, [keyword]);
-
-  const filtered = CONTRACTS_ITEM.filter((item) =>
-    item.title.toLowerCase().includes(debouncedKeyword.toLowerCase()),
-  );
-
-  const sorted = [...filtered].sort((a, b) => {
-    switch (sort) {
-      case '오래된순':
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
-
-      case '최신순':
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-
-      case '위험도 높은순':
-        return b.score - a.score;
-
-      case '위험도 낮은순':
-        return a.score - b.score;
-
-      default:
-        return 0;
-    }
-  });
-
-  const isEmpty = sorted.length === 0;
+  const isEmpty = contracts.length === 0;
 
   return isEmpty ? (
     <section className='flex flex-col items-center justify-center pt-12 text-center sm:pt-16'>
@@ -51,8 +19,8 @@ const ContractsList = () => {
     </section>
   ) : (
     <section className='border-light-gray rounded-sm border bg-white'>
-      {sorted.map((item, index) => (
-        <ContractsItem key={item.id} item={item} isLast={index === sorted.length - 1} />
+      {contracts.map((item, index) => (
+        <ContractsItem key={item.contractId} item={item} isLast={index === contracts.length - 1} />
       ))}
     </section>
   );
