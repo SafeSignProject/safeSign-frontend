@@ -1,4 +1,4 @@
-import type { USERS } from '@/mocks/users';
+import type { MappedAdminUser } from '@/types/admin';
 import { TriangleAlert } from 'lucide-react';
 import { useEffect } from 'react';
 import { Button } from '../common';
@@ -6,7 +6,7 @@ import { showToast } from '@/utils/toast';
 
 interface DeleteUserModalProps {
   onClose: () => void;
-  user: (typeof USERS)[number];
+  user: MappedAdminUser;
 }
 
 const DeleteUserModal = ({ onClose, user }: DeleteUserModalProps) => {

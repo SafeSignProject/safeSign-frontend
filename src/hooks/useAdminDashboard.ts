@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAdminDashboard, getAdminAnalysisLogs, getAdminAnalysisLogsFilter, getAdminAnalysisDetail } from '@/api/admin';
+import { getAdminDashboard, getAdminAnalysisLogs, getAdminAnalysisLogsFilter, getAdminAnalysisDetail, getAdminUsers } from '@/api/admin';
 
 export const useAdminDashboard = () => {
   return useQuery({
@@ -37,6 +37,15 @@ export const useAdminAnalysisDetail = (analysisId: number, enabled: boolean) => 
     queryKey: ['adminAnalysisDetail', analysisId],
     queryFn: () => getAdminAnalysisDetail(analysisId),
     enabled,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  });
+};
+
+export const useAdminUsers = () => {
+  return useQuery({
+    queryKey: ['adminUsers'],
+    queryFn: getAdminUsers,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });

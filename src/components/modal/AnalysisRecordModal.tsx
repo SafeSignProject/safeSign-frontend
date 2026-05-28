@@ -1,10 +1,10 @@
-import type { USERS } from '@/mocks/users';
+import type { MappedAdminUser } from '@/types/admin';
 import { useEffect } from 'react';
 import { Button } from '../common';
 
 interface AnalysisRecordModalProps {
   onClose: () => void;
-  user: (typeof USERS)[number];
+  user: MappedAdminUser;
 }
 
 const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
