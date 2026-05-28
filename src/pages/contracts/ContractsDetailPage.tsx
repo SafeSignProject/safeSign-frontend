@@ -8,6 +8,7 @@ const ContractsDetailPage = () => {
   const title = state?.title;
   const score = state?.score;
   const level = state?.level;
+  const contractId = state?.id;
 
   return (
     <main className='flex min-h-screen justify-center bg-[#F9FAFB]'>
@@ -25,7 +26,7 @@ const ContractsDetailPage = () => {
       />
 
       <div className='mt-44 w-275 space-y-4 px-4 sm:space-y-8 sm:p-8'>
-        <ContractsResult />
+        <ContractsResult contractId={contractId} />
       </div>
     </main>
   );

@@ -1,10 +1,21 @@
+import { getContractAnalysis } from '@/api/analysis';
 import { CONTRACT_RESPONSE } from '@/mocks/contracts';
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { CircleAlert, CircleCheck, Eye, Link2, TriangleAlert, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const ContractsResult = () => {
+const ContractsResult = ({ contractId }: { contractId: number }) => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  const { data } = useQuery({
+    queryKey: ['contract-result'],
+    queryFn: () => getContractAnalysis(contractId),
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  });
+
+  console.log(data);
 
   const selectedAnalysis =
     selectedId !== null

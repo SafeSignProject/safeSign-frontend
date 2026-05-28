@@ -51,6 +51,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
               <Link
                 to={`/contracts/${item.contractId}`}
                 state={{
+                  id: item.contractId,
                   title: item.title,
                   score: item.riskScore,
                   level: style.level,

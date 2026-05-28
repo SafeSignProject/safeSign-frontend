@@ -57,9 +57,7 @@ const ContractsPage = () => {
 
   const { data } = useQuery({
     queryKey: ['contracts', params],
-
     queryFn: () => getContracts(params),
-
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
