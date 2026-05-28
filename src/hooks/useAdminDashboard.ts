@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { getAdminDashboard, getAdminAnalysisLogs, getAdminAnalysisLogsFilter, getAdminAnalysisDetail, getAdminUsers, getAdminUserDetail, getAdminUserAnalysisHistory } from '@/api/admin';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getAdminDashboard, getAdminAnalysisLogs, getAdminAnalysisLogsFilter, getAdminAnalysisDetail, getAdminUsers, getAdminUserDetail, getAdminUserAnalysisHistory, deleteAdminUser } from '@/api/admin';
 
 export const useAdminDashboard = () => {
   return useQuery({
@@ -68,5 +68,15 @@ export const useAdminUserAnalysisHistory = (userId: number, enabled: boolean) =>
     enabled,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
+  });
+};
+
+export const useAdminDeleteUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteAdminUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['adminUsers'] });
+    },
   });
 };

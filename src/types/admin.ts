@@ -101,3 +101,9 @@ export interface ResponseAdminUserAnalysisHistory {
   totalAnalysisCount: number;
   histories: AdminUserAnalysisHistory[];
 }
+
+export interface ResponseAdminDeleteUser {
+  userId: number;
+  name: string;
+  message: string;
+}

@@ -3,6 +3,7 @@ import { TriangleAlert } from 'lucide-react';
 import { useEffect } from 'react';
 import { Button } from '../common';
 import { showToast } from '@/utils/toast';
+import { useAdminDeleteUser } from '@/hooks/useAdminDashboard';
 
 interface DeleteUserModalProps {
   onClose: () => void;
@@ -10,6 +11,8 @@ interface DeleteUserModalProps {
 }
 
 const DeleteUserModal = ({ onClose, user }: DeleteUserModalProps) => {
+  const deleteMutation = useAdminDeleteUser();
+
   useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
@@ -23,8 +26,21 @@ const DeleteUserModal = ({ onClose, user }: DeleteUserModalProps) => {
   }, []);
 
   const handleDelete = () => {
-    onClose();
-    showToast.success('회원 정보가 삭제되었습니다');
+    if (user.rawId === 0) {
+      onClose();
+      showToast.success('회원 정보가 삭제되었습니다');
+      return;
+    }
+
+    deleteMutation.mutate(user.rawId, {
+      onSuccess: () => {
+        onClose();
+        showToast.success('회원 정보가 삭제되었습니다');
+      },
+      onError: () => {
+        showToast.error('회원 삭제에 실패했습니다');
+      },
+    });
   };
 
   return (
@@ -41,7 +57,7 @@ const DeleteUserModal = ({ onClose, user }: DeleteUserModalProps) => {
             <TriangleAlert size={40} />
           </div>
           <h1 className='text-2xl leading-8 font-bold text-dark mt-5'>정말 삭제하시겠습니까?</h1>
-          <p className='leading-7 text-dark-gray mt-2'>
+          <p className='leading-7 text-dark-gray mt-2 text-center'>
             {user.name} ({user.id}) 회원의 모든 데이터가 영구적으로 삭제됩니다.
           </p>
 
@@ -49,14 +65,16 @@ const DeleteUserModal = ({ onClose, user }: DeleteUserModalProps) => {
             <Button
               type='button'
               label='취소'
-              className='border border-[#E5E7EB] text-dark-gray font-semibold rounded-xl flex-1 shrink-0 h-12 bg-white hover:brightness-95 active:brightness-90'
+              className='border border-[#E5E7EB] text-dark-gray font-semibold rounded-xl flex-1 shrink-0 h-12 bg-white hover:brightness-95 active:brightness-90 disabled:opacity-50'
               onClick={onClose}
+              disabled={deleteMutation.isPending}
             />
             <Button
               type='button'
               label='삭제'
-              className='bg-[#D92D20] text-white font-semibold rounded-xl flex-1 shrink-0 h-12 hover:brightness-95 active:brightness-90'
+              className='bg-[#D92D20] text-white font-semibold rounded-xl flex-1 shrink-0 h-12 hover:brightness-95 active:brightness-90 disabled:opacity-50'
               onClick={handleDelete}
+              disabled={deleteMutation.isPending}
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { axiosInstance } from './api';
-import type { ResponseAdminDashboard, ResponseAdminAnalysisLogs, ResponseAdminAnalysisDetail, AdminUser, ResponseAdminUserAnalysisHistory } from '@/types/admin';
+import type { ResponseAdminDashboard, ResponseAdminAnalysisLogs, ResponseAdminAnalysisDetail, AdminUser, ResponseAdminUserAnalysisHistory, ResponseAdminDeleteUser } from '@/types/admin';
 
 export const getAdminDashboard = async (): Promise<ResponseAdminDashboard> => {
   const { data } = await axiosInstance.get('/admin/dashboard');
@@ -49,5 +49,12 @@ export const getAdminUserAnalysisHistory = async (
   userId: number
 ): Promise<ResponseAdminUserAnalysisHistory> => {
   const { data } = await axiosInstance.get(`/admin/analysis/users/${userId}/analysis-history`);
+  return data;
+};
+
+export const deleteAdminUser = async (
+  userId: number
+): Promise<ResponseAdminDeleteUser> => {
+  const { data } = await axiosInstance.delete(`/admin/users/${userId}`);
   return data;
 };
