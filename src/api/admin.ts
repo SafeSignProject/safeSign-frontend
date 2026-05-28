@@ -37,3 +37,10 @@ export const getAdminUsers = async (): Promise<AdminUser[]> => {
   const { data } = await axiosInstance.get('/admin/users');
   return data;
 };
+
+export const getAdminUserDetail = async (
+  userId: number
+): Promise<AdminUser> => {
+  const { data } = await axiosInstance.get(`/admin/users/${userId}`);
+  return data;
+};
