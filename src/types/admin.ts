@@ -87,3 +87,17 @@ export interface MappedAdminUser {
   role: string;
   rawId: number;
 }
+
+export interface AdminUserAnalysisHistory {
+  analyzedAt: string;
+  fileName: string;
+  status: string;
+  riskScore: number;
+}
+
+export interface ResponseAdminUserAnalysisHistory {
+  userId: number;
+  name: string;
+  totalAnalysisCount: number;
+  histories: AdminUserAnalysisHistory[];
+}
