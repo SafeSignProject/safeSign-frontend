@@ -1,11 +1,13 @@
 import clsx from 'clsx';
-import { ChevronDown, Mail, Search, TriangleAlert, User } from 'lucide-react';
+import { ChevronDown, Search, TriangleAlert, User } from 'lucide-react';
 import { KakaoIcon, GoogleIcon } from '@/assets';
 import { Input } from '@/components/common';
 import { useEffect, useRef, useState } from 'react';
 import UserPagination from './UserPagination';
 import { USERS } from '@/mocks/users';
 import { UserDetailInfoModal, AnalysisRecordModal, DeleteUserModal } from '../modal';
+import { useAdminUsers } from '@/hooks/useAdminDashboard';
+import type { MappedAdminUser } from '@/types/admin';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -18,11 +20,56 @@ const UserManagement = () => {
   const [isOpenAnalysisModal, setIsOpenAnalysisModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
-  const [selectedUser, setSelectedUser] = useState<(typeof USERS)[number] | null>(null);
+  const [selectedUser, setSelectedUser] = useState<MappedAdminUser | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const { data: apiUsers, isLoading, isError } = useAdminUsers();
+
+  const getProviderLabel = (providerType: string) => {
+    const p = providerType.toUpperCase();
+    if (p === 'EMAIL' || p === 'LOCAL') return 'Email';
+    if (p === 'KAKAO') return 'Kakao';
+    if (p === 'GOOGLE') return 'Google';
+    return providerType;
+  };
+
+  const formatDate = (dateStr: string) => {
+    try {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    } catch {
+      return dateStr;
+    }
+  };
+
+  const usersSource: MappedAdminUser[] = apiUsers
+    ? apiUsers.map((user) => ({
+        id: String(user.userId),
+        name: user.name,
+        email: user.email,
+        joinedAt: formatDate(user.createdAt),
+        provider: getProviderLabel(user.providerType),
+        role: user.role,
+        rawId: user.userId,
+      }))
+    : USERS.map((user) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        joinedAt: user.joinedAt,
+        provider: user.provider,
+        role: 'USER',
+        rawId: 0,
+      }));
 
   useEffect(() => {
     setCurrentPage(1);
@@ -50,7 +97,7 @@ const UserManagement = () => {
     };
   }, []);
 
-  const filteredUsers = USERS.filter(
+  const filteredUsers = usersSource.filter(
     (user) =>
       user.name.toLowerCase().includes(debouncedKeyword.toLowerCase()) ||
       user.email.toLowerCase().includes(debouncedKeyword.toLowerCase()),
@@ -95,7 +142,24 @@ const UserManagement = () => {
           </thead>
 
           <tbody>
-            {filteredUsers.length > 0 ? (
+            {isLoading ? (
+              [1, 2, 3, 4, 5].map((i) => (
+                <tr key={i} className='border-b border-light-gray animate-pulse text-center'>
+                  <td className='px-6 py-9'><div className='h-4 bg-slate-200 rounded w-12 mx-auto' /></td>
+                  <td className='px-6 py-9'><div className='h-5 bg-slate-200 rounded w-20 mx-auto font-semibold' /></td>
+                  <td className='px-6 py-9'><div className='h-4 bg-slate-200 rounded w-36 mx-auto' /></td>
+                  <td className='px-6 py-9'><div className='h-4 bg-slate-200 rounded w-24 mx-auto' /></td>
+                  <td className='px-6 py-9'><div className='h-6 bg-slate-200 rounded-md w-16 mx-auto' /></td>
+                  <td className='px-6 py-9'><div className='h-8 bg-slate-200 rounded-lg w-20 mx-auto' /></td>
+                </tr>
+              ))
+            ) : isError ? (
+              <tr>
+                <td colSpan={6} className='py-11 text-center text-[#E74C3C] font-semibold text-sm'>
+                  사용자 목록을 불러오는 중 오류가 발생했습니다.
+                </td>
+              </tr>
+            ) : filteredUsers.length > 0 ? (
               paginatedUsers.map((user) => {
                 const isOpen = openMenuId === user.id;
 
@@ -117,7 +181,6 @@ const UserManagement = () => {
                           user.provider === 'Google' && 'bg-[#F3F4F6] text-[#374151]',
                         )}
                       >
-                        {user.provider === 'Email' && <Mail size={14} />}
                         {user.provider === 'Kakao' && <KakaoIcon width={12} height={12} />}
                         {user.provider === 'Google' && <GoogleIcon width={12} height={12} />}
 

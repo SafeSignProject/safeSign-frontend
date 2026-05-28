@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { getAdminDashboard, getAdminAnalysisLogs, getAdminAnalysisLogsFilter, getAdminAnalysisDetail } from '@/api/admin';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getAdminDashboard, getAdminAnalysisLogs, getAdminAnalysisLogsFilter, getAdminAnalysisDetail, getAdminUsers, getAdminUserDetail, getAdminUserAnalysisHistory, deleteAdminUser } from '@/api/admin';
 
 export const useAdminDashboard = () => {
   return useQuery({
@@ -39,5 +39,44 @@ export const useAdminAnalysisDetail = (analysisId: number, enabled: boolean) => 
     enabled,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
+  });
+};
+
+export const useAdminUsers = () => {
+  return useQuery({
+    queryKey: ['adminUsers'],
+    queryFn: getAdminUsers,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  });
+};
+
+export const useAdminUserDetail = (userId: number, enabled: boolean) => {
+  return useQuery({
+    queryKey: ['adminUserDetail', userId],
+    queryFn: () => getAdminUserDetail(userId),
+    enabled,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  });
+};
+
+export const useAdminUserAnalysisHistory = (userId: number, enabled: boolean) => {
+  return useQuery({
+    queryKey: ['adminUserAnalysisHistory', userId],
+    queryFn: () => getAdminUserAnalysisHistory(userId),
+    enabled,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  });
+};
+
+export const useAdminDeleteUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteAdminUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['adminUsers'] });
+    },
   });
 };

@@ -68,3 +68,43 @@ export interface ResponseAdminAnalysisDetail {
   issueCount: number;
   issues: AdminAnalysisIssue[];
 }
+
+export interface AdminUser {
+  userId: number;
+  email: string;
+  name: string;
+  providerType: string;
+  role: string;
+  createdAt: string;
+}
+
+export interface MappedAdminUser {
+  id: string;
+  name: string;
+  email: string;
+  joinedAt: string;
+  provider: string;
+  role: string;
+  rawId: number;
+}
+
+export interface AdminUserAnalysisHistory {
+  analyzedAt: string;
+  fileName: string;
+  status: string;
+  riskScore: number;
+}
+
+export interface ResponseAdminUserAnalysisHistory {
+  userId: number;
+  name: string;
+  totalAnalysisCount: number;
+  allUserTotalAnalysisCount: number;
+  histories: AdminUserAnalysisHistory[];
+}
+
+export interface ResponseAdminDeleteUser {
+  userId: number;
+  name: string;
+  message: string;
+}

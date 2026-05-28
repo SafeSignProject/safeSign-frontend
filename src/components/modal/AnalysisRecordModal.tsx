@@ -1,13 +1,19 @@
-import type { USERS } from '@/mocks/users';
+import type { MappedAdminUser } from '@/types/admin';
 import { useEffect } from 'react';
 import { Button } from '../common';
+import { useAdminUserAnalysisHistory } from '@/hooks/useAdminDashboard';
 
 interface AnalysisRecordModalProps {
   onClose: () => void;
-  user: (typeof USERS)[number];
+  user: MappedAdminUser;
 }
 
 const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
+  const { data, isLoading, isError } = useAdminUserAnalysisHistory(
+    user.rawId,
+    !!user.rawId && user.rawId !== 0
+  );
+
   useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
@@ -20,6 +26,43 @@ const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
     };
   }, []);
 
+  const getStatusLabel = (status: string) => {
+    const s = status.toUpperCase();
+    if (s === 'SUCCESS' || s === '성공') return '성공';
+    if (s === 'FAIL' || s === '실패') return '실패';
+    return status;
+  };
+
+  const formatDate = (dateStr: string) => {
+    try {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const hour = String(d.getHours()).padStart(2, '0');
+      const minute = String(d.getMinutes()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hour}:${minute}`;
+    } catch {
+      return dateStr;
+    }
+  };
+
+  const displayHistories = data?.histories
+    ? data.histories.map((hist) => ({
+        analyzedAt: formatDate(hist.analyzedAt),
+        fileName: hist.fileName,
+        status: getStatusLabel(hist.status),
+        riskScore: hist.riskScore,
+      }))
+    : [];
+
+  const displayTotalCount = data?.allUserTotalAnalysisCount || 0;
+
+  const displayAccumulatedCount = data?.totalAnalysisCount || 0;
+
   return (
     <div
       className='fixed inset-0 z-50 flex items-center justify-center bg-black/40'
@@ -30,11 +73,11 @@ const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <p className='text-lg leading-7 font-semibold text-dark'>회원 분석 이력</p>
-        <p className='text-dark-gray leading-6 font-medium mt-8'>
-          {user.name} ({user.id}) 님의 누적 분석 내역 3건/ 전체 12건
+        <p className='text-dark-gray leading-6 font-medium mt-8 text-sm'>
+          {user.name} ({user.id}) 님의 누적 분석 내역 <span className='font-bold text-dark'>{displayAccumulatedCount}건</span> / 전체 <span className='font-bold text-dark'>{displayTotalCount}건</span>
         </p>
 
-        <div className='overflow-hidden rounded-xl border border-light-gray mt-6'>
+        <div className='overflow-y-auto max-h-[300px] rounded-xl border border-light-gray mt-6'>
           <table className='w-full border-collapse'>
             <thead className='bg-[#F3F4F6]'>
               <tr className='text-left text-sm font-semibold text-[#374151]'>
@@ -46,26 +89,44 @@ const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
             </thead>
 
             <tbody className='bg-white text-sm'>
-              <tr className='border-t border-light-gray'>
-                <td className='px-6 py-5 text-dark-gray font-medium'>2026-04-06 14:23</td>
-                <td className='px-6 py-5 font-semibold text-dark'>주택임대차계약서.pdf</td>
-                <td className='px-6 py-5 font-semibold text-[#22C55E]'>성공</td>
-                <td className='px-6 py-5 font-semibold text-dark'>75점</td>
-              </tr>
-
-              <tr className='border-t border-light-gray'>
-                <td className='px-6 py-5 text-dark-gray font-medium'>2026-03-20 11:05</td>
-                <td className='px-6 py-5 font-semibold text-dark'>표준임대차계약서_서초.pdf</td>
-                <td className='px-6 py-5 font-semibold text-[#22C55E]'>성공</td>
-                <td className='px-6 py-5 font-semibold text-dark'>12점</td>
-              </tr>
-
-              <tr className='border-t border-light-gray'>
-                <td className='px-6 py-5 text-dark-gray  font-medium'>2026-02-15 09:42</td>
-                <td className='px-6 py-5 font-semibold text-dark'>scan_doc_001.jpg</td>
-                <td className='px-6 py-5 font-semibold text-[#EF4444]'>실패 (OCR오류)</td>
-                <td className='px-6 py-5 font-semibold text-dark'>-</td>
-              </tr>
+              {isLoading && user.rawId !== 0 ? (
+                [1, 2, 3].map((i) => (
+                  <tr key={i} className='border-t border-light-gray animate-pulse'>
+                    <td className='px-6 py-5'><div className='h-4 bg-slate-200 rounded w-28' /></td>
+                    <td className='px-6 py-5'><div className='h-4 bg-slate-200 rounded w-44' /></td>
+                    <td className='px-6 py-5'><div className='h-4 bg-slate-200 rounded w-12' /></td>
+                    <td className='px-6 py-5'><div className='h-4 bg-slate-200 rounded w-10' /></td>
+                  </tr>
+                ))
+              ) : isError ? (
+                <tr>
+                  <td colSpan={4} className='px-6 py-8 text-center text-[#E74C3C] font-semibold text-sm'>
+                    이력을 불러오는 중 오류가 발생했습니다.
+                  </td>
+                </tr>
+              ) : displayHistories.length > 0 ? (
+                displayHistories.map((hist, index) => {
+                  const isSuccess = hist.status === '성공' || hist.status.toUpperCase() === 'SUCCESS';
+                  return (
+                    <tr key={index} className='border-t border-light-gray'>
+                      <td className='px-6 py-5 text-dark-gray font-medium'>{hist.analyzedAt}</td>
+                      <td className='px-6 py-5 font-semibold text-dark'>{hist.fileName}</td>
+                      <td className='px-6 py-5 font-semibold' style={{ color: isSuccess ? '#22C55E' : '#EF4444' }}>
+                        {hist.status}
+                      </td>
+                      <td className='px-6 py-5 font-semibold text-dark'>
+                        {isSuccess ? `${hist.riskScore}점` : '-'}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan={4} className='px-6 py-10 text-center text-dark-gray font-medium'>
+                    진행된 분석 이력이 없습니다.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -73,7 +134,7 @@ const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
         <Button
           type='button'
           label='닫기'
-          className='bg-[#1F2937] w-full h-13 text-white font-semibold rounded-xl hover:brightness-90 active:brightness-80 mt-8'
+          className='bg-[#1F2937] w-full h-13 text-white font-semibold rounded-xl hover:brightness-90 active:brightness-80 mt-8 shrink-0'
           onClick={onClose}
         />
       </div>
