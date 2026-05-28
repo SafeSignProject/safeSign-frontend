@@ -59,9 +59,9 @@ const AnalysisRecordModal = ({ onClose, user }: AnalysisRecordModalProps) => {
       }))
     : [];
 
-  const displayTotalCount = data?.totalAnalysisCount || 0;
+  const displayTotalCount = data?.allUserTotalAnalysisCount || 0;
 
-  const displayAccumulatedCount = displayHistories.length;
+  const displayAccumulatedCount = data?.totalAnalysisCount || 0;
 
   return (
     <div

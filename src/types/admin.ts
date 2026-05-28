@@ -99,6 +99,7 @@ export interface ResponseAdminUserAnalysisHistory {
   userId: number;
   name: string;
   totalAnalysisCount: number;
+  allUserTotalAnalysisCount: number;
   histories: AdminUserAnalysisHistory[];
 }
 
