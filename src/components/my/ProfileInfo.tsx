@@ -16,7 +16,7 @@ const ProfileInfo = () => {
   } = useForm<userEditType>({
     resolver: zodResolver(userEditSchema),
     mode: 'onChange', // 실시간 validation
-    defaultValues: {
+    values: {
       name: data?.name || '홍길동',
       birth: '2000-01-01',
       email: data?.email || 'hong@example.com',
