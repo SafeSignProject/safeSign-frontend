@@ -51,6 +51,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
               <Link
                 to={`/contracts/${item.contractId}`}
                 state={{
+                  id: item.contractId,
                   title: item.title,
                   score: item.riskScore,
                   level: style.level,
@@ -68,41 +69,48 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
                 <TrashIcon />
               </button>
             </div>
+            {item.analyzedAt !== null ? (
+              <div className='flex items-center gap-4'>
+                <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
+                  <Clock size={12} /> {item.analyzedAt}
+                </p>
 
-            <div className='flex items-center gap-4'>
-              <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
-                <Clock size={12} /> {item.analyzedAt}
-              </p>
-
-              {item.riskCount > 0 && (
-                <div className='text-dark-gray flex items-center gap-1.5 text-sm font-medium'>
-                  <div className='bg-dark-gray h-1 min-w-1 rounded-full' />
-                  위험 요소 {item.riskCount}개 발견
-                </div>
-              )}
-            </div>
+                {item.riskCount > 0 && (
+                  <div className='text-dark-gray flex items-center gap-1.5 text-sm font-medium'>
+                    <div className='bg-dark-gray h-1 min-w-1 rounded-full' />
+                    위험 요소 {item.riskCount}개 발견
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className='flex items-center gap-4'>
+                <p className='text-red-500 flex items-center gap-1.5 text-sm'>분석 실패</p>
+              </div>
+            )}
           </div>
         </div>
-
         <div className='flex items-center gap-2.5 max-sm:pl-10'>
-          <div className='mr-1.5 flex max-sm:items-center max-sm:gap-1 sm:flex-col'>
-            <p className='text-dark-gray text-right text-sm'>위험도</p>
+          {item.riskScore !== null && (
+            <>
+              <div className='mr-1.5 flex max-sm:items-center max-sm:gap-1 sm:flex-col'>
+                <p className='text-dark-gray text-right text-sm'>위험도</p>
 
-            <h3 className='text-dark leading-6 font-medium' style={{ color: style.color }}>
-              {item.riskScore}점
-            </h3>
-          </div>
+                <h3 className='text-dark leading-6 font-medium' style={{ color: style.color }}>
+                  {item.riskScore}점
+                </h3>
+              </div>
 
-          <div
-            className='flex h-7 items-center justify-center rounded-sm px-3 text-sm whitespace-nowrap'
-            style={{
-              backgroundColor: style.badgeBg,
-              color: style.color,
-            }}
-          >
-            {style.level}
-          </div>
-
+              <div
+                className='flex h-7 items-center justify-center rounded-sm px-3 text-sm whitespace-nowrap'
+                style={{
+                  backgroundColor: style.badgeBg,
+                  color: style.color,
+                }}
+              >
+                {style.level}
+              </div>
+            </>
+          )}
           <button
             type='button'
             onClick={() => setIsModalOpen(true)}

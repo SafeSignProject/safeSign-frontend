@@ -17,10 +17,8 @@ const AdminLayout = () => {
 
   // ADMIN 아니면 홈으로
   useEffect(() => {
-    if (!isLoading && data) {
-      if (data.role !== 'ADMIN') {
-        navigate('/', { replace: true });
-      }
+    if (data?.role !== 'ADMIN') {
+      navigate('/', { replace: true });
     }
   }, [data, isLoading, navigate]);
 

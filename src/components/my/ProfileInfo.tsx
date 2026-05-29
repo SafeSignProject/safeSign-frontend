@@ -17,9 +17,9 @@ const ProfileInfo = () => {
     resolver: zodResolver(userEditSchema),
     mode: 'onChange', // 실시간 validation
     defaultValues: {
-      name: data?.name || '김철수',
+      name: data?.name || '홍길동',
       birth: '2000-01-01',
-      email: data?.email || 'kimCS@example.com',
+      email: data?.email || 'hong@example.com',
       phone: '010-1234-5678',
     },
   });

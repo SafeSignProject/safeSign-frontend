@@ -51,7 +51,6 @@ interface AnalysisLogDetailModalProps {
   log: (typeof ANALYSIS_LOGS)[number];
 }
 
-
 const formatDate = (dateStr: string) => {
   try {
     if (!dateStr) return dateStr;
@@ -86,13 +85,9 @@ const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) =
     ? `${detail.totalTimeSeconds.toFixed(1)}초`
     : `${Number(parseFloat(log.ocrTime) + parseFloat(log.analysisTime)).toFixed(1)}초`;
 
-  const riskScoreLabel = detail
-    ? `${detail.riskScore}점`
-    : log.riskScore;
+  const riskScoreLabel = detail ? `${detail.riskScore}점` : log.riskScore;
 
-  const issueCountLabel = detail
-    ? `${detail.issueCount}건`
-    : log.issueCount;
+  const issueCountLabel = detail ? `${detail.issueCount}건` : log.issueCount;
 
   const displayIssues = detail?.issues
     ? detail.issues.map((issue) => ({
@@ -111,7 +106,7 @@ const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) =
       onClick={onClose}
     >
       <div
-        className='flex w-md max-w-[90%] h-[600px] flex-col rounded-xl bg-white p-6'
+        className='flex w-md max-w-[90%] h-150 flex-col rounded-xl bg-white p-6'
         onClick={(e) => e.stopPropagation()}
       >
         <p className='text-lg leading-7 font-semibold text-dark'>분석 로그 상세정보</p>
@@ -123,8 +118,12 @@ const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) =
             <div className='flex h-12 w-12 items-center justify-center rounded-full bg-[#FDECEC] text-[#E74C3C] mb-4'>
               <AlertTriangle size={24} />
             </div>
-            <p className='text-base font-semibold text-dark leading-6'>상세정보를 불러올 수 없습니다</p>
-            <p className='text-sm text-dark-gray mt-1 leading-5'>데이터가 없거나 서버와 연결이 원활하지 않습니다.</p>
+            <p className='text-base font-semibold text-dark leading-6'>
+              상세정보를 불러올 수 없습니다
+            </p>
+            <p className='text-sm text-dark-gray mt-1 leading-5'>
+              데이터가 없거나 서버와 연결이 원활하지 않습니다.
+            </p>
           </div>
         ) : (
           <div className='flex flex-col flex-1 min-h-0 mt-6'>
@@ -133,7 +132,9 @@ const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) =
                 <CheckCircle2 size={20} />
               </div>
               <div className='flex flex-col'>
-                <p className='leading-6 font-medium text-dark'>{detail?.fileName || log.fileName}</p>
+                <p className='leading-6 font-medium text-dark'>
+                  {detail?.fileName || log.fileName}
+                </p>
                 <p className='text-sm leading-5 text-dark-gray'>
                   {detail?.analyzedAt ? formatDate(detail.analyzedAt) : log.createdAt}
                 </p>
@@ -143,9 +144,7 @@ const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) =
             <article className='mt-4 grid grid-cols-2 gap-4 rounded-2xl bg-[#F9FAFB] p-4'>
               <div>
                 <p className='text-xs text-dark-gray'>소요 시간 (OCR + AI)</p>
-                <p className='mt-1 font-semibold text-dark leading-6'>
-                  {totalTimeLabel}
-                </p>
+                <p className='mt-1 font-semibold text-dark leading-6'>{totalTimeLabel}</p>
               </div>
 
               <div>
@@ -155,7 +154,9 @@ const AnalysisLogDetailModal = ({ onClose, log }: AnalysisLogDetailModalProps) =
             </article>
 
             <article className='mt-6 flex flex-col flex-1 min-h-0'>
-              <h3 className='font-semibold text-dark leading-5'>발견된 주요 이슈 ({issueCountLabel})</h3>
+              <h3 className='font-semibold text-dark leading-5'>
+                발견된 주요 이슈 ({issueCountLabel})
+              </h3>
 
               <div className='mt-4 space-y-3 overflow-y-auto pr-1 flex-1'>
                 {displayIssues.map((issue, index) => (
