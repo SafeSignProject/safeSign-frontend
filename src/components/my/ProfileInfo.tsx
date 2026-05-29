@@ -3,7 +3,7 @@ import useMyInfo from '@/hooks/useMyInfo';
 import { userEditSchema, type userEditType } from '@/schemas/userEditSchema';
 import { showToast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Calendar, Mail, Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 const ProfileInfo = () => {
@@ -18,9 +18,7 @@ const ProfileInfo = () => {
     mode: 'onChange', // 실시간 validation
     values: {
       name: data?.name || '홍길동',
-      birth: '2000-01-01',
       email: data?.email || 'hong@example.com',
-      phone: '010-1234-5678',
     },
   });
 
@@ -40,22 +38,13 @@ const ProfileInfo = () => {
           {data?.name ? data.name[0] : '김'}
         </div>
         <form className='w-full space-y-4' onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex items-center gap-4 max-sm:flex-col'>
-            <Input
-              label='이름'
-              placeholder='홍길동'
-              disabled
-              {...register('name')}
-              error={errors.name?.message}
-            />
-            <Input
-              label='생년월일'
-              placeholder='2000-01-01'
-              icon={<Calendar size={16} />}
-              {...register('birth')}
-              error={errors.birth?.message}
-            />
-          </div>
+          <Input
+            label='이름'
+            placeholder='홍길동'
+            disabled
+            {...register('name')}
+            error={errors.name?.message}
+          />
           <Input
             label='이메일'
             placeholder='example@email.com'
@@ -63,13 +52,6 @@ const ProfileInfo = () => {
             disabled
             {...register('email')}
             error={errors.email?.message}
-          />
-          <Input
-            label='휴대폰 번호'
-            placeholder='010-1234-1234'
-            icon={<Phone size={16} />}
-            {...register('phone')}
-            error={errors.phone?.message}
           />
           <Button
             type='submit'
