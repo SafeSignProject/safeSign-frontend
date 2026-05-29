@@ -2,7 +2,7 @@ import { getContractAnalysis } from '@/api/analysis';
 import { CONTRACT_RESPONSE } from '@/mocks/contracts';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { CircleAlert, CircleCheck, Eye, Link2, TriangleAlert, X } from 'lucide-react';
+import { CircleAlert, CircleCheck, Link2, TriangleAlert, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const ContractsResult = ({ contractId }: { contractId: number }) => {
@@ -11,11 +11,7 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
   const { data } = useQuery({
     queryKey: ['contract-result'],
     queryFn: () => getContractAnalysis(contractId),
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 10,
   });
-
-  console.log(data);
 
   const selectedAnalysis =
     selectedId !== null
@@ -71,13 +67,50 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
 
       <section className='border-light-gray hidden h-fit flex-1 flex-col rounded-sm border bg-white lg:flex'>
         {!selectedAnalysis ? (
-          <div className='flex flex-1 flex-col items-center justify-center py-20'>
-            <Eye size={32} className='mx-auto mb-4 text-[#D1D5DB]' />
-            <p className='text-dark-gray px-20 text-center leading-6'>
-              하이라이트된 조항을 클릭하면 <br />
-              상세 분석을 확인할 수 있습니다
-            </p>
-          </div>
+          <>
+            <div className='flex items-center justify-between px-6 py-4'>
+              <h4 className='text-xl font-semibold'>종합 분석</h4>
+            </div>
+
+            <div className='bg-light-gray h-px w-full' />
+
+            <div className='p-6 space-y-6'>
+              <div className='flex gap-3'>
+                {data?.overallAnalysis.riskTypes.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className='bg-gray-200 text-dark-gray flex items-center text-sm p-1 px-2 rounded-md font-medium'
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              {data?.overallAnalysis.summary && (
+                <div className='rounded bg-[#FFFBEB] p-4 text-[#92400E]'>
+                  <div className='mb-2 flex items-center gap-2'>
+                    <TriangleAlert size={16} strokeWidth={1.5} />
+                    <p className='text-sm font-semibold'>종합 분석</p>
+                  </div>
+                  <p className='text-sm leading-6 whitespace-pre-line'>
+                    {data.overallAnalysis.summary}
+                  </p>
+                </div>
+              )}
+              <div className='mb-2 flex items-center gap-2'>
+                <CircleCheck size={16} className='text-primary' />
+                <h5 className='text-dark text-sm font-medium'>추가 권장 특약 사항</h5>
+              </div>
+              <div className='rounded-sm border border-[#A7F3D0] bg-[#D1FAE5] p-4 text-sm text-[#065F46] space-y-4'>
+                {data?.recommendedSpecialClauses.map((recommend, idx) => (
+                  <div key={idx}>
+                    <p className='mb-1 font-semibold text-[#065F46]'>{recommend.title}</p>
+                    <p className='text-sm'>{recommend.content}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
         ) : (
           <>
             <div className='flex items-center justify-between px-6 py-4'>
@@ -162,26 +195,6 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
               >
                 {selectedAnalysis.law}
               </a>
-
-              {selectedAnalysis.analysis && (
-                <div className='rounded bg-[#FFFBEB] p-4 text-[#92400E]'>
-                  <div className='mb-2 flex items-center gap-2'>
-                    <TriangleAlert size={16} strokeWidth={1.5} />
-                    <p className='text-sm font-medium'>종합 분석</p>
-                  </div>
-                  <p className='text-sm leading-6 whitespace-pre-line'>
-                    {selectedAnalysis.analysis}
-                  </p>
-                </div>
-              )}
-
-              <div className='mb-2 flex items-center gap-2'>
-                <CircleCheck size={16} className='text-primary' />
-                <h5 className='text-dark text-sm font-medium'>추가 권장 특약 사항</h5>
-              </div>
-              <p className='rounded-sm border border-[#A7F3D0] bg-[#D1FAE5] p-4 text-sm text-[#065F46]'>
-                {selectedAnalysis.recommendation}
-              </p>
             </div>
           </>
         )}
