@@ -27,6 +27,26 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
     [data],
   );
 
+  // 특약사항 여부 판단
+  const isSpecialClause = (articleNo: string) => articleNo === '특약사항';
+
+  // 특약사항 묶음 + 일반 조항 분리
+  const groupedClauses = useMemo(() => {
+    const result: { type: 'normal' | 'special'; clauses: typeof normalizedClauses }[] = [];
+    const specialClauses = normalizedClauses.filter((c) => isSpecialClause(c.articleNo));
+    const normalClauses = normalizedClauses.filter((c) => !isSpecialClause(c.articleNo));
+
+    normalClauses.forEach((clause) => {
+      result.push({ type: 'normal', clauses: [clause] });
+    });
+
+    if (specialClauses.length > 0) {
+      result.push({ type: 'special', clauses: specialClauses });
+    }
+
+    return result;
+  }, [normalizedClauses]);
+
   const selectedAnalysis = selectedIndex !== null ? normalizedClauses[selectedIndex] : null;
 
   const isMobile = () => window.innerWidth < 1024;
@@ -51,31 +71,64 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
         <div className='bg-light-gray h-px w-full' />
 
         <div className='px-6 sm:px-8'>
-          {normalizedClauses.map((clause, index) => {
-            return (
-              <article key={index} className='my-6 space-y-3 sm:my-8'>
-                <h4 className='text-dark text-lg leading-7 font-medium'>
-                  {clause.articleNo} ({clause.title})
-                </h4>
-                <p className='text-dark text-sm leading-6'>
-                  {clause.content && (
-                    <span
-                      onClick={() => setSelectedIndex(index)}
-                      className={clsx(
-                        'cursor-pointer transition hover:brightness-95',
-                        clause.highlightType === 'danger' &&
-                          'border-l-2 border-[#EF4444] bg-[#FEE2E2] px-2.5 py-1',
-                        clause.highlightType === 'warning' &&
-                          'border-l-2 border-[#F59E0B] bg-[#FEF3C7] px-2.5 py-1',
+          {groupedClauses.map((group, groupIdx) =>
+            group.type === 'normal' ? (
+              // 일반 조항
+              group.clauses.map((clause) => {
+                const index = normalizedClauses.indexOf(clause);
+                return (
+                  <article key={index} className='my-6 space-y-3 sm:my-8'>
+                    <h4 className='text-dark text-lg leading-7 font-medium'>
+                      {clause.articleNo} ({clause.title})
+                    </h4>
+                    <p className='text-dark text-sm leading-6'>
+                      {clause.content && (
+                        <span
+                          onClick={() => setSelectedIndex(index)}
+                          className={clsx(
+                            'cursor-pointer transition hover:brightness-95',
+                            clause.highlightType === 'danger' &&
+                              'border-l-2 border-[#EF4444] bg-[#FEE2E2] px-2.5 py-1',
+                            clause.highlightType === 'warning' &&
+                              'border-l-2 border-[#F59E0B] bg-[#FEF3C7] px-2.5 py-1',
+                          )}
+                        >
+                          {clause.content}
+                        </span>
                       )}
-                    >
-                      {clause.content}
-                    </span>
-                  )}
-                </p>
+                    </p>
+                  </article>
+                );
+              })
+            ) : (
+              // 특약사항 묶음
+              <article key={`special-${groupIdx}`} className='my-6 space-y-3 sm:my-8'>
+                <h4 className='text-dark text-lg leading-7 font-medium'>특약사항</h4>
+                <ol className='space-y-2 list-none'>
+                  {group.clauses.map((clause, num) => {
+                    const index = normalizedClauses.indexOf(clause);
+                    return (
+                      <li key={index} className='text-dark text-sm leading-6 flex gap-2'>
+                        <span className='shrink-0 font-medium'>{num + 1}.</span>
+                        <span
+                          onClick={() => setSelectedIndex(index)}
+                          className={clsx(
+                            'cursor-pointer transition hover:brightness-95',
+                            clause.highlightType === 'danger' &&
+                              'border-l-2 border-[#EF4444] bg-[#FEE2E2] px-2.5 py-1',
+                            clause.highlightType === 'warning' &&
+                              'border-l-2 border-[#F59E0B] bg-[#FEF3C7] px-2.5 py-1',
+                          )}
+                        >
+                          {clause.content}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ol>
               </article>
-            );
-          })}
+            ),
+          )}
         </div>
       </section>
 
