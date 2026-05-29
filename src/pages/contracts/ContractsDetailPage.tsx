@@ -1,14 +1,15 @@
 import { ContractsResult } from '@/components/contracts';
 import CommonHeader from '@/components/header/CommonHeader';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const ContractsDetailPage = () => {
   const { state } = useLocation();
+  const { id } = useParams();
 
   const title = state?.title;
   const score = state?.score;
   const level = state?.level;
-  const contractId = state?.id;
+  const contractId = state?.id || (id ? Number(id) : undefined);
 
   return (
     <main className='flex min-h-screen justify-center bg-[#F9FAFB]'>

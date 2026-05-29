@@ -4,12 +4,13 @@ import clsx from 'clsx';
 import { CircleCheck, Link2, TriangleAlert, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
-const ContractsResult = ({ contractId }: { contractId: number }) => {
+const ContractsResult = ({ contractId }: { contractId?: number }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const { data } = useQuery({
-    queryKey: ['contract-result'],
-    queryFn: () => getContractAnalysis(contractId),
+    queryKey: ['contract-result', contractId],
+    queryFn: () => getContractAnalysis(contractId!),
+    enabled: !!contractId,
   });
 
   const getRiskType = (score: number) => {
