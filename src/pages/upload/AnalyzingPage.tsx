@@ -37,18 +37,14 @@ const AnalyzingPage = () => {
   // 분석 상태 polling
   useQuery({
     queryKey: ['analysis-status', contractId],
-
     queryFn: () => getContractAnalysisStatus(contractId),
-
     enabled: isAnalysisStarted,
-
     refetchInterval: (query) => {
       const status = query.state.data?.status;
 
       if (status === 'PROCESSING') {
         return 5000;
       }
-
       return false;
     },
   });
