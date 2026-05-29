@@ -199,10 +199,10 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
                 <div className='flex flex-col gap-1'>
                   <p
                     className={clsx(
-                      'inline-block items-center justify-center rounded-sm px-2 py-1 text-sm',
-                      selectedAnalysis.highlightType === 'danger'
-                        ? 'bg-[#FEE2E2] text-[#991B1B]'
-                        : 'bg-[#FEF3C7] text-[#92400E]',
+                      'w-fit rounded-sm px-2 py-1 text-sm',
+                      selectedAnalysis.highlightType === 'danger' && 'bg-[#FEE2E2] text-[#991B1B]',
+                      selectedAnalysis.highlightType === 'warning' && 'bg-[#FEF3C7] text-[#92400E]',
+                      selectedAnalysis.highlightType === 'safe' && 'bg-[#DCFCE7] text-primary',
                     )}
                   >
                     {selectedAnalysis.title}
@@ -279,10 +279,12 @@ const ContractsResult = ({ contractId }: { contractId: number }) => {
                   <div className='flex flex-col gap-1'>
                     <p
                       className={clsx(
-                        'inline-block items-center justify-center rounded-sm px-2 py-1 text-sm',
-                        selectedAnalysis.highlightType === 'danger'
-                          ? 'bg-[#FEE2E2] text-[#991B1B]'
-                          : 'bg-[#FEF3C7] text-[#92400E]',
+                        'w-fit rounded-sm px-2 py-1 text-sm',
+                        selectedAnalysis.highlightType === 'danger' &&
+                          'bg-[#FEE2E2] text-[#991B1B]',
+                        selectedAnalysis.highlightType === 'warning' &&
+                          'bg-[#FEF3C7] text-[#92400E]',
+                        selectedAnalysis.highlightType === 'safe' && 'bg-[#DCFCE7] text-primary',
                       )}
                     >
                       {selectedAnalysis.title}
