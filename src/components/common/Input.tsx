@@ -36,6 +36,7 @@ const Input = ({ label, error, className, id, isSearch, icon, ...props }: InputP
           className={cn(
             'h-10.5 w-full rounded-sm bg-white px-4 py-2 ring transition outline-none',
             'ring-light-gray focus:ring-primary placeholder:text-gray-400 focus:ring-2',
+            'disabled:bg-[#F3F4F6] disabled:text-[#9CA3AF] disabled:cursor-not-allowed disabled:ring-gray-200',
             isSearch && 'pl-10',
             icon && 'pl-10',
             error && 'border-red-500 focus:border-red-500',

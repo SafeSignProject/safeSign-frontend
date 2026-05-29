@@ -44,6 +44,7 @@ const ProfileInfo = () => {
             <Input
               label='이름'
               placeholder='홍길동'
+              disabled
               {...register('name')}
               error={errors.name?.message}
             />
@@ -59,6 +60,7 @@ const ProfileInfo = () => {
             label='이메일'
             placeholder='example@email.com'
             icon={<Mail size={16} />}
+            disabled
             {...register('email')}
             error={errors.email?.message}
           />
