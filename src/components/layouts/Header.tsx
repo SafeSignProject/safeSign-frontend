@@ -44,7 +44,7 @@ const Header = ({ showAuthButtons = false }: HeaderProps) => {
       </Link>
       {showAuthButtons ? (
         <Link
-          to='/signup'
+          to='/login'
           className='rounded-lg bg-primary px-3 py-1.5 text-sm text-white transition hover:brightness-95 active:brightness-90 sm:px-5 sm:py-2.5'
         >
           로그인
