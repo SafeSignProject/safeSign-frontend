@@ -1,35 +1,10 @@
-import { Button, Input } from '@/components/common';
+import { Input } from '@/components/common';
 import useMyInfo from '@/hooks/useMyInfo';
-import { userEditSchema, type userEditType } from '@/schemas/userEditSchema';
-import { showToast } from '@/utils/toast';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Mail } from 'lucide-react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
 
 const ProfileInfo = () => {
   const { data } = useMyInfo();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<userEditType>({
-    resolver: zodResolver(userEditSchema),
-    mode: 'onChange', // 실시간 validation
-    values: {
-      name: data?.name || '홍길동',
-      email: data?.email || 'hong@example.com',
-    },
-  });
-
-  const onSubmit: SubmitHandler<userEditType> = async (data) => {
-    try {
-      console.log('변경사항 저장 성공:', data);
-      showToast.success('프로필 정보가 변경되었습니다');
-    } catch (err) {
-      console.error(err);
-    }
-  };
   return (
     <section className='border-light-gray rounded-sm border bg-white p-6 sm:p-8'>
       <h3 className='text-dark mb-6 text-left text-xl leading-7 font-medium'>프로필 정보</h3>
@@ -37,29 +12,21 @@ const ProfileInfo = () => {
         <div className='bg-primary flex h-20 max-w-20 min-w-20 items-center justify-center rounded-full text-2xl leading-8 font-semibold text-white'>
           {data?.name ? data.name[0] : '김'}
         </div>
-        <form className='w-full space-y-4' onSubmit={handleSubmit(onSubmit)}>
+        <div className='w-full space-y-4'>
           <Input
             label='이름'
             placeholder='홍길동'
             disabled
-            {...register('name')}
-            error={errors.name?.message}
+            value={data?.name || ''}
           />
           <Input
             label='이메일'
             placeholder='example@email.com'
             icon={<Mail size={16} />}
             disabled
-            {...register('email')}
-            error={errors.email?.message}
+            value={data?.email || ''}
           />
-          <Button
-            type='submit'
-            label='변경사항 저장'
-            disabled={!isValid}
-            className='bg-primary mt-6 h-10 px-5.5 font-medium text-white hover:brightness-95 active:brightness-90 sm:mt-8'
-          />
-        </form>
+        </div>
       </div>
     </section>
   );
