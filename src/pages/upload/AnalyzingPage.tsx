@@ -1,7 +1,7 @@
 import { getContractAnalysisStatus, postContractAnalysis, postContractOCR } from '@/api/analysis';
 import { AnalyzingBar, AnalyzingStep } from '@/components/upload';
 import { showToast } from '@/utils/toast';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FileSearchCorner } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const AnalyzingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const queryClient = useQueryClient();
 
   const contractId = location.state?.contractId;
 
@@ -54,13 +55,17 @@ const AnalyzingPage = () => {
   useEffect(() => {
     const status = statusData?.status;
     if (status === 'COMPLETED') {
+      // 대시보드와 계약서 리스트의 React Query 캐시 무효화 (홈 화면 이동 시 최신 데이터 실시간 반영)
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+
       showToast.success('계약서 분석이 완료되었습니다');
       navigate('/contracts');
     } else if (status === 'FAILED') {
       showToast.error('계약서 분석에 실패했습니다');
       navigate('/');
     }
-  }, [statusData, navigate]);
+  }, [statusData, navigate, queryClient]);
 
   // 최초 실행 제어 (Strict Mode 중복 호출 방어 및 원래 안전했던 호출 순서 보장)
   useEffect(() => {
