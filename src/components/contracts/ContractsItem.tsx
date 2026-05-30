@@ -72,7 +72,7 @@ const ContractsItem = ({ item, isLast }: ContractItemProps) => {
             {item.analyzedAt !== null ? (
               <div className='flex items-center gap-4'>
                 <p className='text-dark-gray flex items-center gap-1.5 text-sm'>
-                  <Clock size={12} /> {item.analyzedAt}
+                  <Clock size={12} /> {item.analyzedAt.split('T')[0]}
                 </p>
 
                 {item.riskCount > 0 && (
